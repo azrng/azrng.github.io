@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="generator" content="VuePress 2.0.0-beta.48">
+    <script>
+      (function() {
+        const userMode = localStorage.getItem('vuepress-reco-color-scheme') || 'auto';
+        const systemDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (userMode === 'dark' || (userMode === 'auto' && systemDarkMode)) {
+          document.documentElement.classList.toggle('dark', true);
+        }
+      })();
+    </script>
+    <title>类型转换 | 知识库</title><meta name="description" content="一个知识库网站">
+    <link rel="modulepreload" href="/assets/app.43c45f49.js"><link rel="modulepreload" href="/assets/type-convert.html.1c8d80fc.js"><link rel="modulepreload" href="/assets/type-convert.html.97f45e6a.js"><link rel="prefetch" href="/assets/index.html.c4ed8bd6.js"><link rel="prefetch" href="/assets/attribute.html.a9988c2d.js"><link rel="prefetch" href="/assets/class.html.05bd7503.js"><link rel="prefetch" href="/assets/predefined-type.html.a8062cd9.js"><link rel="prefetch" href="/assets/introduce.html.8ec41f57.js"><link rel="prefetch" href="/assets/agency.html.705ea0c5.js"><link rel="prefetch" href="/assets/404.html.d341cb57.js"><link rel="prefetch" href="/assets/index.html.e327d6b2.js"><link rel="prefetch" href="/assets/index.html.1389f4e4.js"><link rel="prefetch" href="/assets/index.html.a33cc39a.js"><link rel="prefetch" href="/assets/index.html.9433d8da.js"><link rel="prefetch" href="/assets/index.html.e1df7810.js"><link rel="prefetch" href="/assets/index.html.6235913f.js"><link rel="prefetch" href="/assets/index.html.aeb455d3.js"><link rel="prefetch" href="/assets/index.html.4f82f947.js"><link rel="prefetch" href="/assets/index.html.e51a38a1.js"><link rel="prefetch" href="/assets/index.html.e91db6fb.js"><link rel="prefetch" href="/assets/index.html.72ac4063.js"><link rel="prefetch" href="/assets/index.html.b57762aa.js"><link rel="prefetch" href="/assets/index.html.e42ee623.js"><link rel="prefetch" href="/assets/attribute.html.cee3153b.js"><link rel="prefetch" href="/assets/class.html.83ca3e6a.js"><link rel="prefetch" href="/assets/predefined-type.html.fd855248.js"><link rel="prefetch" href="/assets/introduce.html.59364b30.js"><link rel="prefetch" href="/assets/agency.html.3aab6118.js"><link rel="prefetch" href="/assets/404.html.655ebd81.js"><link rel="prefetch" href="/assets/index.html.052ccb71.js"><link rel="prefetch" href="/assets/index.html.e2958fb4.js"><link rel="prefetch" href="/assets/index.html.15f1e3d4.js"><link rel="prefetch" href="/assets/index.html.b0d3b3a8.js"><link rel="prefetch" href="/assets/index.html.ebbafd6c.js"><link rel="prefetch" href="/assets/index.html.edd09062.js"><link rel="prefetch" href="/assets/index.html.7c88b31a.js"><link rel="prefetch" href="/assets/index.html.83acebb5.js"><link rel="prefetch" href="/assets/index.html.dbb65979.js"><link rel="prefetch" href="/assets/index.html.a026f27a.js"><link rel="prefetch" href="/assets/index.html.255a1e28.js"><link rel="prefetch" href="/assets/index.html.0e9a8275.js"><link rel="prefetch" href="/assets/404.d3c0ed76.js"><link rel="prefetch" href="/assets/Categories.4e748b9e.js"><link rel="prefetch" href="/assets/Layout.1597181b.js"><link rel="prefetch" href="/assets/Post.c110b94c.js"><link rel="prefetch" href="/assets/Timeline.99a45774.js"><link rel="prefetch" href="/assets/reco-valine.88224ab5.js">
+    <link rel="stylesheet" href="/assets/style.2a4fe158.css">
+  </head>
+  <body>
+    <div id="app"><!--[--><div class="theme-container"><div class="common-wrapper"><div><header class="navbar-container"><div class="toggle-sidebar-button" aria-expanded="false" role="button" tabindex="0"><div class="icon" aria-hidden="true"><span></span><span></span><span></span></div></div><span class="site-brand"><a href="/" class=""><img class="logo" src="/logo.png" alt="知识库"><span class="site-name can-hide">知识库</span></a></span><div class="navbar-links-wrapper" style=""><form class="search-box" role="search"><input type="search" autocomplete="off" spellcheck="false" value><!----></form><nav class="navbar-links"><!--[--><div class="navbar-links-item"><a href="/" class="nav-link" aria-label="主页"><!--[--><!--]--><!----> 主页 <!--[--><!--]--></a></div><div class="navbar-links-item"><div class="dropdown-wrapper"><button class="dropdown-title" type="button" aria-label="目录"><!----> 目录 <span class="arrow down"></span></button><button class="mobile-dropdown-title" type="button" aria-label="目录"><!----> 目录 <span class="right arrow"></span></button><ul style="display:none;" class="nav-dropdown"><!--[--><li class="dropdown-item"><a href="/web/introduce" class="nav-link" aria-label="Web"><!--[--><!--]--><!----> Web <!--[--><!--]--></a></li><li class="dropdown-item"><a href="/csharp/predefined-type" class="nav-link" aria-label="CSharp"><!--[--><!--]--><!----> CSharp <!--[--><!--]--></a></li><!--]--></ul></div></div><div class="navbar-links-item"><a href="/categories/csharp/1/" class="nav-link" aria-label="分类"><!--[--><!--]--><!----> 分类 <!--[--><!--]--></a></div><div class="navbar-links-item"><a href="/tags/csharp/1/" class="nav-link" aria-label="标签"><!--[--><!--]--><!----> 标签 <!--[--><!--]--></a></div><!--]--></nav><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewbox="0 0 24 24" style="color:inherit;width:19px;height:19px;font-size:19px;" class="btn-toggle-dark-mode"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3h.393a7.5 7.5 0 0 0 7.92 12.446A9 9 0 1 1 12 2.992z"></path><path d="M17 4a2 2 0 0 0 2 2a2 2 0 0 0-2 2a2 2 0 0 0-2-2a2 2 0 0 0 2-2"></path><path d="M19 11h2m-1-1v2"></path></g></svg></div></header><div class="sidebar-mask"></div><aside class="series-container"><nav class="navbar-links"><!--[--><div class="navbar-links-item"><a href="/" class="nav-link" aria-label="主页"><!--[--><!--]--><!----> 主页 <!--[--><!--]--></a></div><div class="navbar-links-item"><div class="dropdown-wrapper"><button class="dropdown-title" type="button" aria-label="目录"><!----> 目录 <span class="arrow down"></span></button><button class="mobile-dropdown-title" type="button" aria-label="目录"><!----> 目录 <span class="right arrow"></span></button><ul style="display:none;" class="nav-dropdown"><!--[--><li class="dropdown-item"><a href="/web/introduce" class="nav-link" aria-label="Web"><!--[--><!--]--><!----> Web <!--[--><!--]--></a></li><li class="dropdown-item"><a href="/csharp/predefined-type" class="nav-link" aria-label="CSharp"><!--[--><!--]--><!----> CSharp <!--[--><!--]--></a></li><!--]--></ul></div></div><div class="navbar-links-item"><a href="/categories/csharp/1/" class="nav-link" aria-label="分类"><!--[--><!--]--><!----> 分类 <!--[--><!--]--></a></div><div class="navbar-links-item"><a href="/tags/csharp/1/" class="nav-link" aria-label="标签"><!--[--><!--]--><!----> 标签 <!--[--><!--]--></a></div><!--]--></nav><!--[--><!--[--><section class="series-group series-item"><h5 class="series-heading active">CSharp</h5><ul><li><!--[--><a href="/csharp/predefined-type.html" class="nav-link series-item" aria-label="预定义类型"><!--[--><!--]--><!----> 预定义类型 <!--[--><!--]--></a><!--]--></li><li><!--[--><a href="/csharp/class.html" class="nav-link series-item" aria-label="C#类"><!--[--><!--]--><!----> C#类 <!--[--><!--]--></a><!--]--></li><li><!--[--><a aria-current="page" href="/csharp/type-convert.html" class="router-link-active router-link-exact-active nav-link router-link-active series-item active" aria-label="类型转换"><!--[--><!--]--><!----> 类型转换 <!--[--><!--]--></a><!--]--></li><li><!--[--><a href="/csharp/attribute.html" class="nav-link series-item" aria-label="C#特性"><!--[--><!--]--><!----> C#特性 <!--[--><!--]--></a><!--]--></li></ul></section><!--]--><!--]--></aside><!--[--><main class="page-container show-series show-catalog"><h1 class="page-title">类型转换</h1><div class="page-info"><a class="icon-container left" href="javascript:void(0)" target="_self"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewbox="0 0 24 24" style="color:inherit;width:18px;height:18px;font-size:18px;"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="4"></circle><path d="M6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"></path></g></svg><span style="color:inherit;font-size:14px;"><!--[-->azrng<!--]--></span></a><a class="icon-container left" href="javascript:void(0)" target="_self"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewbox="0 0 24 24" style="color:inherit;width:18px;height:18px;font-size:18px;"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 3"></path></g></svg><span style="color:inherit;font-size:14px;"><!--[-->2021-02-22 00:00:00<!--]--></span></a><a class="icon-container left" href="javascript:void(0)" target="_self"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewbox="0 0 24 24" style="color:inherit;width:18px;height:18px;font-size:18px;"><path d="M5 4h4l3 3h7a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><span style="color:inherit;font-size:14px;"><!--[-->csharp<!--]--></span></a><a class="icon-container left" href="javascript:void(0)" target="_self"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewbox="0 0 24 24" style="color:inherit;width:18px;height:18px;font-size:18px;"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8.5" cy="8.5" r="1" fill="currentColor"></circle><path d="M4 7v3.859c0 .537.213 1.052.593 1.432l8.116 8.116a2.025 2.025 0 0 0 2.864 0l4.834-4.834a2.025 2.025 0 0 0 0-2.864L12.29 4.593A2.025 2.025 0 0 0 10.859 4H7a3 3 0 0 0-3 3z"></path></g></svg><span style="color:inherit;font-size:14px;"><!--[-->类型转换 csharp<!--]--></span></a><!----></div><div class="theme-reco-default-content"><div><p>对象引用可以：</p><ul><li>隐式向上转换为基类的引用</li><li>显式向下转换为子类的引用</li></ul><h2 id="隐式转换" tabindex="-1"><a class="header-anchor" href="#隐式转换" aria-hidden="true">#</a> 隐式转换</h2><p>子类转换为父类，这个时候是隐式转换</p><div class="language-text ext-text line-numbers-mode"><pre class="language-text"><code>public class Animal
+{
+    public string Name { get; set; }
+    public string Sex { get; set; }
+}
+public class Dog : Animal
+{}
+
+// 向上类型转换创建一个基类指向子类的引用
+var dog = new Dog { Name = &quot;二哈&quot;, Sex = &quot;公&quot; };
+Animal animal = dog;
+// 转换之后，被引用对象本身不会被替换或者改变
+Console.WriteLine(dog==animal); // True
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="显示转换" tabindex="-1"><a class="header-anchor" href="#显示转换" aria-hidden="true">#</a> 显示转换</h2><p>从基类引用创建一个子类引用</p><div class="language-text ext-text line-numbers-mode"><pre class="language-text"><code>public class Animal
+{
+    public string Name { get; set; }
+    public string Sex { get; set; }
+}
+public class Dog : Animal
+{ }
+
+// 如果该基类是从dog子类转过来的，那么仍然可以从基类转回去dog类
+var dog = new Dog { Name = &quot;dog&quot;, Sex = &quot;公&quot; };
+Animal animal = dog;
+var dog2 = (Dog)animal;
+
+Console.WriteLine(dog2.Name);// dog
+Console.WriteLine(dog == animal); //True
+Console.WriteLine(dog2 == animal); //True
+
+var animal3 = new Animal { Name = &quot;dog&quot;, Sex = &quot;公&quot; };
+Dog dog3 = (Dog)animal3;//错误 InvalidCastException
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>向下转换必须是显式转换，因为有可能导致运行时错误。向下转换错误会抛出InvalidCastException错误。</p><p>但是如果你还想将父类转为子类可以采用下面的方法（方法不论好坏）</p><div class="language-text ext-text line-numbers-mode"><pre class="language-text"><code>//直接赋值
+var dog = new Dog { Name = animal3.Name, Sex = animal3.Sex };
+//序列化饭序列化
+var dog2 = JsonConvert.DeserializeObject&lt;Dog&gt;(JsonConvert.SerializeObject(animal3));
+//反射赋值
+var dog3 = new Dog();
+//编译animal的公共属性
+foreach (var item in typeof(Animal).GetProperties())
+{
+    item.SetValue(dog3, item.GetValue(animal3));
+}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="parse-tryparse-convert" tabindex="-1"><a class="header-anchor" href="#parse-tryparse-convert" aria-hidden="true">#</a> Parse/TryParse/Convert</h3><div class="language-text ext-text line-numbers-mode"><pre class="language-text"><code>public static double Parse(string s)
+public static bool TryParse(string s，out double result)
+    
+var str = &quot;123456&quot;;
+int num = int.Parse(str); // 123456  显示转换
+int num2 = Convert.ToInt32(str);// 123456  显示转换
+var str2 = num;// 隐式转换  &quot;123456&quot;
+
+string str3 = &quot;你好&quot;;
+bool issuccess = int.TryParse(str3, out int num3);//false  num3=0
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>两者最大的区别是，如果字符串格式不满足转换的要求，Parse方法将会引发一个异常;TryParse方法则不会引发异常，它会返回false，同时将result置为0。</p><h2 id="as" tabindex="-1"><a class="header-anchor" href="#as" aria-hidden="true">#</a> AS</h2><p>as操作符永远不会抛出异常，如果类型不匹配（被转换对象的运行时类型即不是所转换的目标类型，也不是其派生类型），或者类型转换的源对象为null，那么类型转换之后的值也为null。</p><div class="language-text ext-text line-numbers-mode"><pre class="language-text"><code>public class Animal
+{
+    public string Name { get; set; }
+    public string Sex { get; set; }
+}
+public class Dog : Animal
+{ }
+
+
+var animal = new Animal();
+var flag1 = animal as Dog;//null
+var dog = new Dog();
+var flag2=dog as Animal;//Animal
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>如果不用判断结果是否为null那么推荐使用类型转换，因为如果报错，会抛出更清晰的异常。</p><h2 id="is" tabindex="-1"><a class="header-anchor" href="#is" aria-hidden="true">#</a> IS</h2><p>检查引用的转换是否能够成功，即对象是否从某个特定的类派生(或是实现某个接口)。</p><div class="language-text ext-text line-numbers-mode"><pre class="language-text"><code>public class Animal
+{
+    public string Name { get; set; }
+    public string Sex { get; set; }
+}
+public class Dog : Animal
+{ }
+
+
+var animal = new Animal();
+var flag1 = animal is Dog;//false
+var dog = new Dog() { Name = &quot;二哈&quot;, Sex = &quot;公&quot; };
+var flag2 = dog is Animal;//true
+//类型检查并创建实例
+if (dog is Animal animal1)
+{
+    Console.WriteLine(animal1.Name);//二哈
+
+    //属性比较
+    var flag3 = animal1 is { Sex: &quot;公&quot; };//true
+    var flag = animal1 is { Name: &quot;二哈&quot;, Sex: &quot;公&quot; };//true
+}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div></div></div><footer class="page-meta"><div class="meta-item edit-link"><a class="icon-container left meta-item-label" href="https://github.com/vuepress-reco/vuepress-theme-reco-next/edit/main/kbms/csharp/type-convert.md" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewbox="0 0 24 24" style="color:inherit;width:20px;height:20px;font-size:20px;"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-3"></path><path d="M9 15h3l8.5-8.5a1.5 1.5 0 0 0-3-3L9 12v3"></path><path d="M16 5l3 3"></path></g></svg><span style="color:inherit;font-size:14px;"><!--[-->Edit this page<!--]--></span></a></div><div class="meta-item last-updated"><a class="icon-container left meta-item-label" href="javascript:void(0)" target="_self"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewbox="0 0 24 24" style="color:inherit;width:20px;height:20px;font-size:20px;"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.795 21H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"></path><circle cx="18" cy="18" r="4"></circle><path d="M15 3v4"></path><path d="M7 3v4"></path><path d="M3 11h16"></path><path d="M18 16.496V18l1 1"></path></g></svg><span style="color:inherit;font-size:14px;"><!--[-->Last Updated 2022-08-24 18:40:55<!--]--></span></a></div></footer><nav class="page-nav"><p class="hasPrev hasNext inner"><span class="page-nav-item prev"> ← C#类</span><span class="page-nav-item next">C#特性 → </span></p></nav><!----></main><!--]--><div class="page-catalog-container"><h5 class="tip">ON THIS PAGE</h5><ul><!--[--><!--[--><li class="page-catalog-menu-depth_2"><a aria-current="page" href="/csharp/type-convert.html#隐式转换" class="router-link-active router-link-exact-active nav-link page-catalog-item" aria-label="隐式转换"><!--[--><!--]--><!----> 隐式转换 <!--[--><!--]--></a></li><!--]--><!--[--><li class="page-catalog-menu-depth_2"><a aria-current="page" href="/csharp/type-convert.html#显示转换" class="router-link-active router-link-exact-active nav-link page-catalog-item" aria-label="显示转换"><!--[--><!--]--><!----> 显示转换 <!--[--><!--]--></a></li><!--[--><li class="page-catalog-menu-depth_3"><a aria-current="page" href="/csharp/type-convert.html#parse-tryparse-convert" class="router-link-active router-link-exact-active nav-link page-catalog-item" aria-label="Parse/TryParse/Convert"><!--[--><!--]--><!----> Parse/TryParse/Convert <!--[--><!--]--></a></li><!--]--><!--]--><!--[--><li class="page-catalog-menu-depth_2"><a aria-current="page" href="/csharp/type-convert.html#as" class="router-link-active router-link-exact-active nav-link page-catalog-item" aria-label="AS"><!--[--><!--]--><!----> AS <!--[--><!--]--></a></li><!--]--><!--[--><li class="page-catalog-menu-depth_2"><a aria-current="page" href="/csharp/type-convert.html#is" class="router-link-active router-link-exact-active nav-link page-catalog-item" aria-label="IS"><!--[--><!--]--><!----> IS <!--[--><!--]--></a></li><!--]--><!--]--></ul></div></div></div></div><!----><!----><!--]--></div>
+    <script type="module" src="/assets/app.43c45f49.js" defer></script>
+  </body>
+</html>
