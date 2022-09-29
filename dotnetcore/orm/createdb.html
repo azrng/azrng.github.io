@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="generator" content="VuePress 2.0.0-beta.51">
+    <script>
+      (function() {
+        const userMode = localStorage.getItem('vuepress-reco-color-scheme') || 'auto';
+        const systemDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (userMode === 'dark' || (userMode === 'auto' && systemDarkMode)) {
+          document.documentElement.classList.toggle('dark', true);
+        }
+      })();
+    </script>
+    <title>EFCore-生成数据库 | 知识库</title><meta name="description" content="一个知识库网站">
+    <link rel="modulepreload" href="/assets/app.f6b99883.js"><link rel="modulepreload" href="/assets/createdb.html.f40ec7fa.js"><link rel="modulepreload" href="/assets/createdb.html.b44a1837.js"><link rel="prefetch" href="/assets/index.html.e0baf728.js"><link rel="prefetch" href="/assets/attribute.html.c664a011.js"><link rel="prefetch" href="/assets/class.html.aba60eb7.js"><link rel="prefetch" href="/assets/predefined-type.html.688911ae.js"><link rel="prefetch" href="/assets/reflect.html.078024e0.js"><link rel="prefetch" href="/assets/type-convert.html.36fe72f4.js"><link rel="prefetch" href="/assets/base.html.f9c655ac.js"><link rel="prefetch" href="/assets/healthcheck.html.9e2087e3.js"><link rel="prefetch" href="/assets/kuayu.html.8281e724.js"><link rel="prefetch" href="/assets/reflect.html.42d66291.js"><link rel="prefetch" href="/assets/routing.html.7d232251.js"><link rel="prefetch" href="/assets/http-agency.html.700b7525.js"><link rel="prefetch" href="/assets/introduce.html.a7e10533.js"><link rel="prefetch" href="/assets/cookie.html.2d2ba37e.js"><link rel="prefetch" href="/assets/jwt_baseuse.html.a34abee3.js"><link rel="prefetch" href="/assets/session.html.51ca4e17.js"><link rel="prefetch" href="/assets/memorycache.html.e339a66b.js"><link rel="prefetch" href="/assets/redis.html.f76ecd58.js"><link rel="prefetch" href="/assets/configread.html.484c0113.js"><link rel="prefetch" href="/assets/base.html.68c649b6.js"><link rel="prefetch" href="/assets/realize.html.aa8b6b54.js"><link rel="prefetch" href="/assets/default.html.061226e7.js"><link rel="prefetch" href="/assets/base.html.0d78b979.js"><link rel="prefetch" href="/assets/base.html.ed04ab9f.js"><link rel="prefetch" href="/assets/ilogger.html.68a40a4d.js"><link rel="prefetch" href="/assets/log4net.html.d04538bf.js"><link rel="prefetch" href="/assets/logdashboard.html.9d2d9b2f.js"><link rel="prefetch" href="/assets/nlog.html.e870fcdd.js"><link rel="prefetch" href="/assets/serilog.html.7fe8bd19.js"><link rel="prefetch" href="/assets/base.html.c4527071.js"><link rel="prefetch" href="/assets/efcoreoperation.html.64ab049a.js"><link rel="prefetch" href="/assets/base.html.1f552307.js"><link rel="prefetch" href="/assets/centos_net6.html.f4c3d097.js"><link rel="prefetch" href="/assets/docker.html.2b91f4af.js"><link rel="prefetch" href="/assets/iis.html.8b925361.js"><link rel="prefetch" href="/assets/supervisor.html.69a9b968.js"><link rel="prefetch" href="/assets/swagger-long.html.50e69bc0.js"><link rel="prefetch" href="/assets/swaggerbase.html.f971e002.js"><link rel="prefetch" href="/assets/version.html.71967fb8.js"><link rel="prefetch" href="/assets/base-use-dissent.html.445c2fce.js"><link rel="prefetch" href="/assets/base-use.html.91aaf579.js"><link rel="prefetch" href="/assets/base.html.1b7b52cb.js"><link rel="prefetch" href="/assets/base.html.0b4da2a9.js"><link rel="prefetch" href="/assets/customerconfig.html.a845d8e6.js"><link rel="prefetch" href="/assets/webapi-base.html.e2eef8b0.js"><link rel="prefetch" href="/assets/webapiversion.html.f588f73f.js"><link rel="prefetch" href="/assets/use_di.html.ebeef32d.js"><link rel="prefetch" href="/assets/404.html.98e87f94.js"><link rel="prefetch" href="/assets/index.html.72ac4063.js"><link rel="prefetch" href="/assets/index.html.31368430.js"><link rel="prefetch" href="/assets/attribute.html.e467a053.js"><link rel="prefetch" href="/assets/class.html.f265b57e.js"><link rel="prefetch" href="/assets/predefined-type.html.b462bd96.js"><link rel="prefetch" href="/assets/reflect.html.ea6a3059.js"><link rel="prefetch" href="/assets/type-convert.html.cca277f4.js"><link rel="prefetch" href="/assets/base.html.9ecc9ddf.js"><link rel="prefetch" href="/assets/healthcheck.html.9ba974c0.js"><link rel="prefetch" href="/assets/kuayu.html.054b893e.js"><link rel="prefetch" href="/assets/reflect.html.1b167085.js"><link rel="prefetch" href="/assets/routing.html.f6e2ade1.js"><link rel="prefetch" href="/assets/http-agency.html.433ecf89.js"><link rel="prefetch" href="/assets/introduce.html.368c37f8.js"><link rel="prefetch" href="/assets/cookie.html.581f716b.js"><link rel="prefetch" href="/assets/jwt_baseuse.html.611f0be6.js"><link rel="prefetch" href="/assets/session.html.66f95c24.js"><link rel="prefetch" href="/assets/memorycache.html.1e263ef2.js"><link rel="prefetch" href="/assets/redis.html.c6d32df5.js"><link rel="prefetch" href="/assets/configread.html.de625ecd.js"><link rel="prefetch" href="/assets/base.html.8c7b6aa2.js"><link rel="prefetch" href="/assets/realize.html.105a015d.js"><link rel="prefetch" href="/assets/default.html.6aa8210d.js"><link rel="prefetch" href="/assets/base.html.c314bee1.js"><link rel="prefetch" href="/assets/base.html.06713cfe.js"><link rel="prefetch" href="/assets/ilogger.html.9fb7fb05.js"><link rel="prefetch" href="/assets/log4net.html.48059ec2.js"><link rel="prefetch" href="/assets/logdashboard.html.17c3d546.js"><link rel="prefetch" href="/assets/nlog.html.f4ffcfa4.js"><link rel="prefetch" href="/assets/serilog.html.d2badab6.js"><link rel="prefetch" href="/assets/base.html.4ac8da5f.js"><link rel="prefetch" href="/assets/efcoreoperation.html.96ff7d6b.js"><link rel="prefetch" href="/assets/base.html.4a032973.js"><link rel="prefetch" href="/assets/centos_net6.html.8b5338d4.js"><link rel="prefetch" href="/assets/docker.html.9cc216c5.js"><link rel="prefetch" href="/assets/iis.html.c24cdea8.js"><link rel="prefetch" href="/assets/supervisor.html.598f5c25.js"><link rel="prefetch" href="/assets/swagger-long.html.90cf5c8c.js"><link rel="prefetch" href="/assets/swaggerbase.html.9c8f1a99.js"><link rel="prefetch" href="/assets/version.html.f54578ec.js"><link rel="prefetch" href="/assets/base-use-dissent.html.fdd74390.js"><link rel="prefetch" href="/assets/base-use.html.b0bfa199.js"><link rel="prefetch" href="/assets/base.html.358cc5cd.js"><link rel="prefetch" href="/assets/base.html.bc5662ee.js"><link rel="prefetch" href="/assets/customerconfig.html.a11618f0.js"><link rel="prefetch" href="/assets/webapi-base.html.2cd20c0f.js"><link rel="prefetch" href="/assets/webapiversion.html.955249f6.js"><link rel="prefetch" href="/assets/use_di.html.c100dcf3.js"><link rel="prefetch" href="/assets/404.html.3b64f271.js"><link rel="prefetch" href="/assets/index.html.fbe52f75.js"><link rel="prefetch" href="/assets/reco-valine.ed4545b0.js">
+    <link rel="stylesheet" href="/assets/style.180fd05c.css">
+  </head>
+  <body>
+    <div id="app"><!--[--><div class="theme-container"><div class="common-wrapper"><div><header class="navbar-container"><span class="nav-item site-brand"><a href="/" class=""><img class="logo" src="/logo.png" alt="知识库"><span class="site-name can-hide">知识库</span></a></span><div class="nav-item navbar-links-wrapper" style=""><form class="search-box" role="search"><input type="search" autocomplete="off" spellcheck="false" value><!----></form><nav class="navbar-links"><!--[--><div class="navbar-links-item"><a href="/" class="nav-link" aria-label="主页"><!--[--><!--]--> 主页 <!--[--><!--]--></a></div><div class="navbar-links-item"><div class="dropdown-wrapper"><button class="dropdown-title" type="button" aria-label="目录">目录 <span class="arrow down"></span></button><button class="mobile-dropdown-title" type="button" aria-label="目录"><span class="title"><span>目录</span></span><span class="right arrow"></span></button><ul style="display:none;" class="nav-dropdown"><!--[--><li class="dropdown-item"><a href="/web/introduce" class="nav-link" aria-label="Web"><!--[--><!--]--> Web <!--[--><!--]--></a></li><li class="dropdown-item"><a href="/csharp/predefined-type" class="nav-link" aria-label="CSharp"><!--[--><!--]--> CSharp <!--[--><!--]--></a></li><li class="dropdown-item"><a href="/dotnetcore/base" class="nav-link" aria-label="dotnetcore"><!--[--><!--]--> dotnetcore <!--[--><!--]--></a></li><!--]--></ul></div></div><!--]--></nav><a class="icon-container left btn-toggle-dark-mode" href="javascript:void(0)" target="_self"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewbox="0 0 24 24" style="color:inherit;width:19px;height:19px;font-size:19px;"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3h.393a7.5 7.5 0 0 0 7.92 12.446A9 9 0 1 1 12 2.992z"></path><path d="M17 4a2 2 0 0 0 2 2a2 2 0 0 0-2 2a2 2 0 0 0-2-2a2 2 0 0 0 2-2"></path><path d="M19 11h2m-1-1v2"></path></g></svg><!----></a><a class="icon-container left btn-toggle-menus" href="javascript:void(0)" target="_self"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewbox="0 0 24 24" style="color:inherit;width:20px;height:20px;font-size:20px;"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="19" r="1"></circle><circle cx="12" cy="5" r="1"></circle></g></svg><!----></a></div></header><div class="mobile-menus-container"><nav class="navbar-links"><!--[--><div class="navbar-links-item"><a href="/" class="nav-link" aria-label="主页"><!--[--><!--]--> 主页 <!--[--><!--]--></a></div><div class="navbar-links-item"><div class="dropdown-wrapper"><button class="dropdown-title" type="button" aria-label="目录">目录 <span class="arrow down"></span></button><button class="mobile-dropdown-title" type="button" aria-label="目录"><span class="title"><span>目录</span></span><span class="right arrow"></span></button><ul style="display:none;" class="nav-dropdown"><!--[--><li class="dropdown-item"><a href="/web/introduce" class="nav-link" aria-label="Web"><!--[--><!--]--> Web <!--[--><!--]--></a></li><li class="dropdown-item"><a href="/csharp/predefined-type" class="nav-link" aria-label="CSharp"><!--[--><!--]--> CSharp <!--[--><!--]--></a></li><li class="dropdown-item"><a href="/dotnetcore/base" class="nav-link" aria-label="dotnetcore"><!--[--><!--]--> dotnetcore <!--[--><!--]--></a></li><!--]--></ul></div></div><!--]--></nav><div class="appearance"><span>Appearance </span><a class="icon-container left btn-toggle-dark-mode" href="javascript:void(0)" target="_self"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewbox="0 0 24 24" style="color:inherit;width:19px;height:19px;font-size:19px;"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3h.393a7.5 7.5 0 0 0 7.92 12.446A9 9 0 1 1 12 2.992z"></path><path d="M17 4a2 2 0 0 0 2 2a2 2 0 0 0-2 2a2 2 0 0 0-2-2a2 2 0 0 0 2-2"></path><path d="M19 11h2m-1-1v2"></path></g></svg><!----></a></div></div><div class="sidebar-mask"></div><aside class="series-container"><!--[--><!--[--><section class="series-group series-item"><h5 class="series-heading">基础知识</h5><ul><li><!--[--><a href="/dotnetcore/base.html" class="nav-link series-item" aria-label="介绍"><!--[--><!--]--> 介绍 <!--[--><!--]--></a><!--]--></li><li><!--[--><a href="/dotnetcore/globalization/base.html" class="nav-link series-item" aria-label="多语言配置"><!--[--><!--]--> 多语言配置 <!--[--><!--]--></a><!--]--></li><li><!--[--><a href="/dotnetcore/routing.html" class="nav-link series-item" aria-label="路由"><!--[--><!--]--> 路由 <!--[--><!--]--></a><!--]--></li><li><!--[--><a href="/dotnetcore/healthcheck.html" class="nav-link series-item" aria-label="健康检查"><!--[--><!--]--> 健康检查 <!--[--><!--]--></a><!--]--></li></ul></section><!--]--><!--[--><section class="series-group series-item"><h5 class="series-heading">配置框架</h5><ul><li><!--[--><a href="/dotnetcore/config/configread.html" class="nav-link series-item" aria-label="配置读取"><!--[--><!--]--> 配置读取 <!--[--><!--]--></a><!--]--></li></ul></section><!--]--><!--[--><section class="series-group series-item"><h5 class="series-heading">跨域</h5><ul><li><!--[--><a href="/dotnetcore/kuayu.html" class="nav-link series-item" aria-label="跨域"><!--[--><!--]--> 跨域 <!--[--><!--]--></a><!--]--></li></ul></section><!--]--><!--[--><section class="series-group series-item"><h5 class="series-heading">静态资源</h5><ul><li><!--[--><a href="/dotnetcore/staticfile/base.html" class="nav-link series-item" aria-label="静态资源-基本设置"><!--[--><!--]--> 静态资源-基本设置 <!--[--><!--]--></a><!--]--></li><li><!--[--><a href="/dotnetcore/staticfile/customerconfig.html" class="nav-link series-item" aria-label="静态资源-自定义设置"><!--[--><!--]--> 静态资源-自定义设置 <!--[--><!--]--></a><!--]--></li></ul></section><!--]--><!--[--><section class="series-group series-item"><h5 class="series-heading">日志</h5><ul><li><!--[--><a href="/dotnetcore/loggers/ilogger.html" class="nav-link series-item" aria-label="Logger"><!--[--><!--]--> Logger <!--[--><!--]--></a><!--]--></li><li><!--[--><a href="/dotnetcore/loggers/serilog.html" class="nav-link series-item" aria-label="Serilog"><!--[--><!--]--> Serilog <!--[--><!--]--></a><!--]--></li><li><!--[--><a href="/dotnetcore/loggers/nlog.html" class="nav-link series-item" aria-label="NLog"><!--[--><!--]--> NLog <!--[--><!--]--></a><!--]--></li><li><!--[--><a href="/dotnetcore/loggers/log4net.html" class="nav-link series-item" aria-label="Log4net"><!--[--><!--]--> Log4net <!--[--><!--]--></a><!--]--></li><li><!--[--><a href="/dotnetcore/loggers/logdashboard.html" class="nav-link series-item" aria-label="LogDashboard"><!--[--><!--]--> LogDashboard <!--[--><!--]--></a><!--]--></li></ul></section><!--]--><!--[--><section class="series-group series-item"><h5 class="series-heading">过滤器</h5><ul><li><!--[--><a href="/dotnetcore/filter/base.html" class="nav-link series-item" aria-label="过滤器基本使用"><!--[--><!--]--> 过滤器基本使用 <!--[--><!--]--></a><!--]--></li><li><!--[--><a href="/dotnetcore/filter/realize.html" class="nav-link series-item" aria-label="过滤器常见操作"><!--[--><!--]--> 过滤器常见操作 <!--[--><!--]--></a><!--]--></li></ul></section><!--]--><!--[--><section class="series-group series-item"><h5 class="series-heading">OpenApi</h5><ul><li><!--[--><a href="/dotnetcore/openapi/swaggerbase.html" class="nav-link series-item" aria-label="swagger-基础使用"><!--[--><!--]--> swagger-基础使用 <!--[--><!--]--></a><!--]--></li><li><!--[--><a href="/dotnetcore/openapi/version.html" class="nav-link series-item" aria-label="swagger-版本控制"><!--[--><!--]--> swagger-版本控制 <!--[--><!--]--></a><!--]--></li></ul></section><!--]--><!--[--><section class="series-group series-item"><h5 class="series-heading">身份认证和授权</h5><ul><li><!--[--><a href="/dotnetcore/auth/session.html" class="nav-link series-item" aria-label="Session"><!--[--><!--]--> Session <!--[--><!--]--></a><!--]--></li><li><!--[--><a href="/dotnetcore/auth/cookie.html" class="nav-link series-item" aria-label="Cookie"><!--[--><!--]--> Cookie <!--[--><!--]--></a><!--]--></li><li><!--[--><a href="/dotnetcore/auth/jwt_baseuse.html" class="nav-link series-item" aria-label="Jwt使用"><!--[--><!--]--> Jwt使用 <!--[--><!--]--></a><!--]--></li></ul></section><!--]--><!--[--><section class="series-group series-item"><h5 class="series-heading">健康检查</h5><ul><li><!--[--><a href="/dotnetcore/healthcheck.html" class="nav-link series-item" aria-label="健康检查"><!--[--><!--]--> 健康检查 <!--[--><!--]--></a><!--]--></li></ul></section><!--]--><!--[--><section class="series-group series-item"><h5 class="series-heading">实时通信</h5><ul><li><!--[--><a href="/dotnetcore/real-time/base.html" class="nav-link series-item" aria-label="实时通信-技术大乱斗"><!--[--><!--]--> 实时通信-技术大乱斗 <!--[--><!--]--></a><!--]--></li></ul></section><!--]--><!--[--><section class="series-group series-item"><h5 class="series-heading">缓存</h5><ul><li><!--[--><a href="/dotnetcore/cache/memorycache.html" class="nav-link series-item" aria-label="MemoryCache"><!--[--><!--]--> MemoryCache <!--[--><!--]--></a><!--]--></li><li><!--[--><a href="/dotnetcore/cache/redis.html" class="nav-link series-item" aria-label="分布式缓存"><!--[--><!--]--> 分布式缓存 <!--[--><!--]--></a><!--]--></li></ul></section><!--]--><!--[--><section class="series-group series-item"><h5 class="series-heading">身份认证和授权</h5><ul><li><!--[--><a href="/dotnetcore/auth/session.html" class="nav-link series-item" aria-label="Session"><!--[--><!--]--> Session <!--[--><!--]--></a><!--]--></li></ul></section><!--]--><!--[--><section class="series-group series-item"><h5 class="series-heading">IOC</h5><ul><li><!--[--><a href="/dotnetcore/ioc/base.html" class="nav-link series-item" aria-label="控制反转"><!--[--><!--]--> 控制反转 <!--[--><!--]--></a><!--]--></li><li><!--[--><a href="/dotnetcore/DI/default.html" class="nav-link series-item" aria-label="默认依赖注入"><!--[--><!--]--> 默认依赖注入 <!--[--><!--]--></a><!--]--></li></ul></section><!--]--><!--[--><section class="series-group series-item"><h5 class="series-heading">WebAPI</h5><ul><li><!--[--><a href="/dotnetcore/webapi/webapi-base.html" class="nav-link series-item" aria-label="WebApi调用示例"><!--[--><!--]--> WebApi调用示例 <!--[--><!--]--></a><!--]--></li><li><!--[--><a href="/dotnetcore/webapi/webapiversion.html" class="nav-link series-item" aria-label="API版本控制"><!--[--><!--]--> API版本控制 <!--[--><!--]--></a><!--]--></li></ul></section><!--]--><!--[--><section class="series-group series-item"><h5 class="series-heading active">操作数据库</h5><ul><li><!--[--><a aria-current="page" href="/dotnetcore/orm/createdb.html" class="router-link-active router-link-exact-active nav-link router-link-active series-item active" aria-label="EFCore-生成数据库"><!--[--><!--]--> EFCore-生成数据库 <!--[--><!--]--></a><!--]--></li><li><!--[--><a href="/dotnetcore/orm/efcoreoperation.html" class="nav-link series-item" aria-label="EFCore-增删改查"><!--[--><!--]--> EFCore-增删改查 <!--[--><!--]--></a><!--]--></li></ul></section><!--]--><!--[--><section class="series-group series-item"><h5 class="series-heading">单元测试</h5><ul><li><!--[--><a href="/dotnetcore/unit-test/base.html" class="nav-link series-item" aria-label="基础介绍"><!--[--><!--]--> 基础介绍 <!--[--><!--]--></a><!--]--></li><li><!--[--><a href="/dotnetcore/unit-test/base-use-dissent.html" class="nav-link series-item" aria-label="简单使用-争议篇"><!--[--><!--]--> 简单使用-争议篇 <!--[--><!--]--></a><!--]--></li><li><!--[--><a href="/dotnetcore/unit-test/base-use.html" class="nav-link series-item" aria-label="单元测试简单使用"><!--[--><!--]--> 单元测试简单使用 <!--[--><!--]--></a><!--]--></li></ul></section><!--]--><!--[--><section class="series-group series-item"><h5 class="series-heading">WinForm</h5><ul><li><!--[--><a href="/dotnetcore/winform/use_di.html" class="nav-link series-item" aria-label="WinForm使用依赖注入"><!--[--><!--]--> WinForm使用依赖注入 <!--[--><!--]--></a><!--]--></li></ul></section><!--]--><!--[--><section class="series-group series-item"><h5 class="series-heading">部署</h5><ul><li><!--[--><a href="/dotnetcore/release/iis.html" class="nav-link series-item" aria-label="IIS部署DotNet5"><!--[--><!--]--> IIS部署DotNet5 <!--[--><!--]--></a><!--]--></li><li><!--[--><a href="/dotnetcore/release/centos_net6.html" class="nav-link series-item" aria-label="Centos7部署和守护进程"><!--[--><!--]--> Centos7部署和守护进程 <!--[--><!--]--></a><!--]--></li><li><!--[--><a href="/dotnetcore/release/supervisor.html" class="nav-link series-item" aria-label="部署之Supervisor基础"><!--[--><!--]--> 部署之Supervisor基础 <!--[--><!--]--></a><!--]--></li><li><!--[--><a href="/dotnetcore/release/docker.html" class="nav-link series-item" aria-label="Docker部署详细流程"><!--[--><!--]--> Docker部署详细流程 <!--[--><!--]--></a><!--]--></li></ul></section><!--]--><!--]--></aside><!--[--><main class="page-container show-series"><h1 class="page-title">EFCore-生成数据库</h1><div class="page-info"><a class="icon-container left" href="javascript:void(0)" target="_self"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewbox="0 0 24 24" style="color:inherit;width:18px;height:18px;font-size:18px;"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="4"></circle><path d="M6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"></path></g></svg><span style="color:inherit;font-size:14px;" class="icon-text"><!--[-->azrng<!--]--></span></a><a class="icon-container left" href="javascript:void(0)" target="_self"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewbox="0 0 24 24" style="color:inherit;width:18px;height:18px;font-size:18px;"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 3"></path></g></svg><span style="color:inherit;font-size:14px;" class="icon-text"><!--[-->2022-08-25<!--]--></span></a><a class="icon-container left" href="javascript:void(0)" target="_self"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewbox="0 0 24 24" style="color:inherit;width:18px;height:18px;font-size:18px;"><path d="M5 4h4l3 3h7a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><span style="color:inherit;font-size:14px;" class="icon-text"><!--[-->dotNet<!--]--></span></a><a class="icon-container left" href="javascript:void(0)" target="_self"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewbox="0 0 24 24" style="color:inherit;width:18px;height:18px;font-size:18px;"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8.5" cy="8.5" r="1" fill="currentColor"></circle><path d="M4 7v3.859c0 .537.213 1.052.593 1.432l8.116 8.116a2.025 2.025 0 0 0 2.864 0l4.834-4.834a2.025 2.025 0 0 0 0-2.864L12.29 4.593A2.025 2.025 0 0 0 10.859 4H7a3 3 0 0 0-3 3z"></path></g></svg><span style="color:inherit;font-size:14px;" class="icon-text"><!--[-->db orm efcore<!--]--></span></a><!----></div><div class="theme-reco-default-content"><div><h1 id="开篇语" tabindex="-1"><a class="header-anchor" href="#开篇语" aria-hidden="true">#</a> 开篇语</h1><p>本文主要是回顾下从项目创建到生成数据到数据库(代码优先)的全部过程。采用EFCore作为ORM框架。</p><p>本次示例环境：vs2019、net5、mysql</p><h1 id="创建项目" tabindex="-1"><a class="header-anchor" href="#创建项目" aria-hidden="true">#</a> 创建项目</h1><p>本次事例代码是用过vs2019创建的ASP.NET Core Web API项目</p><p>可以通过可视化界面创建或者通过命令行创建</p><div class="language-text ext-text line-numbers-mode"><pre class="language-text"><code>dotnet new webapi -o Net5ByDocker
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div></div></div><h1 id="创建实体类" tabindex="-1"><a class="header-anchor" href="#创建实体类" aria-hidden="true">#</a> 创建实体类</h1><p>安装组件</p><div class="language-text ext-text line-numbers-mode"><pre class="language-text"><code>    &lt;PackageReference Include=&quot;Pomelo.EntityFrameworkCore.MySql&quot; Version=&quot;5.0.0&quot; /&gt;
+    &lt;PackageReference Include=&quot;Pomelo.EntityFrameworkCore.MySql.Json.Newtonsoft&quot; Version=&quot;5.0.0&quot; /&gt;
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div></div></div><p>增加实体类</p><div class="language-text ext-text line-numbers-mode"><pre class="language-text"><code>    [Table(&quot;user&quot;)]
+    public class User
+    {
+        public User()
+        {
+            Id = Guid.NewGuid().ToString();
+        }
+
+        public User(string account, string password, string creater) : this()
+        {
+            Account = account;
+            Password = password;
+            Deleted = false;
+            SetCreater(creater);
+        }
+
+        [Key]
+        [Comment(&quot;主键&quot;)]
+        [StringLength(36)]
+        [Required]
+        public string Id { get; private set; }
+
+        [Comment(&quot;帐号&quot;)]
+        [StringLength(36)]
+        [Required]
+        public string Account { get; private set; }
+
+        [Comment(&quot;密码&quot;)]
+        [StringLength(36)]
+        [Required]
+        public string Password { get; private set; }
+
+        [Comment(&quot;余额&quot;)]
+        [Column(TypeName = &quot;decimal(18, 2)&quot;)]
+        [Required]
+        public decimal Money { get; set; }
+
+        [Comment(&quot;是否删除&quot;)]
+        [Column(TypeName = &quot;tinyint(1)&quot;)]
+        [Required]
+        public bool Deleted { get; private set; }
+
+        [Comment(&quot;创建人&quot;)]
+        [StringLength(20)]
+        [Required]
+        public string Creater { get; private set; }
+
+        [Comment(&quot;创建时间&quot;)]
+        [Required]
+        public DateTime CreateTime { get; private set; }
+
+        [Comment(&quot;修改人&quot;)]
+        [StringLength(20)]
+        [Required]
+        public string Modifyer { get; private set; }
+
+        [Comment(&quot;修改时间&quot;)]
+        [Required]
+        public DateTime ModifyTime { get; private set; }
+
+        public void SetCreater(string name)
+        {
+            Creater = name;
+            CreateTime = DateTime.Now;
+            SetModifyer(name);
+        }
+
+        public void SetModifyer(string name)
+        {
+            Modifyer = name;
+            ModifyTime = DateTime.Now;
+        }
+    }
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>这种只是增加实体类类型的一种方式，可能这种看着比较乱，还可以通过OnModelCreating实现，详情看参考文档</p><p>增加数据库上下文OpenDbContext</p><div class="language-text ext-text line-numbers-mode"><pre class="language-text"><code>    public class OpenDbContext : DbContext
+    {
+        public OpenDbContext(DbContextOptions&lt;OpenDbContext&gt; options)
+            : base(options)
+        {
+        }
+
+        public DbSet&lt;User&gt; Users { get; set; }
+    }
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>Startup注入连接数据库操作</p><div class="language-text ext-text line-numbers-mode"><pre class="language-text"><code>            var connection = Configuration[&quot;DbConfig:Mysql:ConnectionString&quot;];
+            var migrationsAssembly = IntrospectionExtensions.GetTypeInfo(typeof(Startup)).Assembly.GetName().Name;
+            services.AddDbContext&lt;OpenDbContext&gt;(option =&gt; option.UseMySql(connection, ServerVersion.AutoDetect(connection), x =&gt;
+            {
+                x.UseNewtonsoftJson();
+                x.MigrationsAssembly(migrationsAssembly);
+            }));
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h1 id="生成迁移文件" tabindex="-1"><a class="header-anchor" href="#生成迁移文件" aria-hidden="true">#</a> 生成迁移文件</h1><p>引用组件</p><div class="language-text ext-text line-numbers-mode"><pre class="language-text"><code>&lt;PackageReference Include=&quot;Microsoft.EntityFrameworkCore.Design&quot; Version=&quot;5.0.5&quot;&gt;
+&lt;PackageReference Include=&quot;Microsoft.EntityFrameworkCore.Tools&quot; Version=&quot;5.0.5&quot;&gt;
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div></div></div><p>迁移命令</p><div class="language-text ext-text line-numbers-mode"><pre class="language-text"><code>add-migration Init
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div></div></div><p>结果</p><p><img src="https://gitee.com/AZRNG/picture-storage/raw/master/kbms/1620543658741-00fd688e-8f23-4709-be13-22766cf2cfe4.png" alt="img"></p><p>要看下生成的迁移文件是否是自己预期的那样子，也可以在这一步就生成数据库，命令：Update-Database</p><h1 id="数据种子" tabindex="-1"><a class="header-anchor" href="#数据种子" aria-hidden="true">#</a> 数据种子</h1><p>增加OpenDbSend类，添加数据种子</p><div class="language-text ext-text line-numbers-mode"><pre class="language-text"><code>    public class OpenDbSend
+    {
+        /// &lt;summary&gt;
+        /// 生成数据库以及数据种子
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;dbContext&quot;&gt;数据库上下文&lt;/param&gt;
+        /// &lt;param name=&quot;loggerFactory&quot;&gt;日志&lt;/param&gt;
+        /// &lt;param name=&quot;retry&quot;&gt;重试次数&lt;/param&gt;
+        /// &lt;returns&gt;&lt;/returns&gt;
+        public static async Task SeedAsync(OpenDbContext dbContext,
+            ILoggerFactory loggerFactory,
+            int? retry = 0)
+        {
+            int retryForAvailability = retry.Value;
+            try
+            {
+                dbContext.Database.Migrate();//如果当前数据库不存在按照当前 model 创建，如果存在则将数据库调整到和当前 model 匹配
+                await InitializeAsync(dbContext).ConfigureAwait(false);
+
+                //if (dbContext.Database.EnsureCreated())//如果当前数据库不存在按照当前 model创建，如果存在则不管了。
+                //  await InitializeAsync(dbContext).ConfigureAwait(false);
+            }
+            catch (Exception ex)
+            {
+                if (retryForAvailability &lt; 3)
+                {
+                    retryForAvailability++;
+                    var log = loggerFactory.CreateLogger&lt;OpenDbSend&gt;();
+                    log.LogError(ex.Message);
+                    await SeedAsync(dbContext, loggerFactory, retryForAvailability).ConfigureAwait(false);
+                }
+            }
+        }
+
+        /// &lt;summary&gt;
+        /// 初始化数据
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;context&quot;&gt;&lt;/param&gt;
+        /// &lt;returns&gt;&lt;/returns&gt;
+        public static async Task InitializeAsync(OpenDbContext context)
+        {
+            if (!context.Set&lt;User&gt;().Any())
+            {
+                await context.Set&lt;User&gt;().AddAsync(new User(&quot;azrng&quot;, &quot;123456&quot;, &quot;azrng&quot;)).ConfigureAwait(false);
+                await context.Set&lt;User&gt;().AddAsync(new User(&quot;张三&quot;, &quot;123456&quot;, &quot;azrng&quot;)).ConfigureAwait(false);
+            }
+            await context.SaveChangesAsync().ConfigureAwait(false);
+        }
+    }
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>设置项目启动时候调用</p><div class="language-text ext-text line-numbers-mode"><pre class="language-text"><code>        public static async Task Main(string[] args)
+        {
+            var host = CreateHostBuilder(args).Build();
+            using (var scope = host.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                var loggerFactory = services.GetRequiredService&lt;ILoggerFactory&gt;();
+                var _logger = loggerFactory.CreateLogger&lt;Program&gt;();
+                try
+                {
+                    var openContext = services.GetRequiredService&lt;OpenDbContext&gt;();
+                    await OpenDbSend.SeedAsync(openContext, loggerFactory).ConfigureAwait(false);
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, $&quot;项目启动出错  {ex.Message}&quot;);
+                }
+            }
+
+            await host.RunAsync().ConfigureAwait(false);
+        }
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h1 id="生成数据库" tabindex="-1"><a class="header-anchor" href="#生成数据库" aria-hidden="true">#</a> 生成数据库</h1><p>启动项目，自动生成数据库</p><p><img src="https://gitee.com/AZRNG/picture-storage/raw/master/kbms/1620546536896-91cc7623-b6fa-457c-acec-d465cb06428e.png" alt="img"></p><p>表结构如下</p><p><img src="https://gitee.com/AZRNG/picture-storage/raw/master/kbms/1620546396376-896cc74f-197e-465e-811f-168ff86485c4.png" alt="img"></p><p>如果后期数据库字段或者结构有变动，可以再次生成迁移文件然后生成数据库</p><h1 id="查询数据" tabindex="-1"><a class="header-anchor" href="#查询数据" aria-hidden="true">#</a> 查询数据</h1><div class="language-text ext-text line-numbers-mode"><pre class="language-text"><code>    /// &lt;summary&gt;
+    /// 用户接口
+    /// &lt;/summary&gt;
+    public interface IUserService
+    {
+        string GetName();
+
+        /// &lt;summary&gt;
+        /// 查询用户信息
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;account&quot;&gt;&lt;/param&gt;
+        /// &lt;returns&gt;&lt;/returns&gt;
+        Task&lt;User&gt; GetDetailsAsync(string account);
+    }
+
+    /// &lt;summary&gt;
+    /// 用户实现
+    /// &lt;/summary&gt;
+    public class UserService : IUserService
+    {
+        private readonly OpenDbContext _dbContext;
+
+        public UserService(OpenDbContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
+
+        public string GetName()
+        {
+            return &quot;AZRNG&quot;;
+        }
+
+        ///&lt;inheritdoc cref=&quot;IUserService.GetDetailsAsync(string)&quot;/&gt;
+        public async Task&lt;User&gt; GetDetailsAsync(string account)
+        {
+            return await _dbContext.Set&lt;User&gt;().FirstOrDefaultAsync(t =&gt; t.Account == account).ConfigureAwait(false);
+        }
+    }
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>一般更推荐建立指定的返回Model类，然后只查询需要的内容，不直接返回实体类</p><p>控制器方法</p><div class="language-text ext-text line-numbers-mode"><pre class="language-text"><code>        /// &lt;summary&gt;
+        /// 查询用户详情
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;account&quot;&gt;&lt;/param&gt;
+        /// &lt;returns&gt;&lt;/returns&gt;
+        [HttpGet]
+        public async Task&lt;ActionResult&lt;User&gt;&gt; GetDetailsAsync(string account)
+        {
+            return await _userService.GetDetailsAsync(account).ConfigureAwait(false);
+        }
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>查询结果</p><div class="language-text ext-text line-numbers-mode"><pre class="language-text"><code>{
+  &quot;id&quot;: &quot;e8976d0a-6ee9-4e2e-b8d8-1fe6e85b727b&quot;,
+  &quot;account&quot;: &quot;azrng&quot;,
+  &quot;password&quot;: &quot;123456&quot;,
+  &quot;money&quot;: 0,
+  &quot;deleted&quot;: false,
+  &quot;creater&quot;: &quot;azrng&quot;,
+  &quot;createTime&quot;: &quot;2021-05-09T15:48:45.730302&quot;,
+  &quot;modifyer&quot;: &quot;azrng&quot;,
+  &quot;modifyTime&quot;: &quot;2021-05-09T15:48:45.730425&quot;
+}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h1 id="参考文档" tabindex="-1"><a class="header-anchor" href="#参考文档" aria-hidden="true">#</a> 参考文档</h1><p>实体类型：https://docs.microsoft.com/zh-cn/ef/core/modeling/entity-types?tabs=data-annotations</p><p>实体属性：https://docs.microsoft.com/zh-cn/ef/core/modeling/entity-properties?tabs=data-annotations%2Cwithout-nrt</p></div></div><footer class="page-meta"><div class="meta-item edit-link"><a class="icon-container left meta-item-label" href="https://github.com/vuepress-reco/vuepress-theme-reco-next/edit/main/kbms/dotnetcore/orm/createdb.md" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewbox="0 0 24 24" style="color:inherit;width:20px;height:20px;font-size:20px;"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-3"></path><path d="M9 15h3l8.5-8.5a1.5 1.5 0 0 0-3-3L9 12v3"></path><path d="M16 5l3 3"></path></g></svg><span style="color:inherit;font-size:14px;" class="icon-text"><!--[-->Edit this page<!--]--></span></a></div><div class="meta-item last-updated"><a class="icon-container left meta-item-label" href="javascript:void(0)" target="_self"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewbox="0 0 24 24" style="color:inherit;width:20px;height:20px;font-size:20px;"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.795 21H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"></path><circle cx="18" cy="18" r="4"></circle><path d="M15 3v4"></path><path d="M7 3v4"></path><path d="M3 11h16"></path><path d="M18 16.496V18l1 1"></path></g></svg><span style="color:inherit;font-size:14px;" class="icon-text"><!--[-->Last Updated 2022-08-25 13:59:58<!--]--></span></a></div></footer><nav class="page-nav"><p class="hasNext inner"><!----><span class="page-nav-item next">EFCore-增删改查 → </span></p></nav><!----></main><!--]--><!----></div></div></div><!----><!----><!--]--></div>
+    <script type="module" src="/assets/app.f6b99883.js" defer></script>
+  </body>
+</html>

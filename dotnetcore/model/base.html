@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="generator" content="VuePress 2.0.0-beta.51">
+    <script>
+      (function() {
+        const userMode = localStorage.getItem('vuepress-reco-color-scheme') || 'auto';
+        const systemDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (userMode === 'dark' || (userMode === 'auto' && systemDarkMode)) {
+          document.documentElement.classList.toggle('dark', true);
+        }
+      })();
+    </script>
+    <title>模型绑定 | 知识库</title><meta name="description" content="一个知识库网站">
+    <link rel="modulepreload" href="/assets/app.f6b99883.js"><link rel="modulepreload" href="/assets/base.html.4ac8da5f.js"><link rel="modulepreload" href="/assets/base.html.c4527071.js"><link rel="prefetch" href="/assets/index.html.e0baf728.js"><link rel="prefetch" href="/assets/attribute.html.c664a011.js"><link rel="prefetch" href="/assets/class.html.aba60eb7.js"><link rel="prefetch" href="/assets/predefined-type.html.688911ae.js"><link rel="prefetch" href="/assets/reflect.html.078024e0.js"><link rel="prefetch" href="/assets/type-convert.html.36fe72f4.js"><link rel="prefetch" href="/assets/base.html.f9c655ac.js"><link rel="prefetch" href="/assets/healthcheck.html.9e2087e3.js"><link rel="prefetch" href="/assets/kuayu.html.8281e724.js"><link rel="prefetch" href="/assets/reflect.html.42d66291.js"><link rel="prefetch" href="/assets/routing.html.7d232251.js"><link rel="prefetch" href="/assets/http-agency.html.700b7525.js"><link rel="prefetch" href="/assets/introduce.html.a7e10533.js"><link rel="prefetch" href="/assets/cookie.html.2d2ba37e.js"><link rel="prefetch" href="/assets/jwt_baseuse.html.a34abee3.js"><link rel="prefetch" href="/assets/session.html.51ca4e17.js"><link rel="prefetch" href="/assets/memorycache.html.e339a66b.js"><link rel="prefetch" href="/assets/redis.html.f76ecd58.js"><link rel="prefetch" href="/assets/configread.html.484c0113.js"><link rel="prefetch" href="/assets/base.html.68c649b6.js"><link rel="prefetch" href="/assets/realize.html.aa8b6b54.js"><link rel="prefetch" href="/assets/default.html.061226e7.js"><link rel="prefetch" href="/assets/base.html.0d78b979.js"><link rel="prefetch" href="/assets/base.html.ed04ab9f.js"><link rel="prefetch" href="/assets/ilogger.html.68a40a4d.js"><link rel="prefetch" href="/assets/log4net.html.d04538bf.js"><link rel="prefetch" href="/assets/logdashboard.html.9d2d9b2f.js"><link rel="prefetch" href="/assets/nlog.html.e870fcdd.js"><link rel="prefetch" href="/assets/serilog.html.7fe8bd19.js"><link rel="prefetch" href="/assets/createdb.html.b44a1837.js"><link rel="prefetch" href="/assets/efcoreoperation.html.64ab049a.js"><link rel="prefetch" href="/assets/base.html.1f552307.js"><link rel="prefetch" href="/assets/centos_net6.html.f4c3d097.js"><link rel="prefetch" href="/assets/docker.html.2b91f4af.js"><link rel="prefetch" href="/assets/iis.html.8b925361.js"><link rel="prefetch" href="/assets/supervisor.html.69a9b968.js"><link rel="prefetch" href="/assets/swagger-long.html.50e69bc0.js"><link rel="prefetch" href="/assets/swaggerbase.html.f971e002.js"><link rel="prefetch" href="/assets/version.html.71967fb8.js"><link rel="prefetch" href="/assets/base-use-dissent.html.445c2fce.js"><link rel="prefetch" href="/assets/base-use.html.91aaf579.js"><link rel="prefetch" href="/assets/base.html.1b7b52cb.js"><link rel="prefetch" href="/assets/base.html.0b4da2a9.js"><link rel="prefetch" href="/assets/customerconfig.html.a845d8e6.js"><link rel="prefetch" href="/assets/webapi-base.html.e2eef8b0.js"><link rel="prefetch" href="/assets/webapiversion.html.f588f73f.js"><link rel="prefetch" href="/assets/use_di.html.ebeef32d.js"><link rel="prefetch" href="/assets/404.html.98e87f94.js"><link rel="prefetch" href="/assets/index.html.72ac4063.js"><link rel="prefetch" href="/assets/index.html.31368430.js"><link rel="prefetch" href="/assets/attribute.html.e467a053.js"><link rel="prefetch" href="/assets/class.html.f265b57e.js"><link rel="prefetch" href="/assets/predefined-type.html.b462bd96.js"><link rel="prefetch" href="/assets/reflect.html.ea6a3059.js"><link rel="prefetch" href="/assets/type-convert.html.cca277f4.js"><link rel="prefetch" href="/assets/base.html.9ecc9ddf.js"><link rel="prefetch" href="/assets/healthcheck.html.9ba974c0.js"><link rel="prefetch" href="/assets/kuayu.html.054b893e.js"><link rel="prefetch" href="/assets/reflect.html.1b167085.js"><link rel="prefetch" href="/assets/routing.html.f6e2ade1.js"><link rel="prefetch" href="/assets/http-agency.html.433ecf89.js"><link rel="prefetch" href="/assets/introduce.html.368c37f8.js"><link rel="prefetch" href="/assets/cookie.html.581f716b.js"><link rel="prefetch" href="/assets/jwt_baseuse.html.611f0be6.js"><link rel="prefetch" href="/assets/session.html.66f95c24.js"><link rel="prefetch" href="/assets/memorycache.html.1e263ef2.js"><link rel="prefetch" href="/assets/redis.html.c6d32df5.js"><link rel="prefetch" href="/assets/configread.html.de625ecd.js"><link rel="prefetch" href="/assets/base.html.8c7b6aa2.js"><link rel="prefetch" href="/assets/realize.html.105a015d.js"><link rel="prefetch" href="/assets/default.html.6aa8210d.js"><link rel="prefetch" href="/assets/base.html.c314bee1.js"><link rel="prefetch" href="/assets/base.html.06713cfe.js"><link rel="prefetch" href="/assets/ilogger.html.9fb7fb05.js"><link rel="prefetch" href="/assets/log4net.html.48059ec2.js"><link rel="prefetch" href="/assets/logdashboard.html.17c3d546.js"><link rel="prefetch" href="/assets/nlog.html.f4ffcfa4.js"><link rel="prefetch" href="/assets/serilog.html.d2badab6.js"><link rel="prefetch" href="/assets/createdb.html.f40ec7fa.js"><link rel="prefetch" href="/assets/efcoreoperation.html.96ff7d6b.js"><link rel="prefetch" href="/assets/base.html.4a032973.js"><link rel="prefetch" href="/assets/centos_net6.html.8b5338d4.js"><link rel="prefetch" href="/assets/docker.html.9cc216c5.js"><link rel="prefetch" href="/assets/iis.html.c24cdea8.js"><link rel="prefetch" href="/assets/supervisor.html.598f5c25.js"><link rel="prefetch" href="/assets/swagger-long.html.90cf5c8c.js"><link rel="prefetch" href="/assets/swaggerbase.html.9c8f1a99.js"><link rel="prefetch" href="/assets/version.html.f54578ec.js"><link rel="prefetch" href="/assets/base-use-dissent.html.fdd74390.js"><link rel="prefetch" href="/assets/base-use.html.b0bfa199.js"><link rel="prefetch" href="/assets/base.html.358cc5cd.js"><link rel="prefetch" href="/assets/base.html.bc5662ee.js"><link rel="prefetch" href="/assets/customerconfig.html.a11618f0.js"><link rel="prefetch" href="/assets/webapi-base.html.2cd20c0f.js"><link rel="prefetch" href="/assets/webapiversion.html.955249f6.js"><link rel="prefetch" href="/assets/use_di.html.c100dcf3.js"><link rel="prefetch" href="/assets/404.html.3b64f271.js"><link rel="prefetch" href="/assets/index.html.fbe52f75.js"><link rel="prefetch" href="/assets/reco-valine.ed4545b0.js">
+    <link rel="stylesheet" href="/assets/style.180fd05c.css">
+  </head>
+  <body>
+    <div id="app"><!--[--><div class="theme-container"><div class="common-wrapper"><div><header class="navbar-container"><span class="nav-item site-brand"><a href="/" class=""><img class="logo" src="/logo.png" alt="知识库"><span class="site-name can-hide">知识库</span></a></span><div class="nav-item navbar-links-wrapper" style=""><form class="search-box" role="search"><input type="search" autocomplete="off" spellcheck="false" value><!----></form><nav class="navbar-links"><!--[--><div class="navbar-links-item"><a href="/" class="nav-link" aria-label="主页"><!--[--><!--]--> 主页 <!--[--><!--]--></a></div><div class="navbar-links-item"><div class="dropdown-wrapper"><button class="dropdown-title" type="button" aria-label="目录">目录 <span class="arrow down"></span></button><button class="mobile-dropdown-title" type="button" aria-label="目录"><span class="title"><span>目录</span></span><span class="right arrow"></span></button><ul style="display:none;" class="nav-dropdown"><!--[--><li class="dropdown-item"><a href="/web/introduce" class="nav-link" aria-label="Web"><!--[--><!--]--> Web <!--[--><!--]--></a></li><li class="dropdown-item"><a href="/csharp/predefined-type" class="nav-link" aria-label="CSharp"><!--[--><!--]--> CSharp <!--[--><!--]--></a></li><li class="dropdown-item"><a href="/dotnetcore/base" class="nav-link" aria-label="dotnetcore"><!--[--><!--]--> dotnetcore <!--[--><!--]--></a></li><!--]--></ul></div></div><!--]--></nav><a class="icon-container left btn-toggle-dark-mode" href="javascript:void(0)" target="_self"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewbox="0 0 24 24" style="color:inherit;width:19px;height:19px;font-size:19px;"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3h.393a7.5 7.5 0 0 0 7.92 12.446A9 9 0 1 1 12 2.992z"></path><path d="M17 4a2 2 0 0 0 2 2a2 2 0 0 0-2 2a2 2 0 0 0-2-2a2 2 0 0 0 2-2"></path><path d="M19 11h2m-1-1v2"></path></g></svg><!----></a><a class="icon-container left btn-toggle-menus" href="javascript:void(0)" target="_self"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewbox="0 0 24 24" style="color:inherit;width:20px;height:20px;font-size:20px;"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="19" r="1"></circle><circle cx="12" cy="5" r="1"></circle></g></svg><!----></a></div></header><div class="mobile-menus-container"><nav class="navbar-links"><!--[--><div class="navbar-links-item"><a href="/" class="nav-link" aria-label="主页"><!--[--><!--]--> 主页 <!--[--><!--]--></a></div><div class="navbar-links-item"><div class="dropdown-wrapper"><button class="dropdown-title" type="button" aria-label="目录">目录 <span class="arrow down"></span></button><button class="mobile-dropdown-title" type="button" aria-label="目录"><span class="title"><span>目录</span></span><span class="right arrow"></span></button><ul style="display:none;" class="nav-dropdown"><!--[--><li class="dropdown-item"><a href="/web/introduce" class="nav-link" aria-label="Web"><!--[--><!--]--> Web <!--[--><!--]--></a></li><li class="dropdown-item"><a href="/csharp/predefined-type" class="nav-link" aria-label="CSharp"><!--[--><!--]--> CSharp <!--[--><!--]--></a></li><li class="dropdown-item"><a href="/dotnetcore/base" class="nav-link" aria-label="dotnetcore"><!--[--><!--]--> dotnetcore <!--[--><!--]--></a></li><!--]--></ul></div></div><!--]--></nav><div class="appearance"><span>Appearance </span><a class="icon-container left btn-toggle-dark-mode" href="javascript:void(0)" target="_self"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewbox="0 0 24 24" style="color:inherit;width:19px;height:19px;font-size:19px;"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3h.393a7.5 7.5 0 0 0 7.92 12.446A9 9 0 1 1 12 2.992z"></path><path d="M17 4a2 2 0 0 0 2 2a2 2 0 0 0-2 2a2 2 0 0 0-2-2a2 2 0 0 0 2-2"></path><path d="M19 11h2m-1-1v2"></path></g></svg><!----></a></div></div><div class="sidebar-mask"></div><aside class="series-container"><!--[--><!--[--><section class="series-group series-item"><h5 class="series-heading">基础知识</h5><ul><li><!--[--><a href="/dotnetcore/base.html" class="nav-link series-item" aria-label="介绍"><!--[--><!--]--> 介绍 <!--[--><!--]--></a><!--]--></li><li><!--[--><a href="/dotnetcore/globalization/base.html" class="nav-link series-item" aria-label="多语言配置"><!--[--><!--]--> 多语言配置 <!--[--><!--]--></a><!--]--></li><li><!--[--><a href="/dotnetcore/routing.html" class="nav-link series-item" aria-label="路由"><!--[--><!--]--> 路由 <!--[--><!--]--></a><!--]--></li><li><!--[--><a href="/dotnetcore/healthcheck.html" class="nav-link series-item" aria-label="健康检查"><!--[--><!--]--> 健康检查 <!--[--><!--]--></a><!--]--></li></ul></section><!--]--><!--[--><section class="series-group series-item"><h5 class="series-heading">配置框架</h5><ul><li><!--[--><a href="/dotnetcore/config/configread.html" class="nav-link series-item" aria-label="配置读取"><!--[--><!--]--> 配置读取 <!--[--><!--]--></a><!--]--></li></ul></section><!--]--><!--[--><section class="series-group series-item"><h5 class="series-heading">跨域</h5><ul><li><!--[--><a href="/dotnetcore/kuayu.html" class="nav-link series-item" aria-label="跨域"><!--[--><!--]--> 跨域 <!--[--><!--]--></a><!--]--></li></ul></section><!--]--><!--[--><section class="series-group series-item"><h5 class="series-heading">静态资源</h5><ul><li><!--[--><a href="/dotnetcore/staticfile/base.html" class="nav-link series-item" aria-label="静态资源-基本设置"><!--[--><!--]--> 静态资源-基本设置 <!--[--><!--]--></a><!--]--></li><li><!--[--><a href="/dotnetcore/staticfile/customerconfig.html" class="nav-link series-item" aria-label="静态资源-自定义设置"><!--[--><!--]--> 静态资源-自定义设置 <!--[--><!--]--></a><!--]--></li></ul></section><!--]--><!--[--><section class="series-group series-item"><h5 class="series-heading">日志</h5><ul><li><!--[--><a href="/dotnetcore/loggers/ilogger.html" class="nav-link series-item" aria-label="Logger"><!--[--><!--]--> Logger <!--[--><!--]--></a><!--]--></li><li><!--[--><a href="/dotnetcore/loggers/serilog.html" class="nav-link series-item" aria-label="Serilog"><!--[--><!--]--> Serilog <!--[--><!--]--></a><!--]--></li><li><!--[--><a href="/dotnetcore/loggers/nlog.html" class="nav-link series-item" aria-label="NLog"><!--[--><!--]--> NLog <!--[--><!--]--></a><!--]--></li><li><!--[--><a href="/dotnetcore/loggers/log4net.html" class="nav-link series-item" aria-label="Log4net"><!--[--><!--]--> Log4net <!--[--><!--]--></a><!--]--></li><li><!--[--><a href="/dotnetcore/loggers/logdashboard.html" class="nav-link series-item" aria-label="LogDashboard"><!--[--><!--]--> LogDashboard <!--[--><!--]--></a><!--]--></li></ul></section><!--]--><!--[--><section class="series-group series-item"><h5 class="series-heading">过滤器</h5><ul><li><!--[--><a href="/dotnetcore/filter/base.html" class="nav-link series-item" aria-label="过滤器基本使用"><!--[--><!--]--> 过滤器基本使用 <!--[--><!--]--></a><!--]--></li><li><!--[--><a href="/dotnetcore/filter/realize.html" class="nav-link series-item" aria-label="过滤器常见操作"><!--[--><!--]--> 过滤器常见操作 <!--[--><!--]--></a><!--]--></li></ul></section><!--]--><!--[--><section class="series-group series-item"><h5 class="series-heading">OpenApi</h5><ul><li><!--[--><a href="/dotnetcore/openapi/swaggerbase.html" class="nav-link series-item" aria-label="swagger-基础使用"><!--[--><!--]--> swagger-基础使用 <!--[--><!--]--></a><!--]--></li><li><!--[--><a href="/dotnetcore/openapi/version.html" class="nav-link series-item" aria-label="swagger-版本控制"><!--[--><!--]--> swagger-版本控制 <!--[--><!--]--></a><!--]--></li></ul></section><!--]--><!--[--><section class="series-group series-item"><h5 class="series-heading">身份认证和授权</h5><ul><li><!--[--><a href="/dotnetcore/auth/session.html" class="nav-link series-item" aria-label="Session"><!--[--><!--]--> Session <!--[--><!--]--></a><!--]--></li><li><!--[--><a href="/dotnetcore/auth/cookie.html" class="nav-link series-item" aria-label="Cookie"><!--[--><!--]--> Cookie <!--[--><!--]--></a><!--]--></li><li><!--[--><a href="/dotnetcore/auth/jwt_baseuse.html" class="nav-link series-item" aria-label="Jwt使用"><!--[--><!--]--> Jwt使用 <!--[--><!--]--></a><!--]--></li></ul></section><!--]--><!--[--><section class="series-group series-item"><h5 class="series-heading">健康检查</h5><ul><li><!--[--><a href="/dotnetcore/healthcheck.html" class="nav-link series-item" aria-label="健康检查"><!--[--><!--]--> 健康检查 <!--[--><!--]--></a><!--]--></li></ul></section><!--]--><!--[--><section class="series-group series-item"><h5 class="series-heading">实时通信</h5><ul><li><!--[--><a href="/dotnetcore/real-time/base.html" class="nav-link series-item" aria-label="实时通信-技术大乱斗"><!--[--><!--]--> 实时通信-技术大乱斗 <!--[--><!--]--></a><!--]--></li></ul></section><!--]--><!--[--><section class="series-group series-item"><h5 class="series-heading">缓存</h5><ul><li><!--[--><a href="/dotnetcore/cache/memorycache.html" class="nav-link series-item" aria-label="MemoryCache"><!--[--><!--]--> MemoryCache <!--[--><!--]--></a><!--]--></li><li><!--[--><a href="/dotnetcore/cache/redis.html" class="nav-link series-item" aria-label="分布式缓存"><!--[--><!--]--> 分布式缓存 <!--[--><!--]--></a><!--]--></li></ul></section><!--]--><!--[--><section class="series-group series-item"><h5 class="series-heading">身份认证和授权</h5><ul><li><!--[--><a href="/dotnetcore/auth/session.html" class="nav-link series-item" aria-label="Session"><!--[--><!--]--> Session <!--[--><!--]--></a><!--]--></li></ul></section><!--]--><!--[--><section class="series-group series-item"><h5 class="series-heading">IOC</h5><ul><li><!--[--><a href="/dotnetcore/ioc/base.html" class="nav-link series-item" aria-label="控制反转"><!--[--><!--]--> 控制反转 <!--[--><!--]--></a><!--]--></li><li><!--[--><a href="/dotnetcore/DI/default.html" class="nav-link series-item" aria-label="默认依赖注入"><!--[--><!--]--> 默认依赖注入 <!--[--><!--]--></a><!--]--></li></ul></section><!--]--><!--[--><section class="series-group series-item"><h5 class="series-heading">WebAPI</h5><ul><li><!--[--><a href="/dotnetcore/webapi/webapi-base.html" class="nav-link series-item" aria-label="WebApi调用示例"><!--[--><!--]--> WebApi调用示例 <!--[--><!--]--></a><!--]--></li><li><!--[--><a href="/dotnetcore/webapi/webapiversion.html" class="nav-link series-item" aria-label="API版本控制"><!--[--><!--]--> API版本控制 <!--[--><!--]--></a><!--]--></li></ul></section><!--]--><!--[--><section class="series-group series-item"><h5 class="series-heading">操作数据库</h5><ul><li><!--[--><a href="/dotnetcore/orm/createdb.html" class="nav-link series-item" aria-label="EFCore-生成数据库"><!--[--><!--]--> EFCore-生成数据库 <!--[--><!--]--></a><!--]--></li><li><!--[--><a href="/dotnetcore/orm/efcoreoperation.html" class="nav-link series-item" aria-label="EFCore-增删改查"><!--[--><!--]--> EFCore-增删改查 <!--[--><!--]--></a><!--]--></li></ul></section><!--]--><!--[--><section class="series-group series-item"><h5 class="series-heading">单元测试</h5><ul><li><!--[--><a href="/dotnetcore/unit-test/base.html" class="nav-link series-item" aria-label="基础介绍"><!--[--><!--]--> 基础介绍 <!--[--><!--]--></a><!--]--></li><li><!--[--><a href="/dotnetcore/unit-test/base-use-dissent.html" class="nav-link series-item" aria-label="简单使用-争议篇"><!--[--><!--]--> 简单使用-争议篇 <!--[--><!--]--></a><!--]--></li><li><!--[--><a href="/dotnetcore/unit-test/base-use.html" class="nav-link series-item" aria-label="单元测试简单使用"><!--[--><!--]--> 单元测试简单使用 <!--[--><!--]--></a><!--]--></li></ul></section><!--]--><!--[--><section class="series-group series-item"><h5 class="series-heading">WinForm</h5><ul><li><!--[--><a href="/dotnetcore/winform/use_di.html" class="nav-link series-item" aria-label="WinForm使用依赖注入"><!--[--><!--]--> WinForm使用依赖注入 <!--[--><!--]--></a><!--]--></li></ul></section><!--]--><!--[--><section class="series-group series-item"><h5 class="series-heading">部署</h5><ul><li><!--[--><a href="/dotnetcore/release/iis.html" class="nav-link series-item" aria-label="IIS部署DotNet5"><!--[--><!--]--> IIS部署DotNet5 <!--[--><!--]--></a><!--]--></li><li><!--[--><a href="/dotnetcore/release/centos_net6.html" class="nav-link series-item" aria-label="Centos7部署和守护进程"><!--[--><!--]--> Centos7部署和守护进程 <!--[--><!--]--></a><!--]--></li><li><!--[--><a href="/dotnetcore/release/supervisor.html" class="nav-link series-item" aria-label="部署之Supervisor基础"><!--[--><!--]--> 部署之Supervisor基础 <!--[--><!--]--></a><!--]--></li><li><!--[--><a href="/dotnetcore/release/docker.html" class="nav-link series-item" aria-label="Docker部署详细流程"><!--[--><!--]--> Docker部署详细流程 <!--[--><!--]--></a><!--]--></li></ul></section><!--]--><!--]--></aside><!--[--><main class="page-container show-series show-catalog"><h1 class="page-title">模型绑定</h1><div class="page-info"><a class="icon-container left" href="javascript:void(0)" target="_self"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewbox="0 0 24 24" style="color:inherit;width:18px;height:18px;font-size:18px;"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="4"></circle><path d="M6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"></path></g></svg><span style="color:inherit;font-size:14px;" class="icon-text"><!--[-->azrng<!--]--></span></a><a class="icon-container left" href="javascript:void(0)" target="_self"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewbox="0 0 24 24" style="color:inherit;width:18px;height:18px;font-size:18px;"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 3"></path></g></svg><span style="color:inherit;font-size:14px;" class="icon-text"><!--[-->2021-01-24<!--]--></span></a><a class="icon-container left" href="javascript:void(0)" target="_self"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewbox="0 0 24 24" style="color:inherit;width:18px;height:18px;font-size:18px;"><path d="M5 4h4l3 3h7a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg><span style="color:inherit;font-size:14px;" class="icon-text"><!--[-->dotNet<!--]--></span></a><a class="icon-container left" href="javascript:void(0)" target="_self"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewbox="0 0 24 24" style="color:inherit;width:18px;height:18px;font-size:18px;"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8.5" cy="8.5" r="1" fill="currentColor"></circle><path d="M4 7v3.859c0 .537.213 1.052.593 1.432l8.116 8.116a2.025 2.025 0 0 0 2.864 0l4.834-4.834a2.025 2.025 0 0 0 0-2.864L12.29 4.593A2.025 2.025 0 0 0 10.859 4H7a3 3 0 0 0-3 3z"></path></g></svg><span style="color:inherit;font-size:14px;" class="icon-text"><!--[-->model<!--]--></span></a><!----></div><div class="theme-reco-default-content"><div><h1 id="介绍" tabindex="-1"><a class="header-anchor" href="#介绍" aria-hidden="true">#</a> 介绍</h1><p>模型绑定就是接收将来自HTTP请求的数据映射到模型的过程，这个过程是自动进行的。如果找不到模型属性的值，并不会报错，而是给该属性设置默认值。</p><p>示例：比如我们有一个接口为</p><div class="language-text ext-text line-numbers-mode"><pre class="language-text"><code>[HttpGet(&quot;{id}&quot;)]
+public ActionResult&lt;Pet&gt; GetById(int id, bool dogsOnly)
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div></div></div><p>这个时候你的请求为：<a href="http://contoso.com/api/pets/2?DogsOnly=true" target="_blank" rel="noopener noreferrer">http://localhost:5000/api/pets/2?DogsOnly=true<span><svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewbox="0 0 100 100" width="15" height="15"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg><span class="external-link-icon-sr-only">open in new window</span></span></a></p><p>路由系统选择该Action后，模型绑定会执行以下的步骤：</p><ul><li><p>查找 <code>GetByID</code> 的第一个参数，该参数是一个名为 <code>id</code> 的整数。</p></li><li><p>查找 HTTP 请求中的可用源，并在路由数据中查找 <code>id</code> =“2”。</p></li><li><p>将字符串“2”转换为整数 2。</p></li><li><p>查找 <code>GetByID</code> 的下一个参数，该参数是一个名为 <code>dogsOnly</code> 的布尔值。</p></li><li><p>查找源，并在查询字符串中查找“DogsOnly=true”。 名称匹配不区分大小写。</p></li><li><p>将字符串“true”转换为布尔值 <code>true</code>。</p></li></ul><p>最后会调用GetById方法，参数Id为2，参数dogsOnly为true。</p><h1 id="源" tabindex="-1"><a class="header-anchor" href="#源" aria-hidden="true">#</a> 源</h1><p>默认情况下，模型绑定以键值对的形式从HTTP请求中的以下源中获取数据：</p><ol><li><p>表单域</p></li><li><p>请求正文</p></li><li><p>路由数据</p></li><li><p>查询字符串参数</p></li><li><p>上传的文件</p></li></ol><p>对于每个参数，按照顺序扫描源。也可以直接指定源</p><ul><li><p>[FromQuery] - 从查询字符串获取值。</p></li><li><p>[FromRoute] - 从路由数据获取值。</p></li><li><p>[FromForm] - 从发布表单字段中获取值。</p></li><li><p>[FromBody] - 从请求正文获取值。</p></li><li><p>[FromHeader] - 从 HTTP 标头获取值。</p></li></ul><p>示例：</p><div class="language-text ext-text line-numbers-mode"><pre class="language-text"><code>[HttpGet]
+public async Task&lt;User&gt; GetAsync([FromQuery]string id)
+    
+[HttpGet]
+public async Task&lt;User&gt; GetAsync([FromRoute]string id)
+    
+[HttpGet]
+public async Task&lt;User&gt; GetAsync([FromForm]string id)
+    
+[HttpPost]
+public async Task&lt;ActionResult&lt;string&gt;&gt; AddAsync([FromBody]AddUserVm dto)
+    
+public void OnGet([FromHeader(Name = &quot;Accept-Language&quot;)] string language)
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>也可以编写自定义的值提供程序，比如从cookie中获取会话状态，参考：https://docs.microsoft.com/zh-cn/aspnet/core/mvc/models/model-binding?view=aspnetcore-5.0#additional-sources</p><h1 id="模型绑定" tabindex="-1"><a class="header-anchor" href="#模型绑定" aria-hidden="true">#</a> 模型绑定</h1><h2 id="简单模型绑定" tabindex="-1"><a class="header-anchor" href="#简单模型绑定" aria-hidden="true">#</a> 简单模型绑定</h2><p>例如：bool、byte、char、DateTime、DateTimeOffset、float、enum、guid、int、TimeSpan、Url、Version等</p><h2 id="复杂类型" tabindex="-1"><a class="header-anchor" href="#复杂类型" aria-hidden="true">#</a> 复杂类型</h2><p>使用复杂类型必须具有要绑定的公共默认构造函数和公共可写属性。进行模型绑定时候，将使用公共默认构造函数来实例化类。对于复杂类型的每个属性，模型绑定会查找名称模式 prefix.property_name 的源。 如果未找到，它将仅查找不含前缀的 properties_name。不过一般我们使用都是进行完全匹配，特殊需求才会做此操作。</p><p>参考资料：https://docs.microsoft.com/zh-cn/aspnet/core/mvc/models/model-binding?view=aspnetcore-5.0#complex-types</p><h2 id="内置自定义模型绑定" tabindex="-1"><a class="header-anchor" href="#内置自定义模型绑定" aria-hidden="true">#</a> 内置自定义模型绑定</h2><p>通过<code>ByteArrayModelBinder</code> 可以实现将传输的base64编码字符串转换为字节数组。</p><p>比如:</p><div class="language-text ext-text line-numbers-mode"><pre class="language-text"><code>        [HttpPost]
+        public void Post([FromForm] byte[] file, string filename)
+        {
+            var trustedFileName = Path.GetRandomFileName();
+            var filePath = Path.Combine(&quot;e://&quot;, trustedFileName);
+
+            if (System.IO.File.Exists(filePath))
+            {
+                return;
+            }
+
+            System.IO.File.WriteAllBytes(filePath, file);
+        }
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>请求示例</p><p><img src="https://gitee.com/AZRNG/picture-storage/raw/master/kbms/1623573025670-a091a4da-90ce-4dec-b630-43ccaebabf91.png" alt="img"></p><p>接收结果</p><p><img src="https://gitee.com/AZRNG/picture-storage/raw/master/kbms/1623573080249-e2bc5bfc-bc98-490d-99cc-c5556f26f457.png" alt="img"></p><h2 id="自定义模型绑定" tabindex="-1"><a class="header-anchor" href="#自定义模型绑定" aria-hidden="true">#</a> 自定义模型绑定</h2><p>示例场景：通过请求头传递后端自定义的一种token，通过自定义模型绑定将token解析后绑定到请求模型。</p><p>参考资料：https://www.cnblogs.com/jyzhu/articles/8670536.html</p><p>请求接口示例</p><div class="language-text ext-text line-numbers-mode"><pre class="language-text"><code>        [HttpGet]
+        public ActionResult GetToken(TokenModel dto)
+        {
+            return Ok(dto);
+        }
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>首先定义token模型类</p><div class="language-text ext-text line-numbers-mode"><pre class="language-text"><code>    public class TokenModel
+    {
+        public int UserID { get; set; }
+
+        public string UserName { get; set; }
+    }
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>自定义模型绑定器</p><div class="language-text ext-text line-numbers-mode"><pre class="language-text"><code>    public class TokenModelBinder : IModelBinder
+    {
+        /// &lt;summary&gt;
+        /// 请求里传递参数token
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;bindingContext&quot;&gt;&lt;/param&gt;
+        /// &lt;returns&gt;&lt;/returns&gt;
+        public Task BindModelAsync(ModelBindingContext bindingContext)
+        {
+            //参数必须包含token
+            if (!(bindingContext.ActionContext.HttpContext.Request.Headers.ContainsKey(&quot;token&quot;)))
+                return Task.CompletedTask;
+
+            var token = bindingContext.ActionContext.HttpContext.Request.Headers[&quot;token&quot;];
+
+            //TODO  解析token
+            var result = new TokenModel()
+            {
+                UserID = 111,
+                UserName = &quot;azrng&quot;,
+            };
+            bindingContext.Result = ModelBindingResult.Success(result);
+            return Task.CompletedTask;
+        }
+    }
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>定义token框架绑定器</p><div class="language-text ext-text line-numbers-mode"><pre class="language-text"><code>    public class TokenModelBinderProvider : IModelBinderProvider
+    {
+        public IModelBinder GetBinder(ModelBinderProviderContext context)
+        {
+            if (context == null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
+            if (context.Metadata.ModelType == typeof(TokenModel))
+                return new TokenModelBinder();
+
+            return null;
+        }
+    }
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>启用绑定器</p><div class="language-text ext-text line-numbers-mode"><pre class="language-text"><code>    services.AddControllers(options =&gt;
+    {
+        options.ModelBinderProviders.Insert(0, new TokenModelBinderProvider());
+    });
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>请求示例</p><div class="language-text ext-text line-numbers-mode"><pre class="language-text"><code>var client = new RestClient(&quot;http://localhost:5000/api/ModelVerify/GetToken&quot;);
+client.Timeout = -1;
+var request = new RestRequest(Method.GET);
+request.AddHeader(&quot;token&quot;, &quot;123456&quot;);
+IRestResponse response = client.Execute(request);
+Console.WriteLine(response.Content);
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>结果就是可以在GetToken方法参数获取到我们token的值。</p><h1 id="模型校验" tabindex="-1"><a class="header-anchor" href="#模型校验" aria-hidden="true">#</a> 模型校验</h1><p>现在dotNetCore如果在控制器标识[ApiController],那么就会在进action前就会自动校验模型类绑定是否符合要求，如果不符合要求自动触发HTTP400错误响应。<a href="https://docs.microsoft.com/zh-cn/aspnet/core/web-api/?view=aspnetcore-5.0#automatic-http-400-responses" target="_blank" rel="noopener noreferrer">原文<span><svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewbox="0 0 100 100" width="15" height="15"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg><span class="external-link-icon-sr-only">open in new window</span></span></a></p><div class="language-text ext-text line-numbers-mode"><pre class="language-text"><code>[ApiController]
+[Route(&quot;[controller]&quot;)]
+public class WeatherForecastController : ControllerBase
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="验证特性" tabindex="-1"><a class="header-anchor" href="#验证特性" aria-hidden="true">#</a> 验证特性</h2><p>通过验证特性可为属性增加验证规则。不仅仅有内置的验证特性，还可以实现自定义验证特性。</p><h3 id="内置验证特性" tabindex="-1"><a class="header-anchor" href="#内置验证特性" aria-hidden="true">#</a> 内置验证特性</h3><p>常用的有：必填、长度验证、数值范围、手机号码、邮箱，还可以使用正则验证</p><div class="language-text ext-text line-numbers-mode"><pre class="language-text"><code>    public class AddModelVerify
+    {
+        [Display(Name = &quot;名称&quot;), Required(ErrorMessage = &quot;{0}不能为空&quot;)]// 非空校验 
+        [MinLength(6, ErrorMessage = &quot;名称不能小于6位&quot;)] // 最小长度校验
+        [MaxLength(10, ErrorMessage = &quot;长度不超过10个&quot;)] // 最大长度校验
+        public string UserName { get; set; }
+
+        /// &lt;summary&gt;
+        /// 密码
+        /// &lt;/summary&gt;
+        [Display(Name = &quot;密码&quot;), Required(ErrorMessage = &quot;{0}不能为空&quot;)]
+        [MinLength(6, ErrorMessage = &quot;密码必须大于6位&quot;)]
+        public string PassWord { get; set; }
+
+        [Display(Name = &quot;工号&quot;)] // 友好名称错误提示
+        [Required(ErrorMessage = &quot;{0}不能为空&quot;)]
+        [StringLength(10, MinimumLength = 1, ErrorMessage = &quot;{0}长度是{1}&quot;)]
+        public string EmployeeNo { get; set; }
+    }
+
+	public IActionResult VerifyPhone([RegularExpression(@&quot;^\d{3}-\d{3}-\d{4}$&quot;)] string phone)
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>除了上面这些还有其他内置特性：https://docs.microsoft.com/zh-cn/aspnet/core/mvc/models/validation?view=aspnetcore-5.0#built-in-attributes</p><p>请求地址传入空值，输出结果：HTTP错误400</p><div class="language-text ext-text line-numbers-mode"><pre class="language-text"><code>{
+  &quot;errors&quot;: {
+    &quot;PassWord&quot;: [
+      &quot;密码不能为空&quot;,
+      &quot;密码必须大于6位&quot;
+    ],
+    &quot;UserName&quot;: [
+      &quot;名称不能为空&quot;,
+      &quot;名称不能小于6位&quot;
+    ],
+    &quot;EmployeeNo&quot;: [
+      &quot;工号不能为空&quot;,
+      &quot;工号长度是10&quot;
+    ]
+  },
+  &quot;type&quot;: &quot;https://tools.ietf.org/html/rfc7231#section-6.5.1&quot;,
+  &quot;title&quot;: &quot;One or more validation errors occurred.&quot;,
+  &quot;status&quot;: 400,
+  &quot;traceId&quot;: &quot;00-d16b945b3e172a42bfe5b53d08f7487b-8d87c2ca238fdc4a-00&quot;
+}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>还有一个Remote特性感觉挺有意思，使用场景是比如在ID上标注远程特性，绑定时候自定验证ID是否有效</p><div class="language-text ext-text line-numbers-mode"><pre class="language-text"><code>[AcceptVerbs(&quot;GET&quot;, &quot;POST&quot;)]
+public IActionResult VerifyID(string id)
+{
+    if (!_userService.VerifyID(id))
+    {
+        return Json($&quot;对象未找到&quot;);
+    }
+    return Json(true);
+}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>模型类使用指向操作方法的[Remote]特性注释属性</p><div class="language-text ext-text line-numbers-mode"><pre class="language-text"><code>[Remote(action: &quot;VerifyID&quot;, controller: &quot;Users&quot;)]
+public string ID { get; set; }
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div></div></div><p>Remote其他用法：https://docs.microsoft.com/zh-cn/aspnet/core/mvc/models/validation?view=aspnetcore-5.0#additional-fields</p><h3 id="自定义特性" tabindex="-1"><a class="header-anchor" href="#自定义特性" aria-hidden="true">#</a> 自定义特性</h3><p>对于内置验证特性无法处理的情况，我们可以创建自定义验证特性。</p><p>模拟场景：添加用户时候，设置名字和工号不能一致，出生日期必须小于当前时间</p><p>输入模型类</p><div class="language-text ext-text line-numbers-mode"><pre class="language-text"><code>    public class AddUserinfoVm
+    {
+        [Display(Name = &quot;名称&quot;), Required(ErrorMessage = &quot;{0}不能为空&quot;)]
+        [MinLength(6, ErrorMessage = &quot;名称不能小于6位&quot;)]
+        [MaxLength(10, ErrorMessage = &quot;长度不超过10个&quot;)]
+        public string UserName { get; set; }
+
+        /// &lt;summary&gt;
+        /// 密码
+        /// &lt;/summary&gt;
+        [Display(Name = &quot;密码&quot;), Required(ErrorMessage = &quot;{0}不能为空&quot;)]
+        [MinLength(6, ErrorMessage = &quot;密码必须大于6位&quot;)]
+        public string PassWord { get; set; }
+
+        [Display(Name = &quot;工号&quot;)]
+        [Required(ErrorMessage = &quot;{0}不能为空&quot;)]
+        [StringLength(10, MinimumLength = 1, ErrorMessage = &quot;{0}长度是{1}&quot;)]
+        public string EmployeeNo { get; set; }
+
+        /// &lt;summary&gt;
+        /// 出生日期
+        /// &lt;/summary&gt;
+        public DateTime Birthday { get; set; }
+    }
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>方案一：通过添加AddUserVerifyAttribute来实现</p><div class="language-text ext-text line-numbers-mode"><pre class="language-text"><code>    [AttributeUsage(AttributeTargets.All, AllowMultiple = false)]
+    public class AddUserVerifyAttribute : ValidationAttribute
+    {
+        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+        {
+            var user = (AddUserinfoVm)validationContext.ObjectInstance;//user 变量表示 AddUserinfoVm 对象，其中包含表单提交中的数据
+            var date = (DateTime)value;
+            if (date &gt; DateTime.Now)
+            {
+                return new ValidationResult(&quot;出生日期不能大于当前时间&quot;);
+            }
+            if (user.UserName == user.EmployeeNo)
+            {
+                return new ValidationResult(&quot;名称和工号不能一样&quot;);
+            }
+            return ValidationResult.Success;
+        }
+    }
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>使用方法</p><div class="language-text ext-text line-numbers-mode"><pre class="language-text"><code>        [AddUserVerify]
+        public DateTime Birthday { get; set; }
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div></div></div><p>方案二：模型类中继承IValidatableObject，并实现Validate方法</p><div class="language-text ext-text line-numbers-mode"><pre class="language-text"><code>        /// &lt;summary&gt;
+        /// 属性级别的自定义验证
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;validationContext&quot;&gt;&lt;/param&gt;
+        /// &lt;returns&gt;&lt;/returns&gt;   
+        public IEnumerable&lt;ValidationResult&gt; Validate(ValidationContext validationContext)
+        {
+            if (Birthday &gt; DateTime.Now)
+            {
+                yield return new ValidationResult(&quot;出生日期不能大于当前时间&quot;, new[] { nameof(Birthday) });
+            }
+            if (UserName == EmployeeNo)
+            {
+                yield return new ValidationResult(&quot;名称和工号不能一样&quot;, new[] { nameof(UserName), nameof(EmployeeNo) });
+            }
+        }
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>请求参数：</p><div class="language-text ext-text line-numbers-mode"><pre class="language-text"><code>{
+  &quot;userName&quot;: &quot;string&quot;,
+  &quot;passWord&quot;: &quot;string&quot;,
+  &quot;employeeNo&quot;: &quot;string&quot;,
+  &quot;birthday&quot;: &quot;2021-06-15T14:34:52.192Z&quot;
+}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>输出错误信息</p><div class="language-text ext-text line-numbers-mode"><pre class="language-text"><code>{
+  &quot;errors&quot;: {
+    &quot;Birthday&quot;: [
+      &quot;出生日期不能大于当前时间&quot;
+    ],
+    &quot;UserName&quot;: [
+      &quot;名称和工号不能一样&quot;
+    ],
+    &quot;EmployeeNo&quot;: [
+      &quot;名称和工号不能一样&quot;
+    ]
+  },
+  &quot;type&quot;: &quot;https://tools.ietf.org/html/rfc7231#section-6.5.1&quot;,
+  &quot;title&quot;: &quot;One or more validation errors occurred.&quot;,
+  &quot;status&quot;: 400,
+  &quot;traceId&quot;: &quot;00-18854d59f6b6fc48b5c4c6a6dbe3802c-ba23f594f351a64d-00&quot;
+}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="modelstate-isvalid" tabindex="-1"><a class="header-anchor" href="#modelstate-isvalid" aria-hidden="true">#</a> ModelState.IsValid</h2><p>通过该方法可以实现对请求类验证是否满足要求并做出相应的响应。</p><p>如果已经使用[ApiController]标识，那么该方法就不在需要。</p><div class="language-text ext-text line-numbers-mode"><pre class="language-text"><code>        [HttpPost]
+        public ActionResult Add([FromBody] AddModelVerify dto)
+        {
+            //对请求类进行验证特性
+            if (ModelState.IsValid)//指示该模型中是否有无效的值
+            {
+                //对请求类的值做出修改
+                dto.UserName = &quot;azrng&quot;;
+                if (!TryValidateModel(dto))
+                {
+                    //重新运行验证失败
+                    return Ok(&quot;修改值后验证失败&quot;);
+                }
+                return Ok(&quot;验证成功&quot;);
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, &quot;输入有误&quot;);
+            }
+            return Ok(&quot;&quot;);
+        }
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="禁用验证" tabindex="-1"><a class="header-anchor" href="#禁用验证" aria-hidden="true">#</a> 禁用验证</h2><div class="language-text ext-text line-numbers-mode"><pre class="language-text"><code>    /// &lt;summary&gt;
+    /// 创建不会将任何字段标记为无效的 IObjectModelValidator 实现。
+    /// &lt;/summary&gt;
+    public class NullObjectModelValidator : IObjectModelValidator
+    {
+        public void Validate(ActionContext actionContext,
+            ValidationStateDictionary validationState, string prefix, object model)
+        {
+            // 该方法故意为空
+        }
+    }
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>Startup.ConfigureServices中注入，以便替换依赖项注入容器中的默认 IObjectModelValidator 实现。</p><div class="language-text ext-text line-numbers-mode"><pre class="language-text"><code>services.AddSingleton&lt;IObjectModelValidator, NullObjectModelValidator&gt;();
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div></div></div><h1 id="统一模型拦截器" tabindex="-1"><a class="header-anchor" href="#统一模型拦截器" aria-hidden="true">#</a> 统一模型拦截器</h1><p>增加ModelActionFiter过滤器</p><div class="language-text ext-text line-numbers-mode"><pre class="language-text"><code>    public class ModelActionFiter : ActionFilterAttribute
+    {
+        public override void OnActionExecuted(ActionExecutedContext context)
+        {
+        }
+
+        public override void OnActionExecuting(ActionExecutingContext context)
+        {
+            if (!context.ModelState.IsValid)
+            {
+                var errorResults = new List&lt;ErrorResultDTO&gt;();
+                foreach (var item in context.ModelState)
+                {
+                    var result = new ErrorResultDTO
+                    {
+                        Field = item.Key,
+                    };
+                    foreach (var error in item.Value.Errors)
+                    {
+                        if (!string.IsNullOrEmpty(result.Message))
+                        {
+                            result.Message += &#39;|&#39;;
+                        }
+                        result.Message += error.ErrorMessage;
+                    }
+                    errorResults.Add(result);
+                }
+                context.Result = new BadRequestObjectResult(new
+                {
+                    Code = StatusCodes.Status400BadRequest,
+                    Errors = errorResults
+                });
+            }
+        }
+
+        public class ErrorResultDTO
+        {
+            /// &lt;summary&gt;
+            /// 参数领域
+            /// &lt;/summary&gt;
+            public string Field { get; set; }
+
+            /// &lt;summary&gt;
+            /// 错误信息
+            /// &lt;/summary&gt;
+            public string Message { get; set; }
+        }
+    }
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>参考文档：https://www.cnblogs.com/minskiter/p/11601873.html</p><p>ConfigureServices中注册过滤器并禁用默认的自动模型验证</p><div class="language-text ext-text line-numbers-mode"><pre class="language-text"><code>    services.AddControllers(options =&gt;
+    {
+        options.Filters.Add&lt;ModelActionFiter&gt;(); //注册过滤器 
+    }).AddNewtonsoftJson().ConfigureApiBehaviorOptions(options =&gt;
+    {
+        //[ApiController] 默认自带有400模型验证，且优先级比较高，如果需要自定义模型验证，则需要先关闭默认的模型验证
+        options.SuppressModelStateInvalidFilter = true; 
+    });
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p>ASP.NET Core MVC 使用 <a href="https://docs.microsoft.com/zh-cn/dotnet/api/microsoft.aspnetcore.mvc.infrastructure.modelstateinvalidfilter" target="_blank" rel="noopener noreferrer">ModelStateInvalidFilter<span><svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewbox="0 0 100 100" width="15" height="15"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg><span class="external-link-icon-sr-only">open in new window</span></span></a> 操作筛选器来执行自定义验证。</p><p>输出结果</p><div class="language-text ext-text line-numbers-mode"><pre class="language-text"><code>{
+  &quot;code&quot;: 400,
+  &quot;errors&quot;: [
+    {
+      &quot;field&quot;: &quot;PassWord&quot;,
+      &quot;message&quot;: &quot;密码不能为空|密码必须大于6位&quot;
+    },
+    {
+      &quot;field&quot;: &quot;UserName&quot;,
+      &quot;message&quot;: &quot;名称不能为空|名称不能小于6位&quot;
+    }
+  ]
+}
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h1 id="参考文档" tabindex="-1"><a class="header-anchor" href="#参考文档" aria-hidden="true">#</a> 参考文档</h1><blockquote><p>模型绑定：https://docs.microsoft.com/zh-cn/aspnet/core/mvc/models/model-binding?view=aspnetcore-5.0</p><p>禁用绑定源推理：https://docs.microsoft.com/zh-cn/aspnet/core/web-api/?view=aspnetcore-5.0#disable-inference-rules</p><p>禁用验证：https://docs.microsoft.com/zh-cn/aspnet/core/mvc/models/validation?view=aspnetcore-5.0#disable-validation</p><p>禁用自动400响应：https://docs.microsoft.com/zh-cn/aspnet/core/web-api/?view=aspnetcore-5.0#disable-automatic-400-response</p></blockquote></div></div><footer class="page-meta"><div class="meta-item edit-link"><a class="icon-container left meta-item-label" href="https://github.com/vuepress-reco/vuepress-theme-reco-next/edit/main/kbms/dotnetcore/model/base.md" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewbox="0 0 24 24" style="color:inherit;width:20px;height:20px;font-size:20px;"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-3"></path><path d="M9 15h3l8.5-8.5a1.5 1.5 0 0 0-3-3L9 12v3"></path><path d="M16 5l3 3"></path></g></svg><span style="color:inherit;font-size:14px;" class="icon-text"><!--[-->Edit this page<!--]--></span></a></div><div class="meta-item last-updated"><a class="icon-container left meta-item-label" href="javascript:void(0)" target="_self"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewbox="0 0 24 24" style="color:inherit;width:20px;height:20px;font-size:20px;"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.795 21H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"></path><circle cx="18" cy="18" r="4"></circle><path d="M15 3v4"></path><path d="M7 3v4"></path><path d="M3 11h16"></path><path d="M18 16.496V18l1 1"></path></g></svg><span style="color:inherit;font-size:14px;" class="icon-text"><!--[-->Last Updated 2022-08-25 13:59:58<!--]--></span></a></div></footer><!----><!----></main><!--]--><div class="page-catalog-container"><h5 class="tip">ON THIS PAGE</h5><ul><!--[--><!--[--><li class="page-catalog-menu-depth_2"><a aria-current="page" href="/dotnetcore/model/base.html#简单模型绑定" class="router-link-active router-link-exact-active nav-link page-catalog-item" aria-label="简单模型绑定"><!--[--><!--]--> 简单模型绑定 <!--[--><!--]--></a></li><!--]--><!--[--><li class="page-catalog-menu-depth_2"><a aria-current="page" href="/dotnetcore/model/base.html#复杂类型" class="router-link-active router-link-exact-active nav-link page-catalog-item" aria-label="复杂类型"><!--[--><!--]--> 复杂类型 <!--[--><!--]--></a></li><!--]--><!--[--><li class="page-catalog-menu-depth_2"><a aria-current="page" href="/dotnetcore/model/base.html#内置自定义模型绑定" class="router-link-active router-link-exact-active nav-link page-catalog-item" aria-label="内置自定义模型绑定"><!--[--><!--]--> 内置自定义模型绑定 <!--[--><!--]--></a></li><!--]--><!--[--><li class="page-catalog-menu-depth_2"><a aria-current="page" href="/dotnetcore/model/base.html#自定义模型绑定" class="router-link-active router-link-exact-active nav-link page-catalog-item" aria-label="自定义模型绑定"><!--[--><!--]--> 自定义模型绑定 <!--[--><!--]--></a></li><!--]--><!--[--><li class="page-catalog-menu-depth_2"><a aria-current="page" href="/dotnetcore/model/base.html#验证特性" class="router-link-active router-link-exact-active nav-link page-catalog-item" aria-label="验证特性"><!--[--><!--]--> 验证特性 <!--[--><!--]--></a></li><!--[--><li class="page-catalog-menu-depth_3"><a aria-current="page" href="/dotnetcore/model/base.html#内置验证特性" class="router-link-active router-link-exact-active nav-link page-catalog-item" aria-label="内置验证特性"><!--[--><!--]--> 内置验证特性 <!--[--><!--]--></a></li><!--]--><!--[--><li class="page-catalog-menu-depth_3"><a aria-current="page" href="/dotnetcore/model/base.html#自定义特性" class="router-link-active router-link-exact-active nav-link page-catalog-item" aria-label="自定义特性"><!--[--><!--]--> 自定义特性 <!--[--><!--]--></a></li><!--]--><!--]--><!--[--><li class="page-catalog-menu-depth_2"><a aria-current="page" href="/dotnetcore/model/base.html#modelstate-isvalid" class="router-link-active router-link-exact-active nav-link page-catalog-item" aria-label="ModelState.IsValid"><!--[--><!--]--> ModelState.IsValid <!--[--><!--]--></a></li><!--]--><!--[--><li class="page-catalog-menu-depth_2"><a aria-current="page" href="/dotnetcore/model/base.html#禁用验证" class="router-link-active router-link-exact-active nav-link page-catalog-item" aria-label="禁用验证"><!--[--><!--]--> 禁用验证 <!--[--><!--]--></a></li><!--]--><!--]--></ul></div></div></div></div><!----><!----><!--]--></div>
+    <script type="module" src="/assets/app.f6b99883.js" defer></script>
+  </body>
+</html>
