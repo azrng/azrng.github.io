@@ -1,0 +1,52 @@
+import{_ as s,o as d,c as r,b as e,e as c,a as n,d as i,r as l}from"./app.565765f9.js";const o={},t=n(`<p>\u8BE5\u65B9\u6CD5\u90E8\u7F72\u7684jenkins\u91CC\u9762\u4E0D\u5305\u542Bnetcore\u73AF\u5883\uFF0C\u4E0B\u9762\u5305\u542B\u901A\u8FC7docker\u90E8\u7F72netcore\u6B65\u9AA4</p><h1 id="_1-\u90E8\u7F72jenkins" tabindex="-1"><a class="header-anchor" href="#_1-\u90E8\u7F72jenkins" aria-hidden="true">#</a> 1. \u90E8\u7F72jenkins</h1><h2 id="_1-1-\u521B\u5EFAjenkins\u7684\u5DE5\u4F5C\u76EE\u5F55" tabindex="-1"><a class="header-anchor" href="#_1-1-\u521B\u5EFAjenkins\u7684\u5DE5\u4F5C\u76EE\u5F55" aria-hidden="true">#</a> 1.1 \u521B\u5EFAjenkins\u7684\u5DE5\u4F5C\u76EE\u5F55</h2><div class="language-text ext-text line-numbers-mode"><pre class="language-text"><code>//\u521B\u5EFA\u5DE5\u4F5C\u76EE\u5F55 
+mkdir /var/jenkins_home
+
+//\u8D4B\u4E88\u6743\u9650 
+chown -R 1000 /var/jenkins_home
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="_1-2-\u901A\u8FC7docker\u90E8\u7F72" tabindex="-1"><a class="header-anchor" href="#_1-2-\u901A\u8FC7docker\u90E8\u7F72" aria-hidden="true">#</a> 1.2 \u901A\u8FC7docker\u90E8\u7F72</h2><h3 id="_1-2-1-\u62C9\u53D6\u955C\u50CF" tabindex="-1"><a class="header-anchor" href="#_1-2-1-\u62C9\u53D6\u955C\u50CF" aria-hidden="true">#</a> 1.2.1 \u62C9\u53D6\u955C\u50CF</h3><div class="language-text ext-text line-numbers-mode"><pre class="language-text"><code>docker pull  jenkinsci/blueocean
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div></div></div><h3 id="_1-2-2-\u751F\u6210\u5BB9\u5668" tabindex="-1"><a class="header-anchor" href="#_1-2-2-\u751F\u6210\u5BB9\u5668" aria-hidden="true">#</a> 1.2.2 \u751F\u6210\u5BB9\u5668</h3><div class="language-text ext-text line-numbers-mode"><pre class="language-text"><code>#\u6CE8\u610F\uFF1A\u5207\u6362\u4E00\u884C\u6267\u884C\u547D\u4EE4 
+docker run -u root -d -p 9003:8080 -p 50000:50000 
+ -v /var/jenkins_home:/var/jenkins_home 
+ -v /usr/bin/docker:/usr/bin/docker  
+ -v /var/run/docker.sock:/var/run/docker.sock  
+ -v /usr/local/bin/docker-compose:/usr/local/bin/docker-compose 
+ jenkinsci/blueocean 
+ 
+ \u4E00\u884C\u663E\u793A:
+docker run -u root -d -p 9003:8080 -p 50000:50000 -v /var/jenkins_home:/var/jenkins_home  -v /usr/bin/docker:/usr/bin/docker   -v /var/run/docker.sock:/var/run/docker.sock   -v /usr/local/bin/docker-compose:/usr/local/bin/docker-compose  jenkinsci/blueocean
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="_1-3-\u901A\u8FC7docker-compose\u90E8\u7F72" tabindex="-1"><a class="header-anchor" href="#_1-3-\u901A\u8FC7docker-compose\u90E8\u7F72" aria-hidden="true">#</a> 1.3 \u901A\u8FC7docker-compose\u90E8\u7F72</h2><p>\u6267\u884Cdocker-compose\u811A\u672C</p><div class="language-text ext-text line-numbers-mode"><pre class="language-text"><code>version: &#39;3.4&#39;
+
+services:
+  jenkins:
+    container_name: jenkins
+    image: jenkinsci/blueocean
+    ports:
+      - &quot;9003:8080&quot;
+      - &quot;50000:50000&quot;
+    restart: always
+    user: root
+    volumes:
+      - &#39;/var/jenkins_home:/var/jenkins_home&#39;
+      - &#39;/usr/bin/docker:/usr/bin/docker&#39;
+      - &#39;/var/run/docker.sock:/var/run/docker.sock&#39;
+      - &#39;/usr/local/bin/docker-compose:/usr/local/bin/docker-compose&#39;
+    environment:
+      - TZ=Asia/Shanghai
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="_1-3-1-\u6267\u884C\u547D\u4EE4\u751F\u6210\u5BB9\u5668" tabindex="-1"><a class="header-anchor" href="#_1-3-1-\u6267\u884C\u547D\u4EE4\u751F\u6210\u5BB9\u5668" aria-hidden="true">#</a> 1.3.1 \u6267\u884C\u547D\u4EE4\u751F\u6210\u5BB9\u5668</h3><p>docker-compose -f docker-compose.yaml up --build -d jenkins</p><h1 id="_2-\u8BBF\u95EEjenkins\u7F51\u7AD9" tabindex="-1"><a class="header-anchor" href="#_2-\u8BBF\u95EEjenkins\u7F51\u7AD9" aria-hidden="true">#</a> 2. \u8BBF\u95EEjenkins\u7F51\u7AD9</h1>`,15),v=i("\u8BBF\u95EE\u5730\u5740\uFF1A"),u={href:"http://192.168.1.14:8080/",target:"_blank",rel:"noopener noreferrer"},h=i("http://IP:8080"),m=n(`<p><img src="https://gitee.com/AZRNG/picture-storage/raw/master/kbms/1611106025062-d5831aff-0228-44e2-9aed-c3b235645694.png" alt="img"></p><h2 id="_2-1-\u5BFB\u627E\u8D85\u7EA7\u7BA1\u7406\u5458\u5BC6\u7801" tabindex="-1"><a class="header-anchor" href="#_2-1-\u5BFB\u627E\u8D85\u7EA7\u7BA1\u7406\u5458\u5BC6\u7801" aria-hidden="true">#</a> 2.1 \u5BFB\u627E\u8D85\u7EA7\u7BA1\u7406\u5458\u5BC6\u7801</h2><p>\u8FDB\u5165\u5BB9\u5668\uFF0C\u7136\u540E\u53BB\u5BB9\u5668\u7684\u6267\u884C\u76EE\u5F55\u4E0B\u67E5\u627E\u7BA1\u7406\u5458\u7684\u5BC6\u7801</p><div class="language-text ext-text line-numbers-mode"><pre class="language-text"><code>// \u8FDB\u5165\u5BB9\u5668 
+docker exec -it \u5BB9\u5668ID bash 
+// \u67E5\u770B\u5BC6\u7801 
+cat /var/jenkins_home/secrets/initialAdminPassword
+
+\u6216\u8005\u4E0D\u8FDB\u5165\u5BB9\u5668
+docker exec \u5BB9\u5668ID  cat /var/jenkins_home/secrets/initialAdminPassword
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><p><img src="https://gitee.com/AZRNG/picture-storage/raw/master/kbms/1624728935117-883b7798-4fd2-4cba-a59e-b5f93d5eb672.png" alt="img"></p><p>\u8F93\u5165\u627E\u5230\u7684\u7BA1\u7406\u5458\u5BC6\u7801\u7136\u540E\u8FDB\u5165\u7CFB\u7EDF</p><h2 id="_2-2-\u8FDB\u5165jenkins" tabindex="-1"><a class="header-anchor" href="#_2-2-\u8FDB\u5165jenkins" aria-hidden="true">#</a> 2.2 \u8FDB\u5165jenkins</h2><p>\u65B0\u624B\u5165\u95E8\uFF0C\u9009\u62E9\u5B89\u88C5\u63D2\u4EF6\u7684\u65B9\u5F0F\uFF0C\u8FD9\u91CC\u6211\u4EEC\u76F4\u63A5\u9009\u62E9\u5B89\u88C5\u63A8\u8350\u7684\u63D2\u4EF6\u7136\u540E\u8FDB\u5165\u7CFB\u7EDF</p><p>\u6CE8\u610F\uFF1A\u5B89\u88C5\u63D2\u4EF6\u62A5\u9519\u7684\u8BDD\u7EE7\u7EED\u5728\u6267\u884C\u4E00\u904D\u3002</p><h2 id="_2-3-\u8BBE\u7F6E\u7BA1\u7406\u5458\u7528\u6237\u5BC6\u7801" tabindex="-1"><a class="header-anchor" href="#_2-3-\u8BBE\u7F6E\u7BA1\u7406\u5458\u7528\u6237\u5BC6\u7801" aria-hidden="true">#</a> 2.3 \u8BBE\u7F6E\u7BA1\u7406\u5458\u7528\u6237\u5BC6\u7801</h2><p>\u521B\u5EFA\u7BA1\u7406\u5458\u7528\u6237\u5BC6\u7801</p><p><img src="https://gitee.com/AZRNG/picture-storage/raw/master/kbms/1624729238683-fc4516b1-404a-46a0-b343-3d624120e091.png" alt="img"></p><h2 id="_2-4-\u7CFB\u7EDF\u754C\u9762" tabindex="-1"><a class="header-anchor" href="#_2-4-\u7CFB\u7EDF\u754C\u9762" aria-hidden="true">#</a> 2.4 \u7CFB\u7EDF\u754C\u9762</h2><p>\u5982\u679C\u7CFB\u7EDF\u7BA1\u7406\u91CC\u9762\u6709\u9519\u8BEF\uFF0C\u90A3\u4E48\u6211\u4EEC\u53EF\u4EE5\u624B\u52A8\u5B89\u88C5\u548C\u4FEE\u6539\u3002</p><h2 id="_2-5-\u4FEE\u6539\u955C\u50CF\u6E90" tabindex="-1"><a class="header-anchor" href="#_2-5-\u4FEE\u6539\u955C\u50CF\u6E90" aria-hidden="true">#</a> 2.5 \u4FEE\u6539\u955C\u50CF\u6E90</h2><p>\u63D2\u4EF6\u7BA1\u7406-&gt;\u9AD8\u7EA7-&gt;\u5347\u7EA7\u7AD9\u70B9\uFF0C\u4FEE\u6539\u4E3A\u6E05\u534E\u5927\u5B66\u63D2\u4EF6\u6E90</p><div class="language-text ext-text line-numbers-mode"><pre class="language-text"><code># \u6E05\u534E\u5927\u5B66\u5B98\u65B9\u955C\u50CF
+https://mirrors.tuna.tsinghua.edu.cn/jenkins/updates/update-center.json
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div></div></div><h1 id="_3-\u9519\u8BEF" tabindex="-1"><a class="header-anchor" href="#_3-\u9519\u8BEF" aria-hidden="true">#</a> 3 \u9519\u8BEF</h1><p>\u5982\u679C\u51FA\u73B0\u9519\u8BEF\uFF0C\u90A3\u4E48\u5C31\u9700\u8981\u53BB\u67E5\u770B\u63A7\u5236\u53F0\u8F93\u51FA\uFF0C\u6839\u636E\u9519\u8BEF\u627E\u539F\u56E0\u3002</p><h3 id="_3-1-ipv4-forwarding-is-disabled" tabindex="-1"><a class="header-anchor" href="#_3-1-ipv4-forwarding-is-disabled" aria-hidden="true">#</a> 3.1 IPv4 forwarding is disabled</h3><p>\u610F\u601D\u5C31\u662Flinux\u6CA1\u6709\u5F00\u542F Ipv4 \u6570\u636E\u5305\u8F6C\u53D1\u529F\u80FD</p><p>\u53EF\u4EE5\u5148\u5C1D\u8BD5\u91CD\u542Fdocker\uFF0C\u5982\u679C\u6CA1\u6709\u4F5C\u7528\u53EF\u4EE5\u4FEE\u6539\u4E0B\u9762\u914D\u7F6E</p><div class="language-text ext-text line-numbers-mode"><pre class="language-text"><code># 1. \u6253\u5F00 sysctl.conf
+vim /etc/sysctl.conf
+
+# 2.\u6DFB\u52A0\u4E0B\u9762\u4E00\u884C
+net.ipv4.ip_forward=1
+
+# 3.\u91CD\u542F network \u548C docker
+systemctl restart network &amp;&amp; systemctl restart docker
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h1 id="_4-\u53C2\u8003\u6587\u6863" tabindex="-1"><a class="header-anchor" href="#_4-\u53C2\u8003\u6587\u6863" aria-hidden="true">#</a> 4 \u53C2\u8003\u6587\u6863</h1><p>\u5B98\u65B9\u6587\u6863\uFF1Ahttps://www.jenkins.io/doc/book/installing/docker/</p><p>xiaoxiaotank\uFF1Ahttps://www.cnblogs.com/xiaoxiaotank/p/14762665.html</p>`,26);function b(p,k){const a=l("ExternalLinkIcon");return d(),r("div",null,[t,e("p",null,[v,e("a",u,[h,c(a)])]),m])}const x=s(o,[["render",b],["__file","docker-install.html.vue"]]);export{x as default};
