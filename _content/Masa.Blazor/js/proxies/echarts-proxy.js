@@ -1,0 +1,2 @@
+function e(e,i,s){const n=echarts.init(e,i,s);window.addEventListener("resize",(()=>{n.resize()}));const o=new IntersectionObserver((e=>{e.some((e=>e.isIntersecting))&&n.resize()}));return o.observe(n.getDom()),n.origin_dispose&&(n.origin_dispose=n.dispose,n.dispose=()=>{n.isDisposed()||(o.disconnect(),n.origin_dispose&&n.origin_dispose())}),n}function i(e,i,s=!1,n=!1){e&&e.setOption(i,s,n)}export{e as init,i as setOption};
+//# sourceMappingURL=echarts-proxy.js.map
