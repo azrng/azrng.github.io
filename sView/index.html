@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 流式响应查看器</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- 引入代码高亮库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <!-- 引入 markdown 解析库 -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+    <!-- Loading 遮罩 -->
+    <div class="loading">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <div class="container">
+        <!-- 响应展示区域 -->
+        <div class="response-section">
+            <div class="response-header">
+                <h3>响应内容</h3>
+                <div class="response-controls">
+                    <button id="copyResponse" class="btn-secondary">复制内容</button>
+                </div>
+            </div>
+            <div id="responseContent" class="response-content"></div>
+        </div>
+
+        <!-- 请求配置区域 -->
+        <div class="config-section">
+            <h3>请求配置</h3>
+            <div class="url-input">
+                <label for="apiUrl">API URL:</label>
+                <input type="text" id="apiUrl" placeholder="请输入API地址">
+            </div>
+
+            <div class="headers-section">
+                <h3>请求头配置</h3>
+                <div id="headersContainer">
+                    <div class="header-row">
+                        <input type="text" placeholder="Key" class="header-key">
+                        <input type="text" placeholder="Value" class="header-value">
+                        <button class="remove-header">删除</button>
+                    </div>
+                </div>
+                <button id="addHeader" class="btn-secondary">添加请求头</button>
+            </div>
+
+            <div class="body-section">
+                <h3>请求体 (JSON)</h3>
+                <textarea id="requestBody" placeholder='{"prompt": "Hello, AI!"}'></textarea>
+            </div>
+
+            <div class="control-buttons">
+                <button id="sendRequest" class="btn-primary">发送请求</button>
+                <button id="cancelRequest" class="btn-secondary" disabled>取消请求</button>
+                <button id="clearResponse" class="btn-secondary">清空响应</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 

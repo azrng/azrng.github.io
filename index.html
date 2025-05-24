@@ -2,50 +2,140 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>WebApp</title>
-    <base href="/" />
-    <link href="css/app.css" rel="stylesheet" />
-    <link href="WebApp.styles.css" rel="stylesheet" />
-    <link href="_content/Masa.Blazor/css/masa-blazor.min.css" rel="stylesheet">
-    <link href="https://cdn.masastack.com/npm/@mdi/font@5.x/css/materialdesignicons.min.css" rel="stylesheet">
-    <link href="https://cdn.masastack.com/npm/materialicons/materialicons.css" rel="stylesheet">
-    <link href="https://cdn.masastack.com/npm/fontawesome/v5.0.13/css/all.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.png">
+  <title>azrng</title>
+  <meta name="description" content="azrng的个人网站，期待与更多的人相遇！">
+  <meta name="keywords" content="azrng 个人网站 博客">
+  <link rel="apple-touch-icon-precomposed" href="images/avatar.bab2b7d4.jpeg">
+  <link rel="stylesheet" type="text/css" href="css/index.css">
+  
 </head>
 
 <body>
-    <div id="app">Loading...</div>
+  <nav>
+    <a href="javascript:void()" class="active">Index</a> <a class="clip"></a>
+    <a href="javascript:void()">azrng</a>
+  </nav>
 
-    <div id="blazor-error-ui">
-        An unhandled error has occurred.
-        <a href="" class="reload">Reload</a>
-        <a class="dismiss">🗙</a>
-    </div>
-    <script src="_framework/blazor.webassembly.js" autostart="false"></script>
-    <script src="_content/BlazorComponent/js/blazor-component.js"></script>
-    <script type="module">
-        import { BrotliDecode } from './decode.min.js';
-        Blazor.start({
-            loadBootResource: function (type, name, defaultUri, integrity) {
-                if (type !== 'dotnetjs' && location.hostname !== 'localhost') {
-                    return (async function () {
-                        const response = await fetch(defaultUri + '.br', { cache: 'no-cache' });
-                        if (!response.ok) {
-                            throw new Error(response.statusText);
-                        }
-                        const originalResponseBuffer = await response.arrayBuffer();
-                        const originalResponseArray = new Int8Array(originalResponseBuffer);
-                        const decompressedResponseArray = BrotliDecode(originalResponseArray);
-                        const contentType = type ===
-                            'dotnetwasm' ? 'application/wasm' : 'application/octet-stream';
-                        return new Response(decompressedResponseArray,
-                            { headers: { 'content-type': contentType } });
-                    })();
-                }
-            }
-        });
-    </script>
-</body>
+  <body onContextMenu="alert('呔，要干嘛。'); return false"
+    NOOP="if (window.event != null && window.event.button == 2) alert ('Thanks...');">
+    <body data-phone-cc-input="1">
+
+
+      <div class="background">
+        <canvas id="startrack"></canvas>
+        <div class="cover"></div>
+      </div>
+      <div class="main">
+        <div class="ch intro">
+          <div class="container">
+            <div class="hello">
+              <h1 id="slogan">思考中...</h1>
+              <h2>
+                <div class="circle"> <span></span> <span></span>
+                  <span></span>
+                </div>azrng
+              </h2>
+            </div>
+          </div>
+        </div>
+        <div class="ch about">
+          <div class="container">
+            <h2 class="chtitle">Who is <span>azrng</span>？</h2>
+            <div class="clear">
+              <div class="introduct">
+                <img class="avatar" src="images/logo.jpg">
+                <P>人总是在正确的事情和容易做的事情之间做选择。</p>
+                <p style="padding-bottom:1em;">欢迎您!</p>
+                <p>你好，这里是azrng ，是程序猿，对代码有着自己的热爱，正在从事互联网后端开发相关工作。</p>
+                <p>一起努力一起成长！</p>
+                <div class="chatbox">
+                  <div class="line loading"> <span></span>
+                    <span></span> <span></span>
+                  </div>
+                </div>
+              </div>
+              <ul class="skill clear">
+                <li>
+                  <p>HTML5/CSS3</p>
+                  <div class="progress">
+                    <div style="width:56%;"></div>
+                    <span>制作网站程度的能力</span>
+                  </div>
+                </li>
+                <li>
+                  <p>C#</p>
+                  <div class="progress">
+                    <div style="width:56%;"></div>
+                    <span>使用常用的技术开发接口</span>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="find ch">
+          <div class="container links">
+            <h2 class="chtitle">azrng生活的<span>地方</span></h2>
+            <div class="clear col-3">
+              <a href="https://gitee.com/AZRNG" target="_blank">
+                <div class="item">
+                  <div class="bg" style="background-color:#28a9e0"></div>
+                  <div class="inner"> <span>Gitee</span> </div>
+                </div>
+              </a>
+              <!-- <a href="javascript:void()"
+                target="_blank">
+                <div class="item">
+                  <div class="bg" style="background-color:#28a9e0"></div>
+                  <div class="inner"> <span>微信</span> </div>
+                </div>
+              </a> -->
+            </div>
+          </div>
+        </div>
+        <!-- <div class="gate ch"> 
+            <div class="container links">
+              <h2 class="chtitle">azrng的<span>邻居</span>们</h2>
+              <div class="clear"> <a href="/" target="_blank">
+                  <div class="item">
+                    <div class="avatar"> <img src="images/micooz.bab73e68.jpeg"> </div>
+                    <div class="inner">
+                      <h5>Micooz</h5>
+                      <p>可爱的男孩子XD</p>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div> </a>
+          </div>
+        </div>-->
+      </div>
+      <div class="footer ch">
+        <div class="container">
+          <h3>azrng</h3>
+          <p>虽然很累，但是只要努力终会出头</p>
+          <!-- <p class="c"><a href="/">Say hello to me @ </a></p> -->
+        </div>
+      </div>
+      </div>
+      <script src="js/index.js"></script>
+      </script>
+      <audio autoplay>
+        <source src="https://api.uomg.com/api/rand.music?sort=热歌榜" type="audio/mpeg">
+      </audio>
+      <script>
+        var _hmt = _hmt || [];
+        (function () {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?bcc3ba485bbb7f0c27d3a373132a234f";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      </script>
+    </body>
 
 </html>
