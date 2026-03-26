@@ -263,9 +263,9 @@ parcelRequire = function (e, r, t, n) {
                                 return "boolean" == typeof t && (r = t, t = i.shift()),
                                     i.forEach(function (i) {
                                         !
-                                        function t(r, i, o) {
-                                            for (n in i) o && (R(i[n]) || D(i[n])) ? (R(i[n]) && !R(r[n]) && (r[n] = {}), D(i[n]) && !D(r[n]) && (r[n] = []), t(r[n], i[n], o)) : i[n] !== e && (r[n] = i[n])
-                                        }(t, i, r)
+                                            function t(r, i, o) {
+                                                for (n in i) o && (R(i[n]) || D(i[n])) ? (R(i[n]) && !R(r[n]) && (r[n] = {}), D(i[n]) && !D(r[n]) && (r[n] = []), t(r[n], i[n], o)) : i[n] !== e && (r[n] = i[n])
+                                            }(t, i, r)
                                     }),
                                     t
                             },
@@ -988,11 +988,11 @@ parcelRequire = function (e, r, t, n) {
                                     var r, i;
                                     return this.each(function (o, s) {
                                         (r = w(a(t) ? e.Event(t) : t))._args = n,
-                                        r.target = s,
-                                        e.each(p(s, t.type || t),
-                                            function (t, e) {
-                                                if (i = e.proxy(r), r.isImmediatePropagationStopped()) return !1
-                                            })
+                                            r.target = s,
+                                            e.each(p(s, t.type || t),
+                                                function (t, e) {
+                                                    if (i = e.proxy(r), r.isImmediatePropagationStopped()) return !1
+                                                })
                                     }),
                                         i
                                 },
@@ -1306,9 +1306,14 @@ parcelRequire = function (e, r, t, n) {
                 "你要想得到你从未拥有过的东西，就要去做你从未做过的事情",
                 "总有一天，你会渐渐活出写满答案的人生",
                 "你不勇敢，没人替你坚强",
-                "别否定自己，你特别好，特别温柔，特别值得"
-            ],
-                i = o(0, e.length - 1);
+                "别否定自己，你特别好，特别温柔，特别值得",
+                "改造自己，总比禁止别人来得难",
+                "我在人间贩卖黄昏，只为收集世间的温柔去见你",
+                "最怕你一生碌碌无为，还安慰自己平凡可贵",
+                "乾坤未定，你我皆是黑马",
+                "你想过的那种生活，得自己去挣"
+            ];
+            i = o(0, e.length - 1);
             t("#slogan").html(e[i])
         }
         function o(t, e) {
