@@ -1,145 +1,168 @@
 <!DOCTYPE html>
-<html lang="zh-cn">
+<html lang="zh-CN">
 
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-  <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="azrng的个人网站，期待与更多的人相遇！">
+  <meta name="keywords" content="azrng 个人网站 博客 程序员 开发者">
   <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.png">
   <title>AZRNG</title>
-  <meta name="description" content="azrng的个人网站，期待与更多的人相遇！">
-  <meta name="keywords" content="azrng 个人网站 博客">
-  <link rel="stylesheet" type="text/css" href="css/index.css">
-
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/index.css">
 </head>
 
 <body>
-  <nav>
-    <a href="javascript:void()" class="active">Index</a> <a class="clip"></a>
-    <a href="javascript:void()">azrng</a>
+  <!-- 背景画布 -->
+  <div class="background">
+    <canvas id="startrack"></canvas>
+    <div class="noise-overlay"></div>
+    <div class="gradient-overlay"></div>
+  </div>
+
+  <!-- 侧边导航 -->
+  <nav class="side-nav" aria-label="页面导航">
+    <a href="#home" class="nav-link active" data-section="home">首页</a>
+    <a href="#about" class="nav-link" data-section="about">关于</a>
+    <a href="#links" class="nav-link" data-section="links">链接</a>
   </nav>
 
-  <body onContextMenu="alert('呔，要干嘛。'); return false"
-    NOOP="if (window.event != null && window.event.button == 2) alert ('Thanks...');">
+  <!-- 主内容 -->
+  <main class="main">
+    <!-- 首页区域 -->
+    <section id="home" class="section intro">
+      <div class="container">
+        <div class="hero">
+          <div class="hero-content">
+            <p class="hero-greeting">你好，我是</p>
+            <h1 class="hero-title">azrng</h1>
+            <p class="hero-tagline" id="slogan">思考中...</p>
+            <div class="hero-indicators">
+              <span class="indicator" style="--color: #ff6b6b;"></span>
+              <span class="indicator" style="--color: #ffd93d;"></span>
+              <span class="indicator" style="--color: #6bcb77;"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    <body data-phone-cc-input="1">
-      <div class="background">
-        <canvas id="startrack"></canvas>
-        <div class="cover"></div>
-      </div>
-      <div class="main">
-        <div class="ch intro">
-          <div class="container">
-            <div class="hello">
-              <h1 id="slogan">思考中...</h1>
-              <h2>
-                <div class="circle"> <span></span> <span></span>
-                  <span></span>
-                </div>azrng
-              </h2>
-            </div>
+    <!-- 关于区域 -->
+    <section id="about" class="section about">
+      <div class="container">
+        <h2 class="section-title">Who is <span class="highlight">azrng</span>？</h2>
+        <div class="about-grid">
+          <div class="about-text">
+            <blockquote class="quote">
+              "人总是在正确的事情和容易做的事情之间做选择。"
+            </blockquote>
+            <p class="about-desc">欢迎来到我的个人空间！这里是azrng，一名热爱代码的程序猿，目前从事互联网后端开发相关工作。</p>
+            <p class="about-desc">对技术充满热情，相信一起努力才能一起成长。虽然很累，但是只要努力终会出头。</p>
           </div>
-        </div>
-        <div class="ch about">
-          <div class="container">
-            <h2 class="chtitle">Who is <span>azrng</span>？</h2>
-            <div class="clear">
-              <div class="introduct">
-                <img class="avatar" src="images/logo.jpg">
-                <P>人总是在正确的事情和容易做的事情之间做选择。</p>
-                <p style="padding-bottom:1em;">欢迎您!</p>
-                <p>这里是azrng ，是程序猿，对代码有着自己的热爱，正在从事互联网后端开发相关工作。</p>
-                <p>一起努力一起成长！</p>
-                <div class="chatbox">
-                  <div class="line loading"> <span></span>
-                    <span></span> <span></span>
-                  </div>
+          <div class="skills-section">
+            <h3 class="skills-title">技能</h3>
+            <div class="skills-grid">
+              <div class="skill-item">
+                <div class="skill-header">
+                  <span class="skill-name">HTML5/CSS3</span>
+                  <span class="skill-level">50%</span>
                 </div>
+                <div class="skill-bar">
+                  <div class="skill-progress" style="--progress: 50%;"></div>
+                </div>
+                <p class="skill-desc">制作网站程度的能力</p>
               </div>
-              <ul class="skill clear">
-                <li>
-                  <p>HTML5/CSS3</p>
-                  <div class="progress">
-                    <div style="width:50%;"></div>
-                    <span>制作网站程度的能力</span>
-                  </div>
-                </li>
-                <li>
-                  <p>dotnet</p>
-                  <div class="progress">
-                    <div style="width:80%;"></div>
-                    <span>使用常用的技术开发接口</span>
-                  </div>
-                </li>
-                <li>
-                  <p>容器化</p>
-                  <div class="progress">
-                    <div style="width:60%;"></div>
-                    <span>使用docker部署服务到Linux，会使用K8s</span>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="find ch">
-          <div class="container links">
-            <h2 class="chtitle">azrng生活的<span>地方</span></h2>
-            <div class="clear col-3">
-              <a href="https://gitee.com/AZRNG" target="_blank">
-                <div class="item">
-                  <div class="bg" style="background-color:#28a9e0"></div>
-                  <div class="inner"> <span>Gitee</span> </div>
+              <div class="skill-item">
+                <div class="skill-header">
+                  <span class="skill-name">.NET</span>
+                  <span class="skill-level">80%</span>
                 </div>
-              </a>
-              <a href="javascript:void()" target="_blank">
-                <div class="item">
-                  <div class="bg" style="background-color:#28a9e0"></div>
-                  <div class="inner"> <span>微信公众号</span> </div>
+                <div class="skill-bar">
+                  <div class="skill-progress" style="--progress: 80%;"></div>
                 </div>
-              </a>
-            </div>
-          </div>
-        </div>
-        <!-- <div class="gate ch"> 
-            <div class="container links">
-              <h2 class="chtitle">azrng的<span>邻居</span>们</h2>
-              <div class="clear"> <a href="/" target="_blank">
-                  <div class="item">
-                    <div class="avatar"> <img src="images/micooz.bab73e68.jpeg"> </div>
-                    <div class="inner">
-                      <h5>Micooz</h5>
-                      <p>可爱的男孩子XD</p>
-                    </div>
-                  </div>
-                </a>
+                <p class="skill-desc">使用常用的技术开发接口</p>
               </div>
-            </div> </a>
+              <div class="skill-item">
+                <div class="skill-header">
+                  <span class="skill-name">容器化</span>
+                  <span class="skill-level">60%</span>
+                </div>
+                <div class="skill-bar">
+                  <div class="skill-progress" style="--progress: 60%;"></div>
+                </div>
+                <p class="skill-desc">使用Docker部署服务到Linux，会使用K8s</p>
+              </div>
+            </div>
           </div>
-        </div>-->
-      </div>
-      <div class="footer ch">
-        <div class="container">
-          <h3>azrng</h3>
-          <p>虽然很累，但是只要努力终会出头</p>
-          <p class="c"><a href="/">Say hello to me @ </a></p>
         </div>
       </div>
+    </section>
+
+    <!-- 链接区域 -->
+    <section id="links" class="section links">
+      <div class="container">
+        <h2 class="section-title">azrng生活的<span class="highlight">地方</span></h2>
+        <div class="links-grid">
+          <a href="https://gitee.com/AZRNG" target="_blank" rel="noopener noreferrer" class="link-card" style="--accent: #c71d23;">
+            <div class="link-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M11.984 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.016 0zm6.09 5.333c.328 0 .593.266.592.593v1.482a.594.594 0 0 1-.593.592H9.777c-.982 0-1.778.796-1.778 1.778v5.63c0 .327.266.592.593.592h5.63c.982 0 1.778-.796 1.778-1.778v-.296a.593.593 0 0 0-.592-.593h-4.037a.594.594 0 0 1-.592-.593v-1.482a.593.593 0 0 1 .593-.592h6.815c.327 0 .593.265.593.592v3.408a4 4 0 0 1-4 4H5.926a.593.593 0 0 1-.593-.593V9.778a4.444 4.444 0 0 1 4.445-4.444h8.296Z"/>
+              </svg>
+            </div>
+            <div class="link-content">
+              <h3 class="link-title">Gitee</h3>
+              <p class="link-desc">代码仓库</p>
+            </div>
+          </a>
+          <a href="https://github.com/azrng" target="_blank" rel="noopener noreferrer" class="link-card" style="--accent: #24292e;">
+            <div class="link-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+              </svg>
+            </div>
+            <div class="link-content">
+              <h3 class="link-title">GitHub</h3>
+              <p class="link-desc">开源项目</p>
+            </div>
+          </a>
+          <a href="https://azrng.github.io/kbms/" target="_blank" rel="noopener noreferrer" class="link-card" style="--accent: #6366f1;">
+            <div class="link-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+              </svg>
+            </div>
+            <div class="link-content">
+              <h3 class="link-title">知识库</h3>
+              <p class="link-desc">KBMS 系统</p>
+            </div>
+          </a>
+        </div>
       </div>
-      <script src="js/index.js"></script>
-      <!-- 音乐 -->
-      <audio autoplay>
-        <source src="https://api.uomg.com/api/rand.music?sort=热歌榜" type="audio/mpeg">
-      </audio>
-      <script>
-        var _hmt = _hmt || [];
-        (function () {
-          var hm = document.createElement("script");
-          hm.src = "https://hm.baidu.com/hm.js?bcc3ba485bbb7f0c27d3a373132a234f";
-          var s = document.getElementsByTagName("script")[0];
-          s.parentNode.insertBefore(hm, s);
-        })();
-      </script>
-    </body>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+      <div class="container">
+        <h3 class="footer-title">azrng</h3>
+        <p class="footer-quote">虽然很累，但是只要努力终会出头</p>
+        <p class="footer-copyright">© <span id="year"></span> Say hello to me</p>
+      </div>
+    </footer>
+  </main>
+
+  <!-- 百度统计 -->
+  <script>
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?bcc3ba485bbb7f0c27d3a373132a234f";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+  <script src="js/index.js"></script>
+</body>
 
 </html>
