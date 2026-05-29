@@ -1,12 +1,11 @@
 /**
  * AZRNG - Personal Portfolio
- * Modern vanilla JavaScript implementation
  */
 
 (function() {
   'use strict';
 
-  // ===== Slogan Array =====
+  // ===== Slogans =====
   const slogans = [
     "希望能成为有趣的人",
     "美丽总是隐藏在朦胧之中，隔纱看美人，越看越迷人",
@@ -27,174 +26,162 @@
     "你想过的那种生活，得自己去挣"
   ];
 
-  // ===== Utility Functions =====
   const randomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
   const setSlogan = () => {
-    const sloganEl = document.getElementById('slogan');
-    if (sloganEl) {
-      const index = randomInt(0, slogans.length - 1);
-      sloganEl.textContent = slogans[index];
-    }
+    const el = document.getElementById('slogan');
+    if (el) el.textContent = slogans[randomInt(0, slogans.length - 1)];
   };
 
-  // ===== Star Field Animation =====
+  // ===== Cursor Glow =====
+  const initCursorGlow = () => {
+    const glow = document.getElementById('cursorGlow');
+    if (!glow || window.matchMedia('(max-width: 900px)').matches) return;
+
+    let mx = -500, my = -500;
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX;
+      my = e.clientY;
+    });
+
+    const tick = () => {
+      glow.style.left = mx + 'px';
+      glow.style.top = my + 'px';
+      requestAnimationFrame(tick);
+    };
+    tick();
+  };
+
+  // ===== Star Field =====
   const initStarField = () => {
     const canvas = document.getElementById('startrack');
     if (!canvas) return;
 
     const ctx = canvas.getContext('2d');
-    let width = canvas.offsetWidth;
-    let height = canvas.offsetHeight;
-    let stars = [];
-    let rotation = 0;
+    let w, h, stars = [], rotation = 0;
 
-    // Set canvas size
-    const resizeCanvas = () => {
-      width = canvas.offsetWidth;
-      height = canvas.offsetHeight;
-      canvas.width = width;
-      canvas.height = height;
+    const resize = () => {
+      w = canvas.offsetWidth;
+      h = canvas.offsetHeight;
+      canvas.width = w;
+      canvas.height = h;
       initStars();
     };
 
-    // Initialize stars
     const initStars = () => {
       stars = [];
-      const maxDim = Math.max(width, height);
-      const starCount = 2000;
-
-      for (let i = 0; i < starCount; i++) {
+      const dim = Math.max(w, h);
+      for (let i = 0; i < 1800; i++) {
         stars.push({
-          x: randomInt(-maxDim * 1.3, maxDim * 1.3),
-          y: randomInt(-maxDim * 1.3, maxDim * 1.3),
-          size: Math.random() * 1.5 + 0.5,
-          opacity: Math.random() * 0.8 + 0.2,
-          color: `rgba(${randomInt(100, 255)}, ${randomInt(100, 255)}, ${randomInt(150, 255)},`
+          x: randomInt(-dim * 1.3, dim * 1.3),
+          y: randomInt(-dim * 1.3, dim * 1.3),
+          size: Math.random() * 1.4 + 0.4,
+          opacity: Math.random() * 0.7 + 0.2,
+          color: `rgba(${randomInt(120, 255)}, ${randomInt(120, 255)}, ${randomInt(160, 255)},`
         });
       }
     };
 
-    // Animation loop
     const animate = () => {
-      // Fade effect
-      ctx.fillStyle = 'rgba(10, 10, 15, 0.1)';
-      ctx.fillRect(0, 0, width, height);
+      ctx.fillStyle = 'rgba(6, 6, 12, 0.12)';
+      ctx.fillRect(0, 0, w, h);
 
-      // Rotate and draw stars
       ctx.save();
-      ctx.translate(width / 2, height / 2);
+      ctx.translate(w / 2, h / 2);
       ctx.rotate(rotation * Math.PI / 180);
-      ctx.translate(-width / 2, -height / 2);
+      ctx.translate(-w / 2, -h / 2);
 
-      stars.forEach(star => {
+      stars.forEach(s => {
         ctx.beginPath();
-        ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
-        ctx.fillStyle = star.color + star.opacity + ')';
+        ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+        ctx.fillStyle = s.color + s.opacity + ')';
         ctx.fill();
       });
 
       ctx.restore();
-
-      rotation += 0.02;
+      rotation += 0.018;
       requestAnimationFrame(animate);
     };
 
-    // Initialize
-    resizeCanvas();
+    resize();
     animate();
 
-    // Handle resize
-    let resizeTimeout;
+    let rt;
     window.addEventListener('resize', () => {
-      clearTimeout(resizeTimeout);
-      resizeTimeout = setTimeout(resizeCanvas, 100);
+      clearTimeout(rt);
+      rt = setTimeout(resize, 120);
     });
   };
 
   // ===== Navigation =====
   const initNavigation = () => {
-    const navLinks = document.querySelectorAll('.nav-link');
+    const links = document.querySelectorAll('.nav-link');
     const sections = document.querySelectorAll('.section');
 
-    // Smooth scroll to section
-    navLinks.forEach(link => {
-      link.addEventListener('click', (e) => {
+    links.forEach(link => {
+      link.addEventListener('click', e => {
         e.preventDefault();
-        const targetId = link.getAttribute('href');
-        const targetSection = document.querySelector(targetId);
-
-        if (targetSection) {
-          targetSection.scrollIntoView({ behavior: 'smooth' });
-        }
+        const target = document.querySelector(link.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
       });
     });
 
-    // Update active link on scroll
-    const observerOptions = {
-      root: null,
-      rootMargin: '-50% 0px -50% 0px',
-      threshold: 0
-    };
-
-    const observer = new IntersectionObserver((entries) => {
+    const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          const sectionId = entry.target.getAttribute('id');
-          navLinks.forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('href') === `#${sectionId}`) {
-              link.classList.add('active');
-            }
+          const id = entry.target.getAttribute('id');
+          links.forEach(l => {
+            l.classList.toggle('active', l.getAttribute('href') === `#${id}`);
           });
         }
       });
-    }, observerOptions);
+    }, { root: null, rootMargin: '-50% 0px -50% 0px', threshold: 0 });
 
-    sections.forEach(section => observer.observe(section));
+    sections.forEach(s => observer.observe(s));
   };
 
-  // ===== Skill Bar Animation =====
+  // ===== Skill Bars =====
   const initSkillBars = () => {
-    const skillItems = document.querySelectorAll('.skill-item');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('in-view');
+      });
+    }, { threshold: 0.4 });
 
-    const observerOptions = {
-      root: null,
-      rootMargin: '0px',
-      threshold: 0.5
-    };
+    document.querySelectorAll('.skill-item').forEach(item => observer.observe(item));
+  };
 
-    const observer = new IntersectionObserver((entries) => {
+  // ===== Scroll Reveal =====
+  const initScrollReveal = () => {
+    const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('in-view');
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
         }
       });
-    }, observerOptions);
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
 
-    skillItems.forEach(item => observer.observe(item));
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
   };
 
-  // ===== Year Update =====
+  // ===== Year =====
   const updateYear = () => {
-    const yearEl = document.getElementById('year');
-    if (yearEl) {
-      yearEl.textContent = new Date().getFullYear();
-    }
+    const el = document.getElementById('year');
+    if (el) el.textContent = new Date().getFullYear();
   };
 
-  // ===== Initialize =====
+  // ===== Init =====
   const init = () => {
     setSlogan();
+    initCursorGlow();
     initStarField();
     initNavigation();
     initSkillBars();
+    initScrollReveal();
     updateYear();
-
-    console.log('AZRNG Portfolio - Initialized');
   };
 
-  // Run when DOM is ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {
