@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-theme="dark">
 
 <head>
   <meta charset="UTF-8">
@@ -8,6 +8,25 @@
   <meta name="keywords" content="azrng 个人网站 博客 程序员 开发者">
   <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.png">
   <title>AZRNG</title>
+  <!-- 主题在样式加载前确定，避免刷新时闪白/闪黑 -->
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('azrng-theme');
+        var theme = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) { /* localStorage 不可用时保持默认深色 */ }
+
+      // 开场动画一个会话只播一次，站内往返不再挡内容
+      try {
+        if (sessionStorage.getItem('azrng-seen')) {
+          document.documentElement.classList.add('no-loader');
+        } else {
+          sessionStorage.setItem('azrng-seen', '1');
+        }
+      } catch (e) { /* 忽略：大不了每次都播一遍 */ }
+    })();
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&family=Outfit:wght@200;300;400;500;600&display=swap" rel="stylesheet">
@@ -15,21 +34,43 @@
 </head>
 
 <body>
+  <!-- 开场揭幕：消失动画是纯 CSS 的，JS 挂了也不会把内容永久挡住 -->
+  <div class="loader" id="loader" aria-hidden="true">
+    <span class="loader-mark">AZRNG</span>
+    <span class="loader-bar"><i></i></span>
+  </div>
+
+  <!-- Scroll progress -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+
   <!-- Cursor glow -->
   <div class="cursor-glow" id="cursorGlow"></div>
 
   <!-- Background -->
   <div class="background">
     <canvas id="startrack"></canvas>
+    <div class="aurora" aria-hidden="true"><span></span><span></span></div>
     <div class="noise-overlay"></div>
     <div class="gradient-overlay"></div>
   </div>
 
   <!-- Floating pill nav -->
-  <nav class="side-nav" aria-label="页面导航">
+  <nav class="side-nav" id="sideNav" aria-label="页面导航">
+    <span class="nav-indicator" id="navIndicator" aria-hidden="true"></span>
     <a href="#home" class="nav-link active" data-section="home">首页</a>
     <a href="#about" class="nav-link" data-section="about">关于</a>
     <a href="#links" class="nav-link" data-section="links">链接</a>
+    <a href="#contact" class="nav-link" data-section="contact">联系</a>
+    <span class="nav-divider" aria-hidden="true"></span>
+    <button type="button" class="theme-toggle" id="themeToggle" aria-label="切换主题" title="切换浅色 / 深色">
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+      </svg>
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="4"/>
+        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+      </svg>
+    </button>
   </nav>
 
   <!-- Main -->
@@ -40,7 +81,7 @@
         <div class="hero">
           <div class="hero-content">
             <p class="hero-greeting">你好，我是</p>
-            <h1 class="hero-title">azrng</h1>
+            <h1 class="hero-title" data-text="azrng">azrng</h1>
             <p class="hero-tagline" id="slogan">思考中...</p>
             <div class="hero-indicators">
               <span class="indicator" style="--color: #ff6b6b;"></span>
@@ -50,6 +91,10 @@
           </div>
         </div>
       </div>
+      <a href="#about" class="scroll-cue" aria-label="向下滚动">
+        <span>scroll</span>
+        <span class="scroll-cue-line" aria-hidden="true"></span>
+      </a>
     </section>
 
     <div class="section-divider"></div>
@@ -63,80 +108,63 @@
         </blockquote>
         <p class="about-desc reveal reveal-delay-2">欢迎来到我的个人空间！这里是azrng，一名热爱代码的程序猿，目前从事互联网后端开发相关工作。对技术充满热情，相信一起努力才能一起成长。虽然很累，但是只要努力终会出头。</p>
         <div class="skills-section">
-            <h3 class="skills-title reveal reveal-delay-1">技术栈</h3>
-            <div class="skills-grid">
-              <div class="skill-item reveal reveal-delay-1">
-                <div class="skill-item-inner">
-                  <div class="skill-header"><span class="skill-name">.NET / C#</span><span class="skill-level">90%</span></div>
-                  <div class="skill-bar"><div class="skill-progress" style="--progress: 90%;"></div></div>
-                  <p class="skill-desc">深入理解 .NET 平台技术体系</p>
-                </div>
+          <h3 class="skills-title reveal reveal-delay-1">技术栈</h3>
+          <div class="skill-groups">
+            <div class="skill-group reveal reveal-delay-1">
+              <span class="skill-group-label">Backend</span>
+              <div class="tag-cloud">
+                <span class="tag tag--core">.NET / C#</span>
+                <span class="tag tag--core">ASP.NET Core</span>
+                <span class="tag">MVC</span>
+                <span class="tag">Web API</span>
+                <span class="tag">Blazor</span>
+                <span class="tag">设计模式</span>
               </div>
-              <div class="skill-item reveal reveal-delay-1">
-                <div class="skill-item-inner">
-                  <div class="skill-header"><span class="skill-name">ASP.NET Core</span><span class="skill-level">85%</span></div>
-                  <div class="skill-bar"><div class="skill-progress" style="--progress: 85%;"></div></div>
-                  <p class="skill-desc">MVC、Web API、Blazor</p>
-                </div>
+            </div>
+            <div class="skill-group reveal reveal-delay-1">
+              <span class="skill-group-label">Database</span>
+              <div class="tag-cloud">
+                <span class="tag tag--core">PostgreSQL</span>
+                <span class="tag">MySQL</span>
+                <span class="tag">SQL Server</span>
               </div>
-              <div class="skill-item reveal reveal-delay-2">
-                <div class="skill-item-inner">
-                  <div class="skill-header"><span class="skill-name">数据库</span><span class="skill-level">80%</span></div>
-                  <div class="skill-bar"><div class="skill-progress" style="--progress: 80%;"></div></div>
-                  <p class="skill-desc">PostgreSQL、MySQL、SQL Server</p>
-                </div>
+            </div>
+            <div class="skill-group reveal reveal-delay-2">
+              <span class="skill-group-label">Architecture</span>
+              <div class="tag-cloud">
+                <span class="tag">微服务架构</span>
+                <span class="tag">Docker</span>
+                <span class="tag">Kubernetes</span>
               </div>
-              <div class="skill-item reveal reveal-delay-2">
-                <div class="skill-item-inner">
-                  <div class="skill-header"><span class="skill-name">微服务架构</span><span class="skill-level">75%</span></div>
-                  <div class="skill-bar"><div class="skill-progress" style="--progress: 75%;"></div></div>
-                  <p class="skill-desc">Docker、Kubernetes</p>
-                </div>
+            </div>
+            <div class="skill-group reveal reveal-delay-2">
+              <span class="skill-group-label">AI</span>
+              <div class="tag-cloud">
+                <span class="tag tag--core">Claude Code</span>
+                <span class="tag">Cursor</span>
+                <span class="tag">Codex</span>
+                <span class="tag">LangChain</span>
+                <span class="tag">MS Agent Framework</span>
               </div>
-              <div class="skill-item reveal reveal-delay-3">
-                <div class="skill-item-inner">
-                  <div class="skill-header"><span class="skill-name">前端开发</span><span class="skill-level">65%</span></div>
-                  <div class="skill-bar"><div class="skill-progress" style="--progress: 65%;"></div></div>
-                  <p class="skill-desc">HTML5 / CSS3 / JavaScript</p>
-                </div>
+            </div>
+            <div class="skill-group reveal reveal-delay-3">
+              <span class="skill-group-label">Client / Web</span>
+              <div class="tag-cloud">
+                <span class="tag">Avalonia UI</span>
+                <span class="tag">HTML5</span>
+                <span class="tag">CSS3</span>
+                <span class="tag">JavaScript</span>
               </div>
-              <div class="skill-item reveal reveal-delay-1">
-                <div class="skill-item-inner">
-                  <div class="skill-header"><span class="skill-name">Avalonia UI</span><span class="skill-level">60%</span></div>
-                  <div class="skill-bar"><div class="skill-progress" style="--progress: 75%;"></div></div>
-                  <p class="skill-desc">跨平台桌面应用开发</p>
-                </div>
-              </div>
-              <div class="skill-item reveal reveal-delay-1">
-                <div class="skill-item-inner">
-                  <div class="skill-header"><span class="skill-name">AI 开发</span><span class="skill-level">70%</span></div>
-                  <div class="skill-bar"><div class="skill-progress" style="--progress: 70%;"></div></div>
-                  <p class="skill-desc">Cursor、Claude Code、Codex</p>
-                </div>
-              </div>
-              <div class="skill-item reveal reveal-delay-2">
-                <div class="skill-item-inner">
-                  <div class="skill-header"><span class="skill-name">AI 框架</span><span class="skill-level">65%</span></div>
-                  <div class="skill-bar"><div class="skill-progress" style="--progress: 65%;"></div></div>
-                  <p class="skill-desc">LangChain、MS Agent Framework</p>
-                </div>
-              </div>
-              <div class="skill-item reveal reveal-delay-2">
-                <div class="skill-item-inner">
-                  <div class="skill-header"><span class="skill-name">开发工具</span><span class="skill-level">85%</span></div>
-                  <div class="skill-bar"><div class="skill-progress" style="--progress: 85%;"></div></div>
-                  <p class="skill-desc">Visual Studio、Git</p>
-                </div>
-              </div>
-              <div class="skill-item reveal reveal-delay-3">
-                <div class="skill-item-inner">
-                  <div class="skill-header"><span class="skill-name">设计模式</span><span class="skill-level">70%</span></div>
-                  <div class="skill-bar"><div class="skill-progress" style="--progress: 70%;"></div></div>
-                  <p class="skill-desc">高质量代码与重构经验</p>
-                </div>
+            </div>
+            <div class="skill-group reveal reveal-delay-3">
+              <span class="skill-group-label">Tooling</span>
+              <div class="tag-cloud">
+                <span class="tag tag--core">Visual Studio</span>
+                <span class="tag tag--core">Git</span>
               </div>
             </div>
           </div>
+        </div>
       </div>
     </section>
 
@@ -150,7 +178,7 @@
           <a href="https://gitee.com/AZRNG" target="_blank" rel="noopener noreferrer" class="link-card reveal reveal-delay-1" style="--accent: #c71d23;">
             <div class="link-card-inner">
               <div class="link-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                   <path d="M11.984 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.016 0zm6.09 5.333c.328 0 .593.266.592.593v1.482a.594.594 0 0 1-.593.592H9.777c-.982 0-1.778.796-1.778 1.778v5.63c0 .327.266.592.593.592h5.63c.982 0 1.778-.796 1.778-1.778v-.296a.593.593 0 0 0-.592-.593h-4.037a.594.594 0 0 1-.592-.593v-1.482a.593.593 0 0 1 .593-.592h6.815c.327 0 .593.265.593.592v3.408a4 4 0 0 1-4 4H5.926a.593.593 0 0 1-.593-.593V9.778a4.444 4.444 0 0 1 4.445-4.444h8.296Z"/>
                 </svg>
               </div>
@@ -158,12 +186,15 @@
                 <h3 class="link-title">Gitee</h3>
                 <p class="link-desc">代码仓库</p>
               </div>
+              <svg class="link-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M7 17L17 7M7 7h10v10"/>
+              </svg>
             </div>
           </a>
           <a href="https://github.com/azrng" target="_blank" rel="noopener noreferrer" class="link-card reveal reveal-delay-2" style="--accent: #8b8b9e;">
             <div class="link-card-inner">
               <div class="link-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                   <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
                 </svg>
               </div>
@@ -171,12 +202,15 @@
                 <h3 class="link-title">GitHub</h3>
                 <p class="link-desc">开源项目</p>
               </div>
+              <svg class="link-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M7 17L17 7M7 7h10v10"/>
+              </svg>
             </div>
           </a>
           <a href="https://azrng.github.io/kbms/" target="_blank" rel="noopener noreferrer" class="link-card reveal reveal-delay-3" style="--accent: #6366f1;">
             <div class="link-card-inner">
               <div class="link-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                   <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
                 </svg>
               </div>
@@ -184,9 +218,59 @@
                 <h3 class="link-title">知识库</h3>
                 <p class="link-desc">KBMS 系统</p>
               </div>
+              <svg class="link-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M7 17L17 7M7 7h10v10"/>
+              </svg>
             </div>
           </a>
         </div>
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Contact -->
+    <section id="contact" class="section contact">
+      <div class="container">
+        <h2 class="section-title reveal">找到<span class="highlight">我</span></h2>
+        <div class="contact-grid">
+          <a href="mailto:itzhangyunpeng@gmail.com" class="link-card reveal reveal-delay-1" style="--accent: #00b8d4;">
+            <div class="link-card-inner">
+              <div class="link-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect x="2" y="4" width="20" height="16" rx="2"/>
+                  <path d="m22 7-10 6L2 7"/>
+                </svg>
+              </div>
+              <div class="link-content">
+                <h3 class="link-title">邮箱</h3>
+                <p class="link-desc">itzhangyunpeng@gmail.com</p>
+              </div>
+              <svg class="link-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M7 17L17 7M7 7h10v10"/>
+              </svg>
+            </div>
+          </a>
+          <!-- TODO: 把 href 换成你的公众号 / 博客地址 -->
+          <a href="#" class="link-card reveal reveal-delay-2" style="--accent: #07c160;">
+            <div class="link-card-inner">
+              <div class="link-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M4 5h16v14H4z"/>
+                  <path d="M8 9h8M8 13h5"/>
+                </svg>
+              </div>
+              <div class="link-content">
+                <h3 class="link-title">公众号 / 博客</h3>
+                <p class="link-desc">技术分享与笔记</p>
+              </div>
+              <svg class="link-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M7 17L17 7M7 7h10v10"/>
+              </svg>
+            </div>
+          </a>
+        </div>
+        <p class="contact-note reveal reveal-delay-3">技术交流、合作或者只是想聊两句，都欢迎。</p>
       </div>
     </section>
 
@@ -210,6 +294,7 @@
     })();
   </script>
 
+  <script src="js/slogans.js"></script>
   <script src="js/index.js"></script>
 </body>
 
