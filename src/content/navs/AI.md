@@ -115,3 +115,10 @@ order: 4
 - [opendeep.wiki/microsoft/semantic-kernel](https://opendeep.wiki/microsoft/semantic-kernel)
 - [qoder-repo-wiki-export](https://github.com/Likhithsai2580/qoder-repo-wiki-export)
 - [go-cursor-help](https://github.com/yuaotian/go-cursor-help/blob/master/README_CN.md)
+
+### 浏览器书签
+
+- [Logging to elmah.io from Blazor](https://docs.elmah.io/logging-to-elmah-io-from-blazor/)
+- [GitHub 副驾驶 ·您的 AI 结对程序员](https://github.com/features/copilot/plans?cft=copilot_li.features_copilot)
+- [Classroom · AI Launchpad](https://www.skool.com/ai-launchpad/classroom)
+- [sheng-jie/learn-cc-csharp: 这个仓库是 https://github.com/shareAI-](https://github.com/sheng-jie/learn-cc-csharp)
