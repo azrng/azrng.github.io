@@ -74,13 +74,11 @@ order: 4
 - [Microsoft Agent Framework 快速入门](https://learn.microsoft.com/zh-cn/agent-framework/tutorials/quick-start?pivots=programming-language-csharp)
 - [Agent-Framework-Samples](https://github.com/microsoft/agent-framework-samples)
 - [ai-agents-for-beginners](https://github.com/microsoft/ai-agents-for-beginners/blob/main/translations/zh-CN/README.md)
-- [MAF快速入门（18）Agent Skill 快速开始 - EdisonZhou](https://www.cnblogs.com/edisontalk/p/-/quick-start-on-maf-chatper18)
 - [Agent Framework 系列｜基础篇（30讲）](https://mp.weixin.qq.com/s/3w6IKNlXmt6ucMUX6n7FMw)
 - [深入理解 AI Agent](https://bojieli.github.io/ai-agent-book/)
 - [29-调用大模型_MessagesPlaceholder的使用](https://www.bilibili.com/video/BV1ZppNzHEY4?spm_id_from=333.788.player.switch&vd_source=0a3cc07b87a63e3c53d4132b6ce1a83c&p=67)
 - [【求助】后端转Agent,想请佬友帮忙看看简历 - LINUX DO](https://linux.do/t/topic/2713998/6)
 - [优惠定价：AI移动应用设计方案](https://sleek.design/pricing)
-- [GitHub 副驾驶 · AI 结对程序员](https://github.com/features/copilot/plans?cft=copilot_li.features_copilot)
 
 ### 语义内核与RAG
 
