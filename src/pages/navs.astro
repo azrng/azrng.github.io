@@ -187,6 +187,77 @@ const navsData = JSON.stringify(
     .gate-btn:hover { transform: translateY(-2px); opacity: 0.9; }
     .gate-err { height: 1.4em; margin-top: 0.75rem; font-size: 0.72rem; color: var(--color-accent-secondary); }
 
+    /* ===== 左侧边栏树（桌面端）===== */
+    .sidebar {
+      display: none;
+    }
+    @media (min-width: 1101px) {
+      .sidebar {
+        display: block;
+        position: fixed; left: max(1rem, calc(50vw - 540px - 15.5rem)); top: 1.25rem;
+        width: 13.5rem; max-height: calc(100dvh - 2.5rem);
+        overflow-y: auto; scrollbar-width: thin;
+        z-index: 90;
+        padding: 0.6rem;
+        background: var(--color-bg-nav);
+        backdrop-filter: blur(24px) saturate(140%);
+        -webkit-backdrop-filter: blur(24px) saturate(140%);
+        border: 1px solid var(--color-hairline);
+        border-radius: 16px;
+        box-shadow: var(--shadow-card);
+      }
+    }
+    .sb-home {
+      display: block;
+      font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.15em;
+      color: var(--color-text-muted); text-decoration: none;
+      padding: 0.45rem 0.75rem; margin-bottom: 0.5rem;
+      border-bottom: 1px solid var(--color-hairline);
+      transition: color 0.4s var(--ease-out);
+    }
+    .sb-home:hover { color: var(--color-accent); }
+    .sb-cat-link {
+      display: flex; align-items: center; gap: 0.4rem;
+      font-family: var(--font-sans); font-size: 0.8rem; font-weight: 500;
+      color: var(--color-text); text-decoration: none;
+      padding: 0.45rem 0.75rem; border-radius: 9px;
+      transition: color 0.3s var(--ease-out), background 0.3s var(--ease-out);
+    }
+    .sb-cat-link:hover { color: var(--color-text); background: var(--color-surface-raise); }
+    .sb-cat-link.active { color: var(--color-on-accent); background: var(--color-accent); }
+    .sb-arrow {
+      font-size: 0.6rem; color: var(--color-text-muted);
+      transition: transform 0.3s var(--ease-out), color 0.3s;
+      flex-shrink: 0;
+    }
+    .sb-cat-link.active .sb-arrow { color: var(--color-on-accent); }
+    .sb-cat.collapsed .sb-arrow { transform: rotate(-90deg); }
+    .sb-count {
+      margin-left: auto;
+      font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.05em;
+      color: var(--color-text-muted);
+    }
+    .sb-cat-link.active .sb-count { color: var(--color-on-accent); }
+    .sb-groups {
+      overflow: hidden;
+      max-height: 500px;
+      transition: max-height 0.35s var(--ease-out), opacity 0.3s;
+      opacity: 1;
+    }
+    .sb-cat.collapsed .sb-groups { max-height: 0; opacity: 0; }
+    .sb-group {
+      display: block;
+      font-size: 0.72rem; font-weight: 300;
+      color: var(--color-text-soft); text-decoration: none;
+      padding: 0.28rem 0.75rem 0.28rem 2rem;
+      border-radius: 8px;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      transition: color 0.3s var(--ease-out), background 0.3s var(--ease-out);
+    }
+    .sb-group::before { content: '◇ '; font-size: 0.55rem; opacity: 0.7; }
+    .sb-group:hover { color: var(--color-text); background: var(--color-surface-raise); }
+    .sb-group.active { color: var(--color-accent); background: var(--color-accent-soft); }
+
     /* ===== 顶部导航（玻璃胶囊，风格与主页 side-nav 一致）===== */
     .top-nav {
       position: fixed; left: 50%; top: 1.25rem; transform: translateX(-50%);
@@ -228,6 +299,16 @@ const navsData = JSON.stringify(
     }
     .theme-toggle:hover { color: var(--color-accent); background: var(--color-surface-raise); }
     .theme-toggle svg { width: 16px; height: 16px; }
+    .menu-toggle {
+      display: none;
+      align-items: center; justify-content: center;
+      width: 32px; height: 32px; flex-shrink: 0;
+      border: none; border-radius: 999px; background: transparent;
+      color: var(--color-text-muted); cursor: pointer;
+      transition: color 0.4s var(--ease-out), background 0.4s var(--ease-out);
+    }
+    .menu-toggle:hover { color: var(--color-accent); background: var(--color-surface-raise); }
+    .menu-toggle svg { width: 16px; height: 16px; }
     .theme-toggle .icon-sun { display: none; }
     :root[data-theme='light'] .theme-toggle .icon-sun { display: block; }
     :root[data-theme='light'] .theme-toggle .icon-moon { display: none; }
@@ -350,10 +431,35 @@ const navsData = JSON.stringify(
     }
     .logout-btn:hover { color: var(--color-accent-secondary); border-color: var(--color-accent-secondary); }
 
+    @media (max-width: 1100px) {
+      /* 平板/手机：隐藏侧边栏，保留顶部胶囊；浮层由 JS 控制显示 */
+      .sidebar {
+        display: block;
+        position: fixed; left: 1rem; right: 1rem; top: 4.2rem;
+        width: auto; max-height: 70dvh;
+        z-index: 99;
+        padding: 0.6rem;
+        background: var(--color-bg-nav);
+        backdrop-filter: blur(24px) saturate(140%);
+        -webkit-backdrop-filter: blur(24px) saturate(140%);
+        border: 1px solid var(--color-hairline);
+        border-radius: 16px;
+        box-shadow: var(--shadow-card);
+        overflow-y: auto; scrollbar-width: thin;
+        opacity: 0; visibility: hidden; transform: translateY(-8px);
+        transition: opacity 0.3s var(--ease-out), transform 0.3s var(--ease-out), visibility 0.3s;
+      }
+      .sidebar.open { opacity: 1; visibility: visible; transform: translateY(0); }
+      .menu-toggle { display: flex; }
+    }
     @media (max-width: 640px) {
       .wrap { padding-top: 6rem; }
       .top-nav { top: 0.75rem; }
       .grid { grid-template-columns: 1fr; }
+    }
+    /* 桌面端：侧边栏接管导航，隐藏顶部胶囊（必须晚于 .top-nav 基础规则才能覆盖）*/
+    @media (min-width: 1101px) {
+      .top-nav { display: none; }
     }
   </style>
 </head>
@@ -370,6 +476,25 @@ const navsData = JSON.stringify(
     </div>
   </div>
 
+  <!-- 左侧边栏树（桌面端）：分类+分组两级直达 -->
+  <aside class="sidebar" id="sidebar" aria-label="分类与分组导航">
+    <a class="sb-home" href="/">← 返回主页</a>
+    {categories.map((c) => (
+      <div class="sb-cat" data-sbcat={c.id}>
+        <a class="sb-cat-link" href={`#${c.id}`} data-cat={c.id}>
+          <span class="sb-arrow">▾</span>{c.title}<span class="sb-count"></span>
+        </a>
+        <div class="sb-groups">
+          {c.groups.map((g) => (
+            g.name ? (
+              <a class="sb-group" href={`#${c.id}--${slugify(g.name)}`} data-group-link={`${c.id}--${slugify(g.name)}`}>{g.name}</a>
+            ) : null
+          ))}
+        </div>
+      </div>
+    ))}
+  </aside>
+
   <!-- 顶部玻璃导航 -->
   <nav class="top-nav" id="topNav" aria-label="分类导航">
     <a class="top-home" href="/">HOME</a>
@@ -380,6 +505,9 @@ const navsData = JSON.stringify(
       ))}
     </div>
     <span class="nav-sep"></span>
+    <button type="button" class="menu-toggle" id="menuToggle" aria-label="打开分组导航" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+    </button>
     <button type="button" class="theme-toggle" id="themeToggle" aria-label="切换主题" title="切换浅色 / 深色">
       <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
       <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
@@ -418,7 +546,7 @@ const navsData = JSON.stringify(
               </div>
             </div>
           ) : (
-            <div class="group" data-group>
+            <div class="group" id={`${c.id}--${slugify(g.name)}`} data-group>
               {g.name && <h3 class="group-label">{g.name}</h3>}
               <div class="grid">
                 {g.entries.map((e) => (
@@ -570,20 +698,97 @@ const navsData = JSON.stringify(
         refreshCounts();
       });
 
-      // ===== 分类导航高亮（IntersectionObserver，滚动时点亮当前分类）=====
+      // ===== 分类/分组导航高亮（IntersectionObserver，滚动时点亮侧边栏当前项）=====
       var navItems = Array.prototype.slice.call(document.querySelectorAll('.nav-item'));
+      var sbCats = Array.prototype.reduce.call(document.querySelectorAll('.sb-cat'), function (m, el) {
+        m[el.getAttribute('data-sbcat')] = el; return m;
+      }, {});
+      var sbGroupLinks = Array.prototype.slice.call(document.querySelectorAll('.sb-group'));
+      var sbCatLinks = Array.prototype.slice.call(document.querySelectorAll('.sb-cat-link'));
+      // 组锚点 → 高亮映射（无组名的组落到所属分类上）
+      var groupTargets = {};
+      document.querySelectorAll('.group[id]').forEach(function (g) {
+        groupTargets[g.id] = g.closest('.cat').getAttribute('id');
+      });
       if ('IntersectionObserver' in window) {
-        var io = new IntersectionObserver(function (entries) {
+        var catIO = new IntersectionObserver(function (entries) {
           entries.forEach(function (entry) {
             if (!entry.isIntersecting) return;
             var id = entry.target.getAttribute('id');
             navItems.forEach(function (l) {
               l.classList.toggle('active', l.getAttribute('data-cat') === id);
             });
+            sbCatLinks.forEach(function (l) {
+              l.classList.toggle('active', l.getAttribute('data-cat') === id);
+            });
+            sbGroupLinks.forEach(function (l) { l.classList.remove('active'); });
+            var cat = sbCats[id];
+            if (cat) {
+              cat.classList.remove('collapsed');
+              Array.prototype.forEach.call(document.querySelectorAll('.sb-cat'), function (el) {
+                if (el !== cat) el.classList.add('collapsed');
+              });
+            }
           });
         }, { rootMargin: '-30% 0px -60% 0px', threshold: 0 });
-        cats.forEach(function (c) { io.observe(c.el); });
+        cats.forEach(function (c) { catIO.observe(c.el); });
+
+        var groupIO = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+            var gid = entry.target.getAttribute('id');
+            sbGroupLinks.forEach(function (l) {
+              l.classList.toggle('active', l.getAttribute('data-group-link') === gid);
+            });
+          });
+        }, { rootMargin: '-20% 0px -70% 0px', threshold: 0 });
+        document.querySelectorAll('.group[id]').forEach(function (g) { groupIO.observe(g); });
       }
+
+      // ===== 侧边栏交互：分类点击折叠/展开，汉堡按钮开合浮层 =====
+      document.querySelectorAll('.sb-cat-link').forEach(function (link) {
+        link.addEventListener('click', function (e) {
+          var cat = link.closest('.sb-cat');
+          var arrow = link.querySelector('.sb-arrow');
+          // 点箭头区域 = 纯折叠切换；点文字 = 跳转 + 折叠其他
+          if (e.offsetX < (arrow.offsetWidth + 8)) {
+            e.preventDefault();
+            cat.classList.toggle('collapsed');
+          } else {
+            Array.prototype.forEach.call(document.querySelectorAll('.sb-cat'), function (el) {
+              if (el !== cat) el.classList.add('collapsed');
+            });
+            cat.classList.remove('collapsed');
+          }
+        });
+      });
+      var sidebar = document.getElementById('sidebar');
+      var menuToggle = document.getElementById('menuToggle');
+      menuToggle.addEventListener('click', function () {
+        var open = sidebar.classList.toggle('open');
+        menuToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      document.addEventListener('click', function (e) {
+        if (!sidebar.contains(e.target) && !menuToggle.contains(e.target) && sidebar.classList.contains('open')) {
+          sidebar.classList.remove('open');
+          menuToggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+      // 移动端：点击侧边栏任意链接后收起浮层
+      sidebar.addEventListener('click', function (e) {
+        if (e.target.closest('a') && sidebar.classList.contains('open') && window.matchMedia('(max-width: 1100px)').matches) {
+          sidebar.classList.remove('open');
+          menuToggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      // ===== 侧边栏计数 =====
+      cats.forEach(function (c) {
+        var el = sbCats[c.el.getAttribute('id')];
+        if (!el) return;
+        var n = c.el.querySelectorAll('.bm').length;
+        el.querySelector('.sb-count').textContent = n;
+      });
     })();
   </script>
 </body>
