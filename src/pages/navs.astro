@@ -1,0 +1,586 @@
+---
+/**
+ * 书签站页面：azrng.github.io/navs/
+ * - 数据源：src/content/navs/*.md（分类文件），构建期解析渲染
+ * - 门面密码：SHA-256 哈希比对，输对后 localStorage 记住（“退出”清除）
+ * - 交互：前端搜索过滤、分类锚点导航、暗色切换（与主页共享 azrng-theme）
+ */
+import { getCollection } from 'astro:content';
+import { parseEntry, parseGroup, hostLetter, hostHue } from '../lib/navs';
+
+// 门面密码 SHA-256（占位密码 azrng2026，替换方法见 README）
+const PASSWORD_SHA256 = '59148f2558a4818936a7c87f928c51f1331c294503c6a184d6d7828c4b67e3db';
+
+interface Entry { title: string; url: string; desc: string }
+interface Group { name: string; entries: Entry[] }
+interface Category { title: string; id: string; groups: Group[] }
+
+// ===== 构建期：md → 分类结构 =====
+function slugify(t: string): string {
+  return encodeURIComponent(t).replace(/%/g, '').toLowerCase();
+}
+
+const categories: Category[] = (await getCollection('navs'))
+  .sort((a, b) => a.data.order - b.data.order || a.data.title.localeCompare(b.data.title, 'zh'))
+  .map((f) => {
+    const groups: Group[] = [];
+    let current: Group = { name: '', entries: [] };
+    for (const raw of f.body.split('\n')) {
+      const g = parseGroup(raw);
+      if (g !== null) {
+        if (current.entries.length || current.name) groups.push(current);
+        current = { name: g, entries: [] };
+        continue;
+      }
+      const e = parseEntry(raw);
+      if (e) current.entries.push(e);
+    }
+    if (current.entries.length) groups.push(current);
+    return { title: f.data.title, id: slugify(f.data.title), groups };
+  })
+  .filter((c) => c.groups.length > 0);
+
+const totalEntries = categories.reduce(
+  (n, c) => n + c.groups.reduce((m, g) => m + g.entries.length, 0),
+  0
+);
+const navsData = JSON.stringify(
+  categories.map((c) => ({
+    t: c.title,
+    id: c.id,
+    g: c.groups.map((g) => ({ n: g.name, e: g.entries.map((e) => [e.title, e.url, e.desc]) })),
+  }))
+);
+---
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark" data-pwd-hash={PASSWORD_SHA256}>
+<head>
+  <meta charset="UTF-8"">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>收藏 · azrng</title>
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+  <meta name="robots" content="noindex, nofollow">
+  <script>
+    // 主题在样式加载前确定，避免闪白/闪黑（与主页同 key，主题互通）
+    (function () {
+      try {
+        var saved = localStorage.getItem('azrng-theme');
+        var theme = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) { /* localStorage 不可用时保持默认深色 */ }
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&family=Outfit:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+  <style is:global>
+    /* ===== 主题令牌：与主页 css/index.css 保持一致 ===== */
+    :root {
+      color-scheme: dark;
+      --color-bg: #06060c;
+      --color-bg-surface: rgba(12, 12, 22, 0.58);
+      --color-bg-nav: rgba(10, 10, 18, 0.55);
+      --color-text: #ecedf7;
+      --color-text-soft: #a2a2ba;
+      --color-text-muted: #6b6b86;
+      --color-accent: #00e8ff;
+      --color-accent-soft: rgba(0, 232, 255, 0.16);
+      --color-accent-secondary: #ff3d86;
+      --color-on-accent: #06060c;
+      --color-hairline: rgba(255, 255, 255, 0.07);
+      --color-hairline-hover: rgba(0, 232, 255, 0.28);
+      --color-surface-raise: rgba(255, 255, 255, 0.03);
+      --color-inner-light: rgba(255, 255, 255, 0.04);
+      --shadow-card: 0 18px 50px -30px rgba(0, 0, 0, 0.9);
+      --font-display: 'Outfit', 'Noto Sans SC', sans-serif;
+      --font-sans: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', 'Consolas', monospace;
+      --ease-out: cubic-bezier(0.32, 0.72, 0, 1);
+      --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    :root[data-theme='light'] {
+      color-scheme: light;
+      --color-bg: #f5f6fa;
+      --color-bg-surface: rgba(255, 255, 255, 0.72);
+      --color-bg-nav: rgba(255, 255, 255, 0.7);
+      --color-text: #14141d;
+      --color-text-soft: #4b4b60;
+      --color-text-muted: #6f6f88;
+      --color-accent: #0d7f92;
+      --color-accent-soft: rgba(13, 127, 146, 0.12);
+      --color-accent-secondary: #cf1a63;
+      --color-on-accent: #ffffff;
+      --color-hairline: rgba(18, 18, 45, 0.1);
+      --color-hairline-hover: rgba(13, 127, 146, 0.4);
+      --color-surface-raise: rgba(18, 18, 45, 0.025);
+      --color-inner-light: rgba(255, 255, 255, 0.8);
+      --shadow-card: 0 18px 45px -32px rgba(24, 24, 60, 0.55);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+
+    body {
+      font-family: var(--font-sans);
+      font-size: 16px;
+      line-height: 1.8;
+      color: var(--color-text);
+      background-color: var(--color-bg);
+      min-height: 100dvh;
+      -webkit-font-smoothing: antialiased;
+      transition: background-color 0.6s var(--ease-out), color 0.6s var(--ease-out);
+    }
+
+    a { color: inherit; }
+
+    /* ===== 密码门 ===== */
+    .gate {
+      position: fixed; inset: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--color-bg);
+      transition: opacity 0.5s var(--ease-out), visibility 0.5s;
+    }
+    .gate.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+    .gate-card {
+      width: min(92vw, 360px);
+      padding: 2.5rem 2.25rem;
+      background: var(--color-bg-surface);
+      backdrop-filter: blur(24px) saturate(140%);
+      -webkit-backdrop-filter: blur(24px) saturate(140%);
+      border: 1px solid var(--color-hairline);
+      border-radius: 18px;
+      box-shadow: var(--shadow-card);
+      text-align: center;
+    }
+    .gate-title {
+      font-family: var(--font-display);
+      font-size: 1.25rem; font-weight: 300; letter-spacing: 0.3em;
+      text-transform: uppercase; color: var(--color-text-muted);
+      margin-bottom: 0.5rem;
+    }
+    .gate-sub { font-size: 0.75rem; color: var(--color-text-muted); margin-bottom: 1.75rem; }
+    .gate-input {
+      width: 100%; padding: 0.7rem 1rem;
+      font-family: var(--font-mono); font-size: 0.9rem;
+      color: var(--color-text);
+      background: var(--color-surface-raise);
+      border: 1px solid var(--color-hairline);
+      border-radius: 10px; outline: none; text-align: center;
+      transition: border-color 0.4s var(--ease-out);
+    }
+    .gate-input:focus { border-color: var(--color-hairline-hover); }
+    .gate-input.shake { animation: shake 0.4s; border-color: var(--color-accent-secondary); }
+    @keyframes shake {
+      20%, 60% { transform: translateX(-6px); }
+      40%, 80% { transform: translateX(6px); }
+    }
+    .gate-btn {
+      width: 100%; margin-top: 1rem; padding: 0.7rem 1rem;
+      font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 0.2em;
+      color: var(--color-on-accent);
+      background: var(--color-accent);
+      border: none; border-radius: 10px; cursor: pointer;
+      transition: transform 0.3s var(--ease-spring), opacity 0.3s;
+    }
+    .gate-btn:hover { transform: translateY(-2px); opacity: 0.9; }
+    .gate-err { height: 1.4em; margin-top: 0.75rem; font-size: 0.72rem; color: var(--color-accent-secondary); }
+
+    /* ===== 顶部导航（玻璃胶囊，风格与主页 side-nav 一致）===== */
+    .top-nav {
+      position: fixed; left: 50%; top: 1.25rem; transform: translateX(-50%);
+      z-index: 100;
+      display: flex; align-items: center; gap: 0.15rem;
+      max-width: min(94vw, 720px);
+      background: var(--color-bg-nav);
+      backdrop-filter: blur(24px) saturate(140%);
+      -webkit-backdrop-filter: blur(24px) saturate(140%);
+      border: 1px solid var(--color-hairline);
+      border-radius: 999px;
+      padding: 0.35rem 0.4rem;
+      box-shadow: var(--shadow-card);
+    }
+    .top-home, .nav-item {
+      font-family: var(--font-mono); font-size: 0.65rem; font-weight: 500;
+      color: var(--color-text-muted); text-decoration: none;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      padding: 0.5rem 1.05rem; border-radius: 999px;
+      white-space: nowrap;
+      transition: color 0.4s var(--ease-out), background 0.4s var(--ease-out);
+    }
+    .top-home:hover, .nav-item:hover { color: var(--color-text); background: var(--color-surface-raise); }
+    .nav-item.active { color: var(--color-on-accent); background: var(--color-accent); }
+    .nav-item.active:hover { background: var(--color-accent); }
+    .nav-sep { width: 1px; height: 18px; margin: 0 0.35rem; background: var(--color-hairline); flex-shrink: 0; }
+    .nav-scroll {
+      display: flex; align-items: center; gap: 0.15rem;
+      overflow-x: auto; scrollbar-width: none;
+      mask-image: linear-gradient(90deg, transparent, #000 12px, #000 calc(100% - 12px), transparent);
+    }
+    .nav-scroll::-webkit-scrollbar { display: none; }
+    .theme-toggle {
+      display: flex; align-items: center; justify-content: center;
+      width: 32px; height: 32px; flex-shrink: 0;
+      border: none; border-radius: 999px; background: transparent;
+      color: var(--color-text-muted); cursor: pointer;
+      transition: color 0.4s var(--ease-out), background 0.4s var(--ease-out);
+    }
+    .theme-toggle:hover { color: var(--color-accent); background: var(--color-surface-raise); }
+    .theme-toggle svg { width: 16px; height: 16px; }
+    .theme-toggle .icon-sun { display: none; }
+    :root[data-theme='light'] .theme-toggle .icon-sun { display: block; }
+    :root[data-theme='light'] .theme-toggle .icon-moon { display: none; }
+
+    /* ===== 主体 ===== */
+    .wrap { max-width: 1080px; margin: 0 auto; padding: 7rem 1.5rem 4rem; }
+
+    .page-head { margin-bottom: 2.5rem; }
+    .page-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.4rem, 3.5vw, 2.2rem); font-weight: 300;
+      letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--color-text);
+    }
+    .page-title em { font-style: normal; color: var(--color-accent); }
+    .page-meta { font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-text-muted); letter-spacing: 0.15em; margin-top: 0.5rem; }
+
+    .search-box { position: relative; margin-bottom: 3rem; }
+    .search-input {
+      width: 100%; padding: 0.8rem 1.25rem 0.8rem 2.75rem;
+      font-family: var(--font-sans); font-size: 0.95rem;
+      color: var(--color-text);
+      background: var(--color-bg-surface);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--color-hairline);
+      border-radius: 999px; outline: none;
+      transition: border-color 0.4s var(--ease-out);
+    }
+    .search-input:focus { border-color: var(--color-hairline-hover); }
+    .search-icon {
+      position: absolute; left: 1.05rem; top: 50%; transform: translateY(-50%);
+      color: var(--color-text-muted); pointer-events: none;
+    }
+    .search-count { font-size: 0.72rem; color: var(--color-text-muted); margin: -2rem 0 2rem; font-family: var(--font-mono); letter-spacing: 0.1em; min-height: 1.2em; }
+
+    .cat { margin-bottom: 3.5rem; scroll-margin-top: 90px; }
+    .cat-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.1rem, 2.5vw, 1.5rem); font-weight: 300;
+      letter-spacing: 0.4em; text-transform: uppercase;
+      color: var(--color-text-muted);
+      display: flex; align-items: baseline; gap: 0.9rem;
+      margin-bottom: 1.75rem;
+    }
+    .cat-title bdi { color: var(--color-text); font-weight: 500; }
+    .cat-count { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.1em; color: var(--color-text-muted); }
+    .cat-title::after {
+      content: ''; flex: 1; height: 1px;
+      background: linear-gradient(90deg, var(--color-accent), transparent);
+      opacity: 0.6; align-self: center;
+    }
+
+    .group-label {
+      font-family: var(--font-mono); font-size: 0.68rem; font-weight: 500;
+      color: var(--color-text-muted); letter-spacing: 0.22em; text-transform: uppercase;
+      margin: 1.75rem 0 1rem;
+    }
+    .group-label::before { content: '◇ '; color: var(--color-accent); }
+
+    /* ===== 书签卡片网格 ===== */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 0.9rem;
+    }
+    .bm {
+      display: flex; align-items: center; gap: 0.85rem;
+      padding: 0.85rem 1rem;
+      text-decoration: none; color: var(--color-text);
+      background: var(--color-bg-surface);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--color-hairline);
+      border-radius: 14px;
+      box-shadow: inset 0 1px 1px var(--color-inner-light);
+      transition: border-color 0.4s var(--ease-out), transform 0.4s var(--ease-out),
+                  box-shadow 0.4s var(--ease-out);
+    }
+    .bm:hover {
+      border-color: var(--color-hairline-hover);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-card);
+    }
+    .bm-letter {
+      width: 38px; height: 38px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display); font-size: 1.05rem; font-weight: 600;
+      color: #fff;
+      border-radius: 10px;
+      transition: transform 0.5s var(--ease-spring);
+    }
+    .bm:hover .bm-letter { transform: scale(1.08) rotate(-3deg); }
+    .bm-body { flex: 1 1 auto; min-width: 0; }
+    .bm-title {
+      font-size: 0.85rem; font-weight: 500;
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .bm-desc {
+      font-size: 0.7rem; font-weight: 300; color: var(--color-text-muted);
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .bm-desc:empty::after { content: attr(data-host); }
+    .cat.empty, .group.empty { display: none; }
+
+    .footer {
+      margin-top: 4rem; padding: 2rem 0;
+      font-family: var(--font-mono); font-size: 0.65rem;
+      color: var(--color-text-muted); letter-spacing: 0.15em;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .logout-btn {
+      font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.15em;
+      color: var(--color-text-muted); background: none;
+      border: 1px solid var(--color-hairline); border-radius: 999px;
+      padding: 0.35rem 1rem; cursor: pointer;
+      transition: color 0.4s, border-color 0.4s;
+    }
+    .logout-btn:hover { color: var(--color-accent-secondary); border-color: var(--color-accent-secondary); }
+
+    @media (max-width: 640px) {
+      .wrap { padding-top: 6rem; }
+      .top-nav { top: 0.75rem; }
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 门面密码门：挡君子不挡小人，内容仍构建在 HTML 里 -->
+  <div class="gate" id="gate">
+    <div class="gate-card">
+      <div class="gate-title">azrng</div>
+      <div class="gate-sub">私有收藏 · 请输入访问密码</div>
+      <input class="gate-input" id="gateInput" type="password" autocomplete="off" placeholder="PASSWORD" aria-label="访问密码">
+      <button class="gate-btn" id="gateBtn" type="button">进入</button>
+      <div class="gate-err" id="gateErr"></div>
+    </div>
+  </div>
+
+  <!-- 顶部玻璃导航 -->
+  <nav class="top-nav" id="topNav" aria-label="分类导航">
+    <a class="top-home" href="/">HOME</a>
+    <span class="nav-sep"></span>
+    <div class="nav-scroll">
+      {categories.map((c) => (
+        <a class="nav-item" href={`#${c.id}`} data-cat={c.id}>{c.title}</a>
+      ))}
+    </div>
+    <span class="nav-sep"></span>
+    <button type="button" class="theme-toggle" id="themeToggle" aria-label="切换主题" title="切换浅色 / 深色">
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+    </button>
+  </nav>
+
+  <main class="wrap" id="content">
+    <header class="page-head">
+      <h1 class="page-title">我的<em>收藏</em></h1>
+      <p class="page-meta" id="pageMeta" data-total={totalEntries}>{categories.length} CATEGORIES · {totalEntries} LINKS</p>
+    </header>
+
+    <div class="search-box">
+      <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input class="search-input" id="searchInput" type="search" placeholder="搜索标题 / 网址 / 备注…" aria-label="搜索书签">
+    </div>
+    <p class="search-count" id="searchCount" aria-live="polite"></p>
+
+    {categories.map((c) => (
+      <section class="cat" id={c.id} data-cat={c.id}>
+        <h2 class="cat-title"><bdi>{c.title}</bdi> <span class="cat-count"></span></h2>
+        {c.groups.map((g, gi) => (
+          gi === 0 && !g.name ? (
+            <div class="group" data-group>
+              <div class="grid">
+                {g.entries.map((e) => (
+                  <a class="bm" href={e.url} target="_blank" rel="noopener noreferrer"
+                     data-search={`${e.title} ${e.url} ${e.desc}`.toLowerCase()}>
+                    <span class="bm-letter" style={`background: hsl(${hostHue(e.url)}, 62%, 46%)`}>{hostLetter(e.url)}</span>
+                    <span class="bm-body">
+                      <span class="bm-title">{e.title}</span>
+                      <span class="bm-desc" data-host={(() => { try { return new URL(e.url).hostname.replace(/^www\./, ''); } catch { return ''; } })()}>{e.desc}</span>
+                    </span>
+                  </a>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <div class="group" data-group>
+              {g.name && <h3 class="group-label">{g.name}</h3>}
+              <div class="grid">
+                {g.entries.map((e) => (
+                  <a class="bm" href={e.url} target="_blank" rel="noopener noreferrer"
+                     data-search={`${e.title} ${e.url} ${e.desc}`.toLowerCase()}>
+                    <span class="bm-letter" style={`background: hsl(${hostHue(e.url)}, 62%, 46%)`}>{hostLetter(e.url)}</span>
+                    <span class="bm-body">
+                      <span class="bm-title">{e.title}</span>
+                      <span class="bm-desc" data-host={(() => { try { return new URL(e.url).hostname.replace(/^www\./, ''); } catch { return ''; } })()}>{e.desc}</span>
+                    </span>
+                  </a>
+                ))}
+              </div>
+            </div>
+          )
+        ))}
+      </section>
+    ))}
+
+    <footer class="footer">
+      <span>&copy; azrng · 虽然很累，但是只要努力终会出头</span>
+      <button class="logout-btn" id="logoutBtn" type="button">退出访问</button>
+    </footer>
+  </main>
+
+  <script type="application/json" id="navs-data" set:html={navsData} />
+  <script>
+    (function () {
+      'use strict';
+      var HASH = document.documentElement.getAttribute('data-pwd-hash');
+
+      // ===== 密码门 =====
+      var gate = document.getElementById('gate');
+      var input = document.getElementById('gateInput');
+      var btn = document.getElementById('gateBtn');
+      var err = document.getElementById('gateErr');
+      var KEY = 'azrng-navs-auth';
+
+      function sha256(text) {
+        var data = new TextEncoder().encode(text);
+        return crypto.subtle.digest('SHA-256', data).then(function (buf) {
+          return Array.prototype.map.call(new Uint8Array(buf), function (b) {
+            return b.toString(16).padStart(2, '0');
+          }).join('');
+        });
+      }
+
+      function open() {
+        gate.classList.add('hidden');
+        err.textContent = '';
+      }
+
+      function tryAuth() {
+        var v = input.value;
+        if (!v) return;
+        sha256(v).then(function (h) {
+          if (h === HASH) {
+            try { localStorage.setItem(KEY, '1'); } catch (e) {}
+            open();
+          } else {
+            err.textContent = '密码不对，再想想？';
+            input.classList.add('shake');
+            setTimeout(function () { input.classList.remove('shake'); }, 450);
+            input.select();
+          }
+        });
+      }
+
+      btn.addEventListener('click', tryAuth);
+      input.addEventListener('keydown', function (e) { if (e.key === 'Enter') tryAuth(); });
+
+      var authed = false;
+      try { authed = localStorage.getItem(KEY) === '1'; } catch (e) {}
+      if (authed) gate.classList.add('hidden');
+
+      document.getElementById('logoutBtn').addEventListener('click', function () {
+        try { localStorage.removeItem(KEY); } catch (e) {}
+        gate.classList.remove('hidden');
+        input.value = '';
+        input.focus();
+      });
+
+      // ===== 主题切换（与主页共享 azrng-theme）=====
+      document.getElementById('themeToggle').addEventListener('click', function () {
+        var root = document.documentElement;
+        var next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+        root.setAttribute('data-theme', next);
+        try { localStorage.setItem('azrng-theme', next); } catch (e) {}
+      });
+
+      // ===== 搜索过滤 =====
+      var searchInput = document.getElementById('searchInput');
+      var countEl = document.getElementById('searchCount');
+      var cats = Array.prototype.map.call(document.querySelectorAll('.cat'), function (cat) {
+        return {
+          el: cat,
+          countEl: cat.querySelector('.cat-count'),
+          groups: Array.prototype.map.call(cat.querySelectorAll('[data-group]'), function (g) {
+            return {
+              el: g,
+              items: Array.prototype.map.call(g.querySelectorAll('.bm'), function (a) {
+                return { el: a, hay: (a.getAttribute('data-search') || '').toLowerCase() };
+              })
+            };
+          })
+        };
+      });
+
+      // 初始计数（构建期没有逐组计数，运行时补一次）
+      function refreshCounts() {
+        cats.forEach(function (c) {
+          var n = c.el.querySelectorAll('.bm:not([hidden])').length;
+          c.countEl.textContent = n ? n + ' LINKS' : '';
+        });
+      }
+      refreshCounts();
+
+      var total = parseInt(document.getElementById('pageMeta').getAttribute('data-total') || '0', 10);
+      searchInput.addEventListener('input', function () {
+        var q = searchInput.value.trim().toLowerCase();
+        if (!q) {
+          cats.forEach(function (c) {
+            c.el.classList.remove('empty');
+            c.groups.forEach(function (g) {
+              g.el.classList.remove('empty');
+              g.items.forEach(function (i) { i.el.hidden = false; });
+            });
+          });
+          countEl.textContent = '';
+          refreshCounts();
+          return;
+        }
+        var hit = 0;
+        cats.forEach(function (c) {
+          var catHit = 0;
+          c.groups.forEach(function (g) {
+            var gHit = 0;
+            g.items.forEach(function (i) {
+              var m = i.hay.indexOf(q) !== -1;
+              i.el.hidden = !m;
+              if (m) { gHit++; hit++; }
+            });
+            g.el.classList.toggle('empty', gHit === 0);
+            catHit += gHit;
+          });
+          c.el.classList.toggle('empty', catHit === 0);
+        });
+        countEl.textContent = hit ? (hit + ' / ' + total + ' 条匹配') : '没有匹配的书签';
+        refreshCounts();
+      });
+
+      // ===== 分类导航高亮（IntersectionObserver，滚动时点亮当前分类）=====
+      var navItems = Array.prototype.slice.call(document.querySelectorAll('.nav-item'));
+      if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+            var id = entry.target.getAttribute('id');
+            navItems.forEach(function (l) {
+              l.classList.toggle('active', l.getAttribute('data-cat') === id);
+            });
+          });
+        }, { rootMargin: '-30% 0px -60% 0px', threshold: 0 });
+        cats.forEach(function (c) { io.observe(c.el); });
+      }
+    })();
+  </script>
+</body>
+</html>

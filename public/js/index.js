@@ -461,8 +461,10 @@
 
     links.forEach(link => {
       link.addEventListener('click', e => {
+        const href = link.getAttribute('href');
+        if (!href || !href.startsWith('#')) return; // 路径链接（如 /navs/）走浏览器默认跳转
         e.preventDefault();
-        const target = document.querySelector(link.getAttribute('href'));
+        const target = document.querySelector(href);
         if (target) target.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth' });
       });
     });

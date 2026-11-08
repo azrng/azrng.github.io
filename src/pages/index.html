@@ -30,7 +30,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&family=Outfit:wght@200;300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/index.css">
+  <link rel="stylesheet" href="/css/index.css">
 </head>
 
 <body>
@@ -59,7 +59,7 @@
     <span class="nav-indicator" id="navIndicator" aria-hidden="true"></span>
     <a href="#home" class="nav-link active" data-section="home">首页</a>
     <a href="#about" class="nav-link" data-section="about">关于</a>
-    <a href="#links" class="nav-link" data-section="links">链接</a>
+    <a href="/navs/" class="nav-link">收藏</a>
     <a href="#contact" class="nav-link" data-section="contact">联系</a>
     <span class="nav-divider" aria-hidden="true"></span>
     <button type="button" class="theme-toggle" id="themeToggle" aria-label="切换主题" title="切换浅色 / 深色">
@@ -305,6 +305,22 @@
               </svg>
             </div>
           </a>
+          <a href="/navs/" class="link-card reveal reveal-delay-4" style="--accent: #00e8ff;">
+            <div class="link-card-inner">
+              <div class="link-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M6 2a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8.414a2 2 0 0 0-.586-1.414L16.586 2.586A2 2 0 0 0 15.172 2H6zm4 4.5a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0zM8.2 12.4a1 1 0 0 1 1.4.2 3.2 3.2 0 0 0 5.04 0 1 1 0 1 1 1.56 1.26 5.2 5.2 0 0 1-2.2 1.6V16a1 1 0 1 1-2 0v-.54a5.2 5.2 0 0 1-2.2-1.6 1 1 0 0 1 .4-1.46zM7 18h10v1a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1v-1z"/>
+                </svg>
+              </div>
+              <div class="link-content">
+                <h3 class="link-title">我的收藏</h3>
+                <p class="link-desc">私人书签导航站</p>
+              </div>
+              <svg class="link-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M7 17L17 7M7 7h10v10"/>
+              </svg>
+            </div>
+          </a>
         </div>
       </div>
     </section>
@@ -383,8 +399,8 @@
     })(window, document, "clarity", "script", "yx3a58jwor");
 </script>
 
-  <script src="js/slogans.js"></script>
-  <script src="js/index.js"></script>
+  <script src="/js/slogans.js"></script>
+  <script src="/js/index.js"></script>
 </body>
 
 </html>

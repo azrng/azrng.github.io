@@ -343,3 +343,7 @@ healthchecksdb
 .claude
 .agents
 skills-lock.json
+
+# Astro 构建产物
+dist/
+.astro/
