@@ -46,6 +46,20 @@ npm run import:bookmarks -- path/to/bookmarks.html [more.html ...]
 
 按一级文件夹生成分类 md（二级以下折叠为 `###` 子分组），跨文件按 URL 去重；已存在的同名分类文件会被跳过。
 
+## 回填域名标题
+
+导入的书签里如果标题只是域名（如 `cnblogs.com`），可抓取页面真实标题回填：
+
+```bash
+npm run fetch:titles                 # 预览，不改文件
+npm run fetch:titles -- --write      # 实际回写 md
+npm run fetch:titles -- --only=cnblogs.com --write   # 只处理某些域名
+npm run fetch:titles -- --proxy=http://127.0.0.1:7890 --write   # 走代理（抓 GitHub 必需）
+```
+
+- GitHub 仓库走 api.github.com（未认证限流 60 次/小时，超出自动退回网页抓取）
+- 抓取失败（404/超时/反爬/页面无标题）的条目保持原状并打印清单，可重跑增量补齐
+
 ## 本地开发
 
 ```bash

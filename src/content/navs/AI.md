@@ -14,7 +14,7 @@ order: 4
 - [智谱清言](https://chatglm.cn/main/detail)
 - [Kimi.ai - 帮你看更大的世界](https://kimi.moonshot.cn/)
 - [秘塔AI搜索](https://metaso.cn/?s=jkgh)
-- [ChatGPT](https://chatgpt.com/)
+- [ChatGPT: Chat, Work, Create & Code with AI](https://chatgpt.com/)
 - [必应中的 Microsoft Copilot](https://www.bing.com/chat)
 
 ### 中转与充值
@@ -29,7 +29,7 @@ order: 4
 - [Agnes](https://app.agnes-ai.com/)
 - [仪表盘 - AI系统](https://api.zzzcoding.org/dashboard)
 - [霸气公益平台](https://ai.121628.xyz/dashboard/overview)
-- [ooioo](https://ooioo.work/dashboard/overview)
+- [New API](https://ooioo.work/dashboard/overview)
 - [仪表盘 - 掺水API](https://cssmapi.fun/dashboard)
 - [赵赵ai小窝](https://zzaibox.cn/cat/56)
 - [TokenChat](https://lobe-chat.ai-v1.cn/chat?agent=)
@@ -41,7 +41,7 @@ order: 4
 
 - [AIbase基地 - 让更多人看到未来 通往AGI之路](https://www.aibase.com/zh)
 - [AI 流式响应查看器](https://azrng.github.io/sView/index.html)
-- [AIHOT](https://aihot.virxact.com/)
+- [AI 新闻资讯：今日 AI 热点与大模型动态精选 · AIHOT](https://aihot.virxact.com/)
 - [LLM Rankings | OpenRouter](https://openrouter.ai/rankings)
 - [TrendForge - 发现热门开源项目](https://trendforge.devlive.top/)
 - [Codex 雷达](https://codexradar.com/)
@@ -111,7 +111,7 @@ order: 4
 ### 文档分析
 
 - [深度维基 DeepWiki](https://deepwiki.com/)
-- [opendeep.wiki](https://opendeep.wiki/)
+- [OpenDeepWiki](https://opendeep.wiki/)
 - [opendeep.wiki/microsoft/semantic-kernel](https://opendeep.wiki/microsoft/semantic-kernel)
 - [qoder-repo-wiki-export](https://github.com/Likhithsai2580/qoder-repo-wiki-export)
 - [go-cursor-help](https://github.com/yuaotian/go-cursor-help/blob/master/README_CN.md)
@@ -122,3 +122,15 @@ order: 4
 - [GitHub 副驾驶 ·您的 AI 结对程序员](https://github.com/features/copilot/plans?cft=copilot_li.features_copilot)
 - [Classroom · AI Launchpad](https://www.skool.com/ai-launchpad/classroom)
 - [sheng-jie/learn-cc-csharp: 这个仓库是 https://github.com/shareAI-](https://github.com/sheng-jie/learn-cc-csharp)
+
+
+
+
+
+
+
+
+
+
+
+

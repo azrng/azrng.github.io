@@ -7,9 +7,11 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "import:bookmarks": "node scripts/import.mjs"
+    "import:bookmarks": "node scripts/import.mjs",
+    "fetch:titles": "node scripts/fetch-titles.mjs"
   },
   "dependencies": {
-    "astro": "^5.0.0"
+    "astro": "^5.0.0",
+    "sharp": "^0.35.5"
   }
 }
