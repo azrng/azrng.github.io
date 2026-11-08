@@ -1,5 +1,5 @@
 ---
-title: "Life"
+title: "生活"
 order: 1
 ---
 

@@ -2,16 +2,16 @@
  * 书签站共享工具：md 条目解析、首字母色块配色
  */
 
-/** 解析一行 “- [标题](url) 备注” → { title, url, desc }；解析失败返回 null */
+/** 解析一行 “- [标题](url) 备注” → { title, url, desc }；解析失败返回 null（兼容 CRLF 行尾） */
 export function parseEntry(line) {
-  const m = line.match(/^\s*-\s+\[([^\]]*)\]\((\S+?)\)(?:\s+(.*))?$/);
+  const m = line.match(/^\s*-\s+\[([^\]]*)\]\((\S+?)\)(?:\s+(.*?))?\s*$/);
   if (!m) return null;
   return { title: m[1].trim(), url: m[2], desc: (m[3] || '').trim() };
 }
 
-/** 从 “### 名称” 分组行取分组名 */
+/** 从 “### 名称” 分组行取分组名（兼容 CRLF 行尾） */
 export function parseGroup(line) {
-  const m = line.match(/^###\s+(.+)$/);
+  const m = line.match(/^###\s+(.+?)\s*$/);
   return m ? m[1].trim() : null;
 }
 

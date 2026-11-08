@@ -293,6 +293,8 @@ const navsData = JSON.stringify(
       grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
       gap: 0.9rem;
     }
+    /* grid 子项默认 min-width:auto，长标题会把列撑破网格 */
+    .grid > .bm { min-width: 0; max-width: 100%; }
     .bm {
       display: flex; align-items: center; gap: 0.85rem;
       padding: 0.85rem 1rem;
@@ -321,10 +323,12 @@ const navsData = JSON.stringify(
     .bm:hover .bm-letter { transform: scale(1.08) rotate(-3deg); }
     .bm-body { flex: 1 1 auto; min-width: 0; }
     .bm-title {
+      display: block;
       font-size: 0.85rem; font-weight: 500;
       overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
     }
     .bm-desc {
+      display: block;
       font-size: 0.7rem; font-weight: 300; color: var(--color-text-muted);
       overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
     }
