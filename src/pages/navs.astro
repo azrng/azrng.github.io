@@ -414,6 +414,59 @@ const navsData = JSON.stringify(
       overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
     }
     .bm-desc:empty::after { content: attr(data-host); }
+    /* ===== 大组折叠 ===== */
+    .grid.collapsed .bm:nth-child(n + 25) { display: none; }
+    .grid.collapsed + .fold-btn { display: inline-flex; }
+    .grid:not(.collapsed) + .fold-btn.expand-only { display: none; }
+    .fold-btn {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      margin-top: 0.9rem; padding: 0.45rem 1.1rem;
+      font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em;
+      color: var(--color-text-muted); background: var(--color-bg-surface);
+      border: 1px solid var(--color-hairline); border-radius: 999px;
+      cursor: pointer;
+      transition: color 0.3s var(--ease-out), border-color 0.3s var(--ease-out);
+    }
+    .fold-btn:hover { color: var(--color-text); border-color: var(--color-hairline-hover); }
+    .fold-btn .fold-n { color: var(--color-accent); }
+    /* 搜索命中时强制展开（不再显示收起按钮，避免反复跳动） */
+    .group.searching .grid.collapsed .bm { display: flex; }
+    .group.searching .fold-btn { display: none; }
+
+    /* ===== 紧凑列表视图 ===== */
+    body[data-view="compact"] .grid { display: flex; flex-direction: column; gap: 0.3rem; }
+    body[data-view="compact"] .bm {
+      padding: 0.35rem 0.8rem;
+      border-radius: 9px;
+      gap: 0.65rem;
+      box-shadow: none;
+      border-color: transparent;
+      background: none;
+    }
+    body[data-view="compact"] .bm:hover {
+      background: var(--color-bg-surface);
+      border-color: var(--color-hairline);
+      transform: none;
+    }
+    body[data-view="compact"] .bm-letter { width: 26px; height: 26px; font-size: 0.8rem; border-radius: 7px; }
+    body[data-view="compact"] .bm-title { font-size: 0.8rem; }
+    body[data-view="compact"] .bm-desc { font-size: 0.68rem; }
+
+    /* ===== 视图切换按钮 ===== */
+    .view-toggle {
+      position: absolute; right: 1.4rem; top: 0.85rem;
+      width: 34px; height: 34px;
+      display: flex; align-items: center; justify-content: center;
+      border: 1px solid var(--color-hairline); border-radius: 999px;
+      background: var(--color-bg-surface);
+      color: var(--color-text-muted); cursor: pointer;
+      transition: color 0.3s var(--ease-out), border-color 0.3s var(--ease-out);
+    }
+    .view-toggle:hover { color: var(--color-text); border-color: var(--color-hairline-hover); }
+    .view-toggle .icon-list { display: none; }
+    body[data-view="compact"] .view-toggle .icon-list { display: block; }
+    body[data-view="compact"] .view-toggle .icon-grid { display: none; }
+
     .cat.empty, .group.empty { display: none; }
 
     .footer {
@@ -523,6 +576,10 @@ const navsData = JSON.stringify(
     <div class="search-box">
       <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
       <input class="search-input" id="searchInput" type="search" placeholder="搜索标题 / 网址 / 备注…" aria-label="搜索书签">
+      <button type="button" class="view-toggle" id="viewToggle" aria-label="切换卡片 / 紧凑视图" title="切换卡片 / 紧凑视图">
+        <svg class="icon-grid" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+        <svg class="icon-list" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M8 6h13M8 12h13M8 18h13M3.5 6h.01M3.5 12h.01M3.5 18h.01"/></svg>
+      </button>
     </div>
     <p class="search-count" id="searchCount" aria-live="polite"></p>
 
@@ -532,7 +589,7 @@ const navsData = JSON.stringify(
         {c.groups.map((g, gi) => (
           gi === 0 && !g.name ? (
             <div class="group" data-group>
-              <div class="grid">
+              <div class={`grid${g.entries.length > 24 ? ' collapsed' : ''}`} data-grid>
                 {g.entries.map((e) => (
                   <a class="bm" href={e.url} target="_blank" rel="noopener noreferrer"
                      data-search={`${e.title} ${e.url} ${e.desc}`.toLowerCase()}>
@@ -544,11 +601,16 @@ const navsData = JSON.stringify(
                   </a>
                 ))}
               </div>
+              {g.entries.length > 24 && (
+                <button type="button" class="fold-btn expand-only" data-fold>
+                  显示全部 <span class="fold-n">{g.entries.length}</span> 条
+                </button>
+              )}
             </div>
           ) : (
             <div class="group" id={`${c.id}--${slugify(g.name)}`} data-group>
               {g.name && <h3 class="group-label">{g.name}</h3>}
-              <div class="grid">
+              <div class={`grid${g.entries.length > 24 ? ' collapsed' : ''}`} data-grid>
                 {g.entries.map((e) => (
                   <a class="bm" href={e.url} target="_blank" rel="noopener noreferrer"
                      data-search={`${e.title} ${e.url} ${e.desc}`.toLowerCase()}>
@@ -560,6 +622,11 @@ const navsData = JSON.stringify(
                   </a>
                 ))}
               </div>
+              {g.entries.length > 24 && (
+                <button type="button" class="fold-btn expand-only" data-fold>
+                  显示全部 <span class="fold-n">{g.entries.length}</span> 条
+                </button>
+              )}
             </div>
           )
         ))}
@@ -672,6 +739,7 @@ const navsData = JSON.stringify(
             c.el.classList.remove('empty');
             c.groups.forEach(function (g) {
               g.el.classList.remove('empty');
+              g.el.classList.remove('searching');
               g.items.forEach(function (i) { i.el.hidden = false; });
             });
           });
@@ -684,6 +752,7 @@ const navsData = JSON.stringify(
           var catHit = 0;
           c.groups.forEach(function (g) {
             var gHit = 0;
+            g.el.classList.add('searching');
             g.items.forEach(function (i) {
               var m = i.hay.indexOf(q) !== -1;
               i.el.hidden = !m;
@@ -780,6 +849,33 @@ const navsData = JSON.stringify(
           sidebar.classList.remove('open');
           menuToggle.setAttribute('aria-expanded', 'false');
         }
+      });
+
+      // ===== 大组折叠：显示全部 / 收起 =====
+      document.querySelectorAll('[data-fold]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var grid = btn.parentElement.querySelector('[data-grid]');
+          var collapsed = grid.classList.toggle('collapsed');
+          btn.classList.toggle('expand-only', !collapsed);
+          var n = grid.querySelectorAll('.bm').length;
+          btn.innerHTML = collapsed
+            ? '显示全部 <span class="fold-n">' + n + '</span> 条'
+            : '收起';
+        });
+      });
+
+      // ===== 视图切换：卡片 / 紧凑列表（localStorage 记忆）=====
+      var viewToggle = document.getElementById('viewToggle');
+      try {
+        if (localStorage.getItem('azrng-navs-view') === 'compact') {
+          document.body.setAttribute('data-view', 'compact');
+        }
+      } catch (e) { /* localStorage 不可用保持默认卡片视图 */ }
+      viewToggle.addEventListener('click', function () {
+        var compact = document.body.getAttribute('data-view') === 'compact';
+        if (compact) document.body.removeAttribute('data-view');
+        else document.body.setAttribute('data-view', 'compact');
+        try { localStorage.setItem('azrng-navs-view', compact ? 'grid' : 'compact'); } catch (e) {}
       });
 
       // ===== 侧边栏计数 =====
