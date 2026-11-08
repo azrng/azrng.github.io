@@ -1,6 +1,6 @@
 ---
 title: "AI"
-order: 4
+order: 2
 ---
 
 ### 模型平台
@@ -40,7 +40,7 @@ order: 4
 ### AI资讯
 
 - [AIbase基地 - 让更多人看到未来 通往AGI之路](https://www.aibase.com/zh)
-- [AI 流式响应查看器](https://azrng.github.io/sView/index.html)
+- [AI 流式响应查看器（自建）](https://azrng.github.io/sView/index.html)
 - [AI 新闻资讯：今日 AI 热点与大模型动态精选 · AIHOT](https://aihot.virxact.com/)
 - [LLM Rankings | OpenRouter](https://openrouter.ai/rankings)
 - [TrendForge - 发现热门开源项目](https://trendforge.devlive.top/)
@@ -77,8 +77,6 @@ order: 4
 - [Agent Framework 系列｜基础篇（30讲）](https://mp.weixin.qq.com/s/3w6IKNlXmt6ucMUX6n7FMw)
 - [深入理解 AI Agent](https://bojieli.github.io/ai-agent-book/)
 - [29-调用大模型_MessagesPlaceholder的使用](https://www.bilibili.com/video/BV1ZppNzHEY4?spm_id_from=333.788.player.switch&vd_source=0a3cc07b87a63e3c53d4132b6ce1a83c&p=67)
-- [【求助】后端转Agent,想请佬友帮忙看看简历 - LINUX DO](https://linux.do/t/topic/2713998/6)
-- [优惠定价：AI移动应用设计方案](https://sleek.design/pricing)
 
 ### 语义内核与RAG
 
@@ -107,6 +105,7 @@ order: 4
 - [Cline Dashboard](https://app.cline.bot/dashboard)
 - [OpenViking - Context File System](https://www.openviking.ai/)
 - [OpenViking 简介](https://docs.openviking.ai/zh/getting-started/01-introduction)
+- [GitHub 副驾驶 ·您的 AI 结对程序员](https://github.com/features/copilot/plans?cft=copilot_li.features_copilot)
 
 ### 文档分析
 
@@ -114,23 +113,3 @@ order: 4
 - [OpenDeepWiki](https://opendeep.wiki/)
 - [opendeep.wiki/microsoft/semantic-kernel](https://opendeep.wiki/microsoft/semantic-kernel)
 - [qoder-repo-wiki-export](https://github.com/Likhithsai2580/qoder-repo-wiki-export)
-- [go-cursor-help](https://github.com/yuaotian/go-cursor-help/blob/master/README_CN.md)
-
-### 浏览器书签
-
-- [Logging to elmah.io from Blazor](https://docs.elmah.io/logging-to-elmah-io-from-blazor/)
-- [GitHub 副驾驶 ·您的 AI 结对程序员](https://github.com/features/copilot/plans?cft=copilot_li.features_copilot)
-- [Classroom · AI Launchpad](https://www.skool.com/ai-launchpad/classroom)
-- [sheng-jie/learn-cc-csharp: 这个仓库是 https://github.com/shareAI-](https://github.com/sheng-jie/learn-cc-csharp)
-
-
-
-
-
-
-
-
-
-
-
-
