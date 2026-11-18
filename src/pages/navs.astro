@@ -6,12 +6,12 @@
  * - 交互：前端搜索过滤、分类锚点导航、暗色切换（与主页共享 azrng-theme）
  */
 import { getCollection } from 'astro:content';
-import { parseEntry, parseGroup, hostLetter, hostHue } from '../lib/navs';
+import { parseEntry, parseGroup, autoTags, hostLetter, hostHue } from '../lib/navs';
 
 // 门面密码 SHA-256（占位密码 azrng2026，替换方法见 README）
 const PASSWORD_SHA256 = '59148f2558a4818936a7c87f928c51f1331c294503c6a184d6d7828c4b67e3db';
 
-interface Entry { title: string; url: string; desc: string }
+interface Entry { title: string; url: string; desc: string; tags: string[] }
 interface Group { name: string; entries: Entry[] }
 interface Category { title: string; id: string; groups: Group[] }
 
@@ -33,7 +33,10 @@ const categories: Category[] = (await getCollection('navs'))
         continue;
       }
       const e = parseEntry(raw);
-      if (e) current.entries.push(e);
+      if (e) {
+        // 手写 #标签 与 URL 自动标签（如 GitHub/Gitee 仓库 → #开源）合并去重
+        current.entries.push({ ...e, tags: [...new Set([...e.tags, ...autoTags(e.url)])] });
+      }
     }
     if (current.entries.length) groups.push(current);
     return { title: f.data.title, id: slugify(f.data.title), groups };
@@ -43,13 +46,6 @@ const categories: Category[] = (await getCollection('navs'))
 const totalEntries = categories.reduce(
   (n, c) => n + c.groups.reduce((m, g) => m + g.entries.length, 0),
   0
-);
-const navsData = JSON.stringify(
-  categories.map((c) => ({
-    t: c.title,
-    id: c.id,
-    g: c.groups.map((g) => ({ n: g.name, e: g.entries.map((e) => [e.title, e.url, e.desc]) })),
-  }))
 );
 ---
 
@@ -442,6 +438,14 @@ const navsData = JSON.stringify(
       overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
     }
     .bm-desc:empty::after { content: attr(data-host); }
+    .bm-tag {
+      display: inline-block; margin-right: 0.35rem; padding: 0 0.4em;
+      font-size: 0.62rem; line-height: 1.5; border-radius: 5px;
+      color: var(--color-accent); background: var(--color-accent-soft);
+      border: 1px solid var(--color-hairline);
+      cursor: pointer; transition: background 0.3s var(--ease-out), border-color 0.3s var(--ease-out);
+    }
+    .bm-tag:hover { background: var(--color-surface-raise); border-color: var(--color-hairline-hover); }
     /* ===== 大组折叠 ===== */
     .grid.collapsed .bm:nth-child(n + 25) { display: none; }
     .grid.collapsed + .fold-btn { display: inline-flex; }
@@ -595,7 +599,11 @@ const navsData = JSON.stringify(
     <div class="search-box">
       <div class="search-row">
         <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-        <input class="search-input" id="searchInput" type="search" placeholder="搜索标题 / 网址 / 备注…" aria-label="搜索书签">
+        <input class="search-input" id="searchInput" type="search" placeholder="搜索标题 / 网址 / 备注，#标签 精确筛选…" aria-label="搜索书签">
+        <button type="button" class="theme-toggle view-toggle" id="searchThemeToggle" aria-label="切换主题" title="切换浅色 / 深色">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+        </button>
         <button type="button" class="view-toggle" id="viewToggle" aria-label="切换卡片 / 紧凑视图" title="切换卡片 / 紧凑视图">
           <svg class="icon-compact" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
           <svg class="icon-card" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="7" rx="2"/><rect x="3" y="13" width="18" height="7" rx="2"/></svg>
@@ -613,11 +621,14 @@ const navsData = JSON.stringify(
               <div class={`grid${g.entries.length > 24 ? ' collapsed' : ''}`} data-grid>
                 {g.entries.map((e) => (
                   <a class="bm" href={e.url} target="_blank" rel="noopener noreferrer"
-                     data-search={`${e.title} ${e.url} ${e.desc}`.toLowerCase()}>
+                     data-search={`${e.title} ${e.url} ${e.desc} ${e.tags.join(' ')}`.toLowerCase()}
+                     data-tags={e.tags.join(' ').toLowerCase()}>
                     <span class="bm-letter" style={`background: hsl(${hostHue(e.url)}, 62%, 46%)`}>{hostLetter(e.url)}</span>
                     <span class="bm-body">
                       <span class="bm-title">{e.title}</span>
-                      <span class="bm-desc" data-host={(() => { try { return new URL(e.url).hostname.replace(/^www\./, ''); } catch { return ''; } })()}>{e.desc}</span>
+                      <span class="bm-desc" data-host={(() => { try { return new URL(e.url).hostname.replace(/^www\./, ''); } catch { return ''; } })()}>
+                        {e.tags.map((t) => <span class="bm-tag" data-tag={t.toLowerCase()} role="button" tabindex="-1" title={`按 #${t} 筛选`}>#{t}</span>)}{e.desc}
+                      </span>
                     </span>
                   </a>
                 ))}
@@ -634,11 +645,14 @@ const navsData = JSON.stringify(
               <div class={`grid${g.entries.length > 24 ? ' collapsed' : ''}`} data-grid>
                 {g.entries.map((e) => (
                   <a class="bm" href={e.url} target="_blank" rel="noopener noreferrer"
-                     data-search={`${e.title} ${e.url} ${e.desc}`.toLowerCase()}>
+                     data-search={`${e.title} ${e.url} ${e.desc} ${e.tags.join(' ')}`.toLowerCase()}
+                     data-tags={e.tags.join(' ').toLowerCase()}>
                     <span class="bm-letter" style={`background: hsl(${hostHue(e.url)}, 62%, 46%)`}>{hostLetter(e.url)}</span>
                     <span class="bm-body">
                       <span class="bm-title">{e.title}</span>
-                      <span class="bm-desc" data-host={(() => { try { return new URL(e.url).hostname.replace(/^www\./, ''); } catch { return ''; } })()}>{e.desc}</span>
+                      <span class="bm-desc" data-host={(() => { try { return new URL(e.url).hostname.replace(/^www\./, ''); } catch { return ''; } })()}>
+                        {e.tags.map((t) => <span class="bm-tag" data-tag={t.toLowerCase()} role="button" tabindex="-1" title={`按 #${t} 筛选`}>#{t}</span>)}{e.desc}
+                      </span>
                     </span>
                   </a>
                 ))}
@@ -660,7 +674,6 @@ const navsData = JSON.stringify(
     </footer>
   </main>
 
-  <script type="application/json" id="navs-data" set:html={navsData} />
   <script>
     (function () {
       'use strict';
@@ -738,7 +751,11 @@ const navsData = JSON.stringify(
             return {
               el: g,
               items: Array.prototype.map.call(g.querySelectorAll('.bm'), function (a) {
-                return { el: a, hay: (a.getAttribute('data-search') || '').toLowerCase() };
+                return {
+                  el: a,
+                  hay: (a.getAttribute('data-search') || '').toLowerCase(),
+                  tags: (a.getAttribute('data-tags') || '').toLowerCase()
+                };
               })
             };
           })
@@ -755,7 +772,7 @@ const navsData = JSON.stringify(
       refreshCounts();
 
       var total = parseInt(document.getElementById('pageMeta').getAttribute('data-total') || '0', 10);
-      searchInput.addEventListener('input', function () {
+      function applySearch() {
         var q = searchInput.value.trim().toLowerCase();
         if (!q) {
           cats.forEach(function (c) {
@@ -777,7 +794,13 @@ const navsData = JSON.stringify(
             var gHit = 0;
             g.el.classList.add('searching');
             g.items.forEach(function (i) {
-              var m = i.hay.indexOf(q) !== -1;
+              var m;
+              if (q.charAt(0) === '#') {
+                // # 前缀 = 只按标签匹配（点击标签时即用此模式）
+                m = i.tags !== '' && i.tags.indexOf(q.slice(1)) !== -1;
+              } else {
+                m = i.hay.indexOf(q) !== -1;
+              }
               i.el.hidden = !m;
               if (m) { gHit++; hit++; }
             });
@@ -788,6 +811,22 @@ const navsData = JSON.stringify(
         });
         countEl.textContent = hit ? (hit + ' / ' + total + ' 条匹配') : '没有匹配的书签';
         refreshCounts();
+      }
+      searchInput.addEventListener('input', applySearch);
+
+      // ===== 点击标签筛选（拦截卡片跳转，填入搜索框走标签过滤）=====
+      document.addEventListener('click', function (ev) {
+        var tag = ev.target.closest ? ev.target.closest('.bm-tag') : null;
+        if (!tag) return;
+        ev.preventDefault();
+        ev.stopPropagation();
+        var cur = searchInput.value.trim();
+        var want = '#' + (tag.getAttribute('data-tag') || tag.textContent.replace(/^#/, '').toLowerCase());
+        // 已在筛选该标签则取消，否则替换为仅按此标签过滤
+        searchInput.value = cur === want ? '' : want;
+        applySearch();
+        searchInput.focus();
+        if (cur !== want) window.scrollTo({ top: 0, behavior: 'smooth' });
       });
 
       // ===== 分类/分组导航高亮（IntersectionObserver，滚动时点亮侧边栏当前项）=====

@@ -348,3 +348,6 @@ skills-lock.json
 dist/
 .astro/
 node.exe
+
+# 本地工具脚本（书签重排/抓取等，不入库）
+scripts/
