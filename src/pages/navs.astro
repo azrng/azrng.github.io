@@ -13,12 +13,14 @@ const PASSWORD_SHA256 = '59148f2558a4818936a7c87f928c51f1331c294503c6a184d6d7828
 
 interface Entry { title: string; url: string; desc: string; tags: string[] }
 interface Group { name: string; entries: Entry[] }
-interface Category { title: string; id: string; groups: Group[] }
+interface Category { title: string; id: string; editUrl: string; groups: Group[] }
 
 // ===== 构建期：md → 分类结构 =====
 function slugify(t: string): string {
   return encodeURIComponent(t).replace(/%/g, '').toLowerCase();
 }
+
+const REPO_URL = 'https://github.com/azrng/azrng.github.io';
 
 const categories: Category[] = (await getCollection('navs'))
   .sort((a, b) => a.data.order - b.data.order || a.data.title.localeCompare(b.data.title, 'zh'))
@@ -39,7 +41,14 @@ const categories: Category[] = (await getCollection('navs'))
       }
     }
     if (current.entries.length) groups.push(current);
-    return { title: f.data.title, id: slugify(f.data.title), groups };
+    // filePath 形如 src/content/navs/工具.md（相对仓库根），去掉前缀拼 GitHub 编辑链接
+    const rel = (f.filePath ?? `${f.id}.md`).replace(/^\.?\/?(src\/content\/navs\/)?/, '');
+    return {
+      title: f.data.title,
+      id: slugify(f.data.title),
+      editUrl: `${REPO_URL}/edit/main/src/content/navs/${encodeURIComponent(rel)}`,
+      groups,
+    };
   })
   .filter((c) => c.groups.length > 0);
 
@@ -322,6 +331,20 @@ const totalEntries = categories.reduce(
     :root[data-theme='light'] .theme-toggle .icon-sun { display: block; }
     :root[data-theme='light'] .theme-toggle .icon-moon { display: none; }
 
+    /* ===== GitHub 入口：与主题按钮同风格的圆形图标链接 ===== */
+    .gh-link {
+      display: flex; align-items: center; justify-content: center;
+      width: 32px; height: 32px; flex-shrink: 0;
+      border-radius: 999px; background: transparent;
+      color: var(--color-text-muted); text-decoration: none;
+      transition: color 0.4s var(--ease-out), background 0.4s var(--ease-out);
+    }
+    .gh-link:hover { color: var(--color-accent); background: var(--color-surface-raise); }
+    .gh-link svg { width: 16px; height: 16px; }
+    .sb-head .gh-link { width: 26px; height: 26px; }
+    .sb-head .gh-link svg { width: 13px; height: 13px; }
+    .sb-actions { display: flex; align-items: center; }
+
     /* ===== 主体 ===== */
     .wrap { max-width: 1080px; margin: 0 auto; padding: 7rem 1.5rem 4rem; }
 
@@ -380,10 +403,19 @@ const totalEntries = categories.reduce(
     .cat-title bdi { color: var(--color-text); font-weight: 500; }
     .cat-count { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.1em; color: var(--color-text-muted); }
     .cat-title::after {
-      content: ''; flex: 1; height: 1px;
+      content: ''; flex: 1; height: 1px; order: 1;
       background: linear-gradient(90deg, var(--color-accent), transparent);
       opacity: 0.6; align-self: center;
     }
+    .cat-edit {
+      order: 2; flex-shrink: 0;
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 26px; height: 26px; border-radius: 8px;
+      color: var(--color-text-muted); opacity: 0.35;
+      transition: opacity 0.3s var(--ease-out), color 0.3s var(--ease-out), background 0.3s var(--ease-out);
+    }
+    .cat-edit svg { width: 14px; height: 14px; }
+    .cat-edit:hover { opacity: 1; color: var(--color-accent); background: var(--color-surface-raise); }
 
     .group-label {
       font-family: var(--font-mono); font-size: 0.68rem; font-weight: 500;
@@ -550,10 +582,15 @@ const totalEntries = categories.reduce(
   <aside class="sidebar" id="sidebar" aria-label="分类与分组导航">
     <div class="sb-head">
       <a class="sb-home" href="/">← 返回主页</a>
-      <button type="button" class="theme-toggle sb-theme" aria-label="切换主题" title="切换浅色 / 深色">
+      <span class="sb-actions">
+        <a class="gh-link" href={REPO_URL} target="_blank" rel="noopener noreferrer" aria-label="在 GitHub 查看 / 编辑书签" title="在 GitHub 查看 / 编辑书签">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55 0-.27-.01-1.17-.02-2.12-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.69 1.25 3.35.96.1-.75.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 5.79 0c2.21-1.49 3.18-1.18 3.18-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.42-2.7 5.39-5.26 5.68.41.36.78 1.06.78 2.14 0 1.55-.01 2.79-.01 3.17 0 .31.21.67.8.55A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/></svg>
+        </a>
+        <button type="button" class="theme-toggle sb-theme" aria-label="切换主题" title="切换浅色 / 深色">
         <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
         <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
-      </button>
+        </button>
+      </span>
     </div>
     {categories.map((c) => (
       <div class="sb-cat" data-sbcat={c.id}>
@@ -588,6 +625,9 @@ const totalEntries = categories.reduce(
       <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
       <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
     </button>
+    <a class="gh-link" href={REPO_URL} target="_blank" rel="noopener noreferrer" aria-label="在 GitHub 查看 / 编辑书签" title="在 GitHub 查看 / 编辑书签">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55 0-.27-.01-1.17-.02-2.12-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.69 1.25 3.35.96.1-.75.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 5.79 0c2.21-1.49 3.18-1.18 3.18-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.42-2.7 5.39-5.26 5.68.41.36.78 1.06.78 2.14 0 1.55-.01 2.79-.01 3.17 0 .31.21.67.8.55A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/></svg>
+    </a>
   </nav>
 
   <main class="wrap" id="content">
@@ -614,7 +654,11 @@ const totalEntries = categories.reduce(
 
     {categories.map((c) => (
       <section class="cat" id={c.id} data-cat={c.id}>
-        <h2 class="cat-title"><bdi>{c.title}</bdi> <span class="cat-count"></span></h2>
+        <h2 class="cat-title"><bdi>{c.title}</bdi> <span class="cat-count"></span>
+          <a class="cat-edit" href={c.editUrl} target="_blank" rel="noopener noreferrer" aria-label={`在 GitHub 编辑「${c.title}」分类`} title={`在 GitHub 编辑「${c.title}」分类`}>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 3a2.83 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg>
+          </a>
+        </h2>
         {c.groups.map((g, gi) => (
           gi === 0 && !g.name ? (
             <div class="group" data-group>

@@ -7,7 +7,7 @@
 
 ## 维护书签（日常）
 
-在 GitHub 网页上编辑 `src/content/navs/` 下的分类 md → commit，Actions 自动构建部署，几分钟后生效。
+在 GitHub 网页上编辑 `src/content/navs/` 下的分类 md → commit，Actions 自动构建部署，几分钟后生效。导航站右上角有仓库入口（GitHub 图标），每个分类标题右侧的铅笔图标可直达该分类 md 的 GitHub 编辑页。
 
 md 格式：
 
